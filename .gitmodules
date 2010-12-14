@@ -18,4 +18,4 @@
 	url = git://github.com/paulnicholson/vim-pathogen.git
 [submodule ".vim/bundle/pathogen"]
 	path = .vim/bundle/pathogen
-	url = git://github.com/paulnicholson/vim-pathogen.git
+	url = http://github.com/tpope/vim-pathogen.git
