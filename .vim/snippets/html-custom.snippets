@@ -1,0 +1,93 @@
+snippet html5
+	<!DOCTYPE html>
+	<html lang="${1:en}">
+		<head>
+			<title>${2}</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width" />
+			<link rel="stylesheet" type="text/css" href="${3}" />
+		</head>
+		<body>
+			<header class="header">
+				<h1>$1</h1>
+				<nav class="nav">
+				</nav>
+			</header>
+			<section class="section">
+				${4}
+			</section>
+			<footer class="footer">
+			  ${5}
+			</footer>
+		</body>
+	</html>
+
+snippet s
+	<section class="section">
+		${1}
+	</section>
+
+snippet h
+	<header class="header">
+		${1}
+	</header>
+
+snippet hg
+	<hgroup class="hgroup">
+	  <h1>${1}</h1>
+		<h2>${2}
+	</hgroup>
+
+snippet h1
+	<h1>${1}</h1>
+
+snippet h2
+	<h2>${1}</h2>
+
+snippet h3
+	<h3>${1}</h3>
+
+snippet f
+	<footer class="footer">
+		${1}
+	</footer>
+
+snippet as 
+	<aside class="aside">
+	${1}
+	</aside>
+
+snippet n
+	<nav class="nav">
+		${1}
+	</nav>
+
+snippet ul
+	<ul>
+	  <li>${1}</li>${2}
+	</ul>
+
+snippet l
+	<li>${1}</li>${2}
+
+snippet a
+	<a href="${1}">${2}</a>
+
+snippet d
+	<div>
+		${1}
+	</div>
+
+snippet p
+	<p>
+		${1}
+	</p>
+
+snippet cufon
+	<script type="text/javascript">Cufon.now();</script>
+
+snippet js
+	<script src="${1}.js" type="text/javascript"></script>
+
+snippet css
+	<link href="${1}.css" media="all" rel="stylesheet" type="text/css" />
