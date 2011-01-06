@@ -1,4 +1,60 @@
 snippet d
-	describe ${1} do
+	describe ${1:#method/.attribute/when/with} do
 		${2}
+	end
+snippet f
+	feature "${1}" do
+		scenario "${2}" do
+			${3}
+		end
+	end
+snippet s
+	scenario "${1}" do
+	end
+snippet c
+	context "${1:when/with}" do
+	end
+snippet i
+	it { should ${1} }
+snippet its
+	its(:${1}) { should ${2:== ""} }
+snippet b
+	before { ${1:@model = Factory.build(:model)} }
+snippet su
+	subject { ${1:@model} }
+snippet bs
+	before  { ${1:@model = Factory.build(:model)} }
+	subject { ${2:@model} }
+snippet ib
+	it "${1}" do
+		${2}
+	end
+snippet bb
+	before do
+		${1}
+	end
+snippet ps
+	page.should ${1}
+	${2}
+snippet pshf
+	page.should have_field "${1}"
+	${2}
+snippet pshc
+	page.should have_content "${1}"
+	${2}
+snippet pshb
+	page.should have_button "${1}"
+	${2}
+snippet pshl
+	page.should have_link "${1}"
+	${2}
+snippet modelspec
+	before  { @${1:resource} = Factory.build(:$1) }
+	subject { @$1 }
+
+	describe :data do
+		${2:it { should have_db_column().of_type() }}
+	end
+
+	describe :validations do
 	end
