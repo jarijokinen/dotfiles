@@ -7,6 +7,7 @@ class Default < Thor
     run "sudo apt-get upgrade"
     run "gem update --system"
     run "gem update"
+    run "rvm update"
   end
 
   desc "app", "Create a new Rails application"
