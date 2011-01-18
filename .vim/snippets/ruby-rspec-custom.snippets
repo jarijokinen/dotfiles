@@ -35,19 +35,14 @@ snippet bb
 	end
 snippet ps
 	page.should ${1}
-	${2}
-snippet pshf
+snippet hf
 	page.should have_field "${1}"
-	${2}
-snippet pshc
+snippet hc
 	page.should have_content "${1}"
-	${2}
-snippet pshb
+snippet hb
 	page.should have_button "${1}"
-	${2}
-snippet pshl
+snippet hl
 	page.should have_link "${1}"
-	${2}
 snippet modelspec
 	before  { @${1:resource} = Factory.build(:$1) }
 	subject { @$1 }
@@ -58,3 +53,11 @@ snippet modelspec
 
 	describe :validations do
 	end
+snippet fi
+	fill_in "${1:field}", :with => "${2:value}"
+snippet cb
+	click_button "${1:button}"
+snippet cl
+	click_link "${1:link}"
+snippet cp
+	current_path.should == "/${1:path}"

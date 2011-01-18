@@ -1,0 +1,9 @@
+snippet index
+	<%= link_to("Add ${1:resource}", new_$1_path) %>
+	<table>
+		<% @$1s.each do |$1| %>
+			<tr>
+				<td><%= link_to($1.${2:attribute}, $1_path($1)) %></td>
+			</tr>
+		<% end %>
+	</table>
