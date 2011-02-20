@@ -1,1 +1,1 @@
-../bundle/railscasts-theme/railscasts.vim
+../bundle/railscasts-theme/colors/railscasts.vim
