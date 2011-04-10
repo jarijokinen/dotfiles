@@ -1,0 +1,9 @@
+term xterm-256color
+attrcolor b ".I"
+bind s
+bind ^s
+startup_message off
+shelltitle "$ |bash"
+hardstatus alwayslastline "%w"
+vbell off
+defscrollback 1000
