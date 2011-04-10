@@ -1,12 +1,136 @@
+snippet load
+	load_and_authorize_resource
 snippet bt
 	belongs_to :${1:resource}
 snippet hm
 	has_many :${1:resource}
 snippet ho
 	has_one :${1:resource}
+snippet habtm
+	has_and_belongs_to_many :${1:resource}
 snippet vl
 	validates_length_of :${1:attribute}, :in => ${2:length}
 snippet vp
 	validates_presence_of :${1:attribute}
 snippet vu
 	validates_uniqueness_of :${1:attribute}
+snippet di
+	def index
+		@${1:resource} = ${2:Model}.all
+	end
+snippet ds
+	def show
+		@${1:resource} = ${2:Model}.find(params[:id])
+	end
+snippet dn
+	def new
+		@${1:resource} = ${2:Model}.new
+	end
+snippet de
+	def edit
+		@${1:resource} = ${2:Model}.find(params[:id])
+	end
+snippet du
+	def update
+		@${1:resource} = ${2:Model}.find(params[:id])
+
+		if @$1.update_attributes(params[:$1])
+			redirect_to($1s_url, :notice => t(:resource_updated, :resource => t(:$1)))
+		else
+			render :action => "edit"
+		end
+	end
+snippet dc
+	def create
+		@${1:resource} = ${2:Model}.new(params[:$1])
+
+		if @$1.save
+			redirect_to($1s_url, :notice => t(:resource_added, :resource => t(:$1)))
+		else
+			render :action => "new"
+		end
+	end
+snippet dd
+	def destroy
+		@${1:resource} = ${2:Model}.new(params[:$1])
+		@$1.destroy
+
+		redirect_to($1s_url, :notice => t(:resource_deleted, :resource => t(:$1)))
+	end
+snippet actions
+	def index
+		@${1:resource}s = ${2:Model}.all
+	end
+	
+	def show
+		@$1 = $2.find(params[:id])
+	end
+	
+	def new
+		@$1 = $2.new
+	end
+	
+	def edit
+		@$1 = $2.find(params[:id])
+	end
+	
+	def update
+		@$1 = $2.find(params[:id])
+
+		if @$1.update_attributes(params[:$1])
+			redirect_to($1s_url, :notice => t(:resource_updated, :resource => t(:$1)))
+		else
+			render :action => "edit"
+		end
+	end
+	
+	def create
+		@$1 = $2.new(params[:$1])
+
+		if @$1.save
+			redirect_to($1s_url, :notice => t(:resource_added, :resource => t(:$1)))
+		else
+			render :action => "new"
+		end
+	end
+	
+	def destroy
+		@$1 = $2.new(params[:$1])
+		@$1.destroy
+
+		redirect_to($1s_url, :notice => t(:resource_deleted, :resource => t(:$1)))
+	end
+snippet cancanactions
+	def index
+	end
+	
+	def show
+	end
+	
+	def new
+	end
+	
+	def edit
+	end
+	
+	def update
+		if @${1:resource}.update_attributes(params[:$1])
+			redirect_to($1s_url, :notice => t(:resource_updated, :resource => t(:$1)))
+		else
+			render :action => "edit"
+		end
+	end
+	
+	def create
+		if @$1.save
+			redirect_to($1s_url, :notice => t(:resource_added, :resource => t(:$1)))
+		else
+			render :action => "new"
+		end
+	end
+	
+	def destroy
+		@$1.destroy
+
+		redirect_to($1s_url, :notice => t(:resource_deleted, :resource => t(:$1)))
+	end
