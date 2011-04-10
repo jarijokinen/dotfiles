@@ -34,4 +34,8 @@ filetype off
 filetype plugin indent on
 
 autocmd User Rails  Rnavcommand outes config -default=routes
-autocmd User Rails  map <buffer> <F1> <esc>:Rdoc<CR>
+autocmd User Rails  Rnavcommand steak spec/acceptance spec/ac
+autocmd User Rails  Rnavcommand paths spec/acceptance/support
+autocmd FileType puppet setlocal ts=4 sw=4 sts=4
+
+au! BufWritePost .vimrc source %
