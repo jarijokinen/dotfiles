@@ -134,3 +134,18 @@ snippet cancanactions
 
 		redirect_to($1s_url, :notice => t(:resource_deleted, :resource => t(:$1)))
 	end
+snippet helpermethods
+	def error_messages_for(resource)
+		if resource.errors.any?
+			error_messages = "".html_safe.tap do |messages|
+				resource.errors.full_messages.each do |message|
+					messages << content_tag(:li, message)
+				end
+			end
+			content_tag(:div, 
+				content_tag(:p, t(:error)) + 
+				content_tag(:ul, error_messages),
+				:id => "errors"
+			)
+		end
+	end
