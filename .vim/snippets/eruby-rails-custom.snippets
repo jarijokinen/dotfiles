@@ -85,6 +85,6 @@ snippet ta
 	</tr>
 snippet sel
 	<tr>
-		<td><%= f.label :${1:attribute_name} %></td>
-		<td><%= f.select :$1 %></td>
+		<td><%= f.label :${1:attribute_name}, :value => "id" %></td>
+		<td><%= f.collection_select :$1_id, %ucfirst($1).all, :id, :${2:title_attribute} %></td>
 	</tr>
