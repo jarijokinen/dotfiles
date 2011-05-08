@@ -1,3 +1,5 @@
 [user]
-    name = Jari Jokinen
-    email = info@jarijokinen.com
+  name = Jari Jokinen
+  email = info@jarijokinen.com
+[core]
+	excludesfile = ~/.gitignore
