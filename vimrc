@@ -1,41 +1,27 @@
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
-set encoding=utf-8
-set nocompatible
-set nobackup
-set backspace=2
-set pastetoggle=<Ins>
-set noinsertmode
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
 set autoindent
+set backspace=2
+set directory=$HOME/.vim/swap
+set encoding=utf-8
+set expandtab
+set laststatus=2
+set nobackup
+set nocompatible
+set nowritebackup
+set pastetoggle=<Ins>
+set shiftwidth=2
+set showcmd
+set softtabstop=2
+set tabstop=2
 set textwidth=0
-set ruler
-set gfn=Terminus\ 12
-set guioptions-=T
+set t_Co=256
 
-syntax enable
-colorscheme railscasts
+autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
 
-nnoremap <silent> <C-t> :tabnew<CR>
-nnoremap <silent> <C-right> :tabnext<CR>
-nnoremap <silent> <C-left> :tabprevious<CR>
-
-set fdm=marker
-set fmr={{{,}}}
-
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
-filetype off
+call pathogen#infect()
+syntax on
 filetype plugin indent on
 
-autocmd User Rails  Rnavcommand outes config -default=routes
-autocmd User Rails  Rnavcommand steak spec/acceptance spec/ac
-autocmd User Rails  Rnavcommand paths spec/acceptance/support
-autocmd FileType puppet setlocal ts=4 sw=4 sts=4
+colorscheme railscasts
 
-au! BufWritePost .vimrc source %
+autocmd User Rails Rnavcommand factory spec/factories
+autocmd User Rails Rnavcommand outes config -default=routes
