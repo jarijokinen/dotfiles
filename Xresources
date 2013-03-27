@@ -1,0 +1,8 @@
+XTerm.background: #000000
+XTerm.faceName: Terminus
+XTerm.faceSize: 12
+XTerm.foreground: #aaaaaa
+XTerm.termName: xterm-256color
+XTerm.VT100.background: #000000
+XTerm.VT100.foreground: #aaaaaa
+xterm.VT100.geometry: 80x35
