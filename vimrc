@@ -1,6 +1,6 @@
 set autoindent
 set backspace=2
-set directory=$HOME/.vim/swap
+set directory=~/.vim/swap
 set encoding=utf-8
 set expandtab
 set laststatus=2
@@ -14,6 +14,11 @@ set softtabstop=2
 set tabstop=2
 set textwidth=0
 set t_Co=256
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsSnippetsDir="~/.vim/snippets"
 
 autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
 
