@@ -1,0 +1,42 @@
+source ~/.mutt_private
+
+set abort_nosubject=yes
+set abort_unmodified=yes
+set attribution="%n wrote:\n"
+set charset=utf-8
+set copy=yes
+set edit_headers=yes
+set editor=vim
+set fast_reply
+set include=yes
+set mail_check=120
+set mask=!^[a-z]
+set mbox_type=Maildir
+set move=no
+set postpone=ask-no
+set postponed=+Drafts
+set print_command=a2ps
+set quit=ask-yes
+set record=+Sent
+set send_charset=iso-8859-1:us-ascii:utf-8
+set sendmail="/usr/bin/msmtp"
+set sig_dashes=no
+set sig_on_top=yes
+set sort=date
+set spoolfile=+
+set ssl_starttls=yes
+set timeout=60
+set use_envelope_from=yes
+
+ignore headers *
+unignore headers from to subject date cc
+
+# Trash
+set noconfirmappend
+folder-hook . 'macro index d s+Trash\n'
+folder-hook trash 'bind index d delete-message'
+folder-hook Trash 'bind index d delete-message'
+
+# Go back to inbox
+macro index "i" "c!\n" "Change to inbox"
+macro pager "i" "c!\n" "Change to inbox"
