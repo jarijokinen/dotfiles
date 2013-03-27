@@ -22,13 +22,6 @@ function apply {
     fi
     rake rails:template LOCATION=~/.rails/application_templates/$filename
 }
-function ide {
-    if [ -f "./Rakefile" ]; then
-        screen -S rails -c ~/.screenrc_rails
-    else
-        echo "Rails app not found."
-    fi
-}
 function git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/:\1/'
 }
