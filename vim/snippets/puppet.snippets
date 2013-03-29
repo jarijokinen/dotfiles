@@ -3,7 +3,7 @@ class $1 {
   package { "$1": 
     ensure => "installed"
   }
-  service { "$1:
+  service { "$1":
     ensure => "running",
     enable => true,
     require => Package["$1"]
