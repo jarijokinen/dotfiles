@@ -15,11 +15,6 @@ set tabstop=2
 set textwidth=0
 set t_Co=256
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsSnippetsDir="~/.vim/snippets"
-
 autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
 
 call pathogen#infect()
@@ -30,3 +25,9 @@ colorscheme railscasts
 
 autocmd User Rails Rnavcommand factory spec/factories
 autocmd User Rails Rnavcommand outes config -default=routes
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsSnippetsDir="~/.vim/snippets"
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
