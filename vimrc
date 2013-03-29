@@ -15,8 +15,6 @@ set tabstop=2
 set textwidth=0
 set t_Co=256
 
-autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
-
 call pathogen#infect()
 syntax on
 filetype plugin indent on
@@ -25,6 +23,8 @@ colorscheme railscasts
 
 autocmd User Rails Rnavcommand factory spec/factories
 autocmd User Rails Rnavcommand outes config -default=routes
+autocmd BufNewFile,BufRead Gemfile setfiletype ruby
+autocmd BufNewFile,BufRead *.pp setfiletype puppet
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
