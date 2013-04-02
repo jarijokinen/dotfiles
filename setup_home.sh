@@ -48,7 +48,8 @@ if [ $install_ruby ]; then
   fi
 
   echo "Installing: $ruby_version"
-  `rvm install $ruby_version`
+  rvm install $ruby_version
+  rvm use $ruby_version --default
 fi
 
 exit 0
