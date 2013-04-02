@@ -33,8 +33,7 @@ function clean {
     echo -n "Set permissions... "
     find $HOME -maxdepth 1 -type f -print0 | xargs -0 chmod 600
     find $HOME -maxdepth 1 -type d -print0 | xargs -0 chmod 700
-    chmod 644 $HOME/.Xauthority
-    chmod 711 $HOME
+    chmod 700 $HOME
     echo "OK."
 
     echo -n "Create symlinks... "
