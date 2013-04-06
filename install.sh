@@ -11,6 +11,7 @@ dotfiles=(
   profile
   railsrc
   screenrc
+  rspec
   vim
   vimrc
   Xresources
