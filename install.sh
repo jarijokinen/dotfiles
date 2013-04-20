@@ -7,6 +7,7 @@ dotfiles=(
   gemrc
   gitconfig
   gitignore
+  Guardfile
   muttrc
   profile
   railsrc
