@@ -19,7 +19,7 @@ alias v="vim"
 
 alias big="find . -size +20000k -exec du -h {} \;"
 alias myip="/sbin/ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | cut -d' ' -f1"
-alias update="sudo apt-get update; sudo apt-get dist-upgrade; rvm get stable; rvm install 2.0.0; gem update --system; gem update"
+alias update="sudo apt-get update; sudo apt-get dist-upgrade; rvm get stable; rvm install 2.0.0; gem update --system; gem update; cd ~/code/dotfiles; git submodule foreach git pull origin master"
 
 alias add="git add ."
 alias commit="git commit"
