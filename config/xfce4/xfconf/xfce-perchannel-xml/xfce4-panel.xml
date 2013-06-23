@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-panel" version="1.0">
+  <property name="panels" type="empty">
+    <property name="panel-0" type="empty">
+      <property name="position" type="string" value="p=12;x=932;y=1064"/>
+      <property name="length" type="uint" value="100"/>
+      <property name="length-adjust" type="bool" value="true"/>
+      <property name="position-locked" type="bool" value="true"/>
+    </property>
+  </property>
+</channel>
