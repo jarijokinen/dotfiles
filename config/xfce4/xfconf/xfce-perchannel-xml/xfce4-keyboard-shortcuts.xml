@@ -9,6 +9,11 @@
       <property name="&lt;Super&gt;p" type="empty"/>
       <property name="&lt;Primary&gt;Escape" type="empty"/>
     </property>
+    <property name="custom" type="empty">
+      <property name="override" type="bool" value="true"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="/home/jari/.bin/secure_iceweasel.sh"/>
+    </property>
   </property>
   <property name="xfwm4" type="empty">
     <property name="default" type="empty">
@@ -123,5 +128,6 @@
   </property>
   <property name="providers" type="array">
     <value type="string" value="xfwm4"/>
+    <value type="string" value="commands"/>
   </property>
 </channel>
