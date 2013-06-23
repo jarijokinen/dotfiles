@@ -12,7 +12,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-if [ `hostname` == "laptop" ] && [ "$LOGNAME" == "jari" ]; then
+if [ -f "/usr/bin/git" ] && [ "$LOGNAME" == "jari" ]; then
     PS1='\w$(git_branch)\$ '
     xterm_title="\[\e]0;\w\$(git_branch)\a\]$PS1"
 else
