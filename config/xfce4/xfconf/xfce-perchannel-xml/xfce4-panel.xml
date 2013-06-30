@@ -22,6 +22,13 @@
       <property name="show-frame" type="bool" value="false"/>
     </property>
     <property name="plugin-4" type="string" value="xfce4-mixer-plugin"/>
-    <property name="plugin-5" type="string" value="systray"/>
+    <property name="plugin-5" type="string" value="systray">
+      <property name="names-visible" type="array">
+        <value type="string" value="orage"/>
+      </property>
+      <property name="names-hidden" type="array">
+        <value type="string" value="spotify"/>
+      </property>
+    </property>
   </property>
 </channel>
