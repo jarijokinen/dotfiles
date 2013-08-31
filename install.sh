@@ -24,6 +24,7 @@ dotfiles=(
   Xresources
 )
 
+[[ -d $HOME/.config ]] || mkdir -p $HOME/.config
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for dotfile in ${dotfiles[@]}; do

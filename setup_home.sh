@@ -42,7 +42,7 @@ if [ $install_ruby ]; then
     exit 1
   fi
 
-  if [ ! -e $rvm_path ]; then
+  if [ ! -e $rvm_path/bin/rvm ]; then
     echo "Installing: rvm"
     \curl -L $rvm_url | bash -s stable --autolibs=disabled
   fi
