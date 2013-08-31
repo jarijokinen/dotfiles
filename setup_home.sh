@@ -47,7 +47,7 @@ if [ $install_ruby ]; then
     \curl -L $rvm_url | bash -s stable --autolibs=disabled
   fi
 
-  source $HOME/.bashrc
+  source $HOME/.rvm/scripts/rvm
 
   echo "Installing: $ruby_version"
   rvm install $ruby_version
