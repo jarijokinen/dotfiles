@@ -18,5 +18,7 @@
 application="/usr/bin/chromium"
 another_user="pipelight"
 
+export MOZ_PLUGIN_PATH=/usr/lib/pipelight/
+
 xhost +SI:localuser:$another_user
-sudo -u $another_user -H $application $@
+sudo -E -u $another_user -H "$application" $@
