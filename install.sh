@@ -4,7 +4,6 @@ dotfiles=(
   bash_aliases
   bash_functions
   bashrc
-  bin
   config/autostart
   config/Thunar
   config/xfce4

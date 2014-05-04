@@ -12,10 +12,8 @@
     <property name="custom" type="empty">
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="/home/jari/.bin/secure_iceweasel.sh"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;s" type="string" value="/home/jari/.bin/secure_spotify.sh"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;p" type="string" value="gimp"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;f" type="string" value="/home/jari/.bin/secure_pipelight.sh"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="chromium"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
