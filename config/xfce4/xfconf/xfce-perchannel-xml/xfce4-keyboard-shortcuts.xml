@@ -14,6 +14,7 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;p" type="string" value="gimp"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="chromium"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
