@@ -1,0 +1,53 @@
+snippet gemfile "Gemfile skeleton"
+source 'https://rubygems.org'
+
+ruby '2.1.2'
+gem 'rails', '4.1.2'
+
+### Core
+gem 'coffee-rails', '~> 4.0.0'
+gem 'haml'
+gem 'jquery-rails'
+gem 'sass-rails', '~> 4.0.3'
+gem 'stringex'
+gem 'therubyracer', platforms: :ruby
+gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
+
+### Twitter Bootstrap
+gem 'formtastic-bootstrap'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails',
+  github: 'seyhunak/twitter-bootstrap-rails',
+  branch: 'bootstrap3'
+
+### Authentication and Authorization
+# gem 'cancan'
+# gem 'devise'
+
+### Pagination
+# gem 'kaminari'
+
+### File Uploads
+# gem 'carrierwave'
+
+### Background Jobs
+# gem 'sidekiq'
+
+group :development do
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+  gem 'quiet_assets'
+  gem 'spring'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'exception_notification'
+  gem 'mysql2'
+end
+endsnippet
