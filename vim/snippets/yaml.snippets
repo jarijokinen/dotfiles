@@ -1,0 +1,11 @@
+snippet mysql "MySQL configuration in database.yml"
+production:
+	adapter: mysql2
+	encoding: utf8
+	database: $1_production
+	username: $1
+	password: $2
+	socket: /var/run/mysqld/mysqld.sock
+	pool: 5
+	timeout: 5000
+endsnippet
