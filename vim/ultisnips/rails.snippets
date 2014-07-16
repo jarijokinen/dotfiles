@@ -54,3 +54,35 @@ group :production do
   gem 'mysql2'
 end
 endsnippet
+
+snippet v "validates"
+validates :$1
+endsnippet
+
+snippet vp "validates presence"
+validates :$1, presence: true
+endsnippet
+
+snippet vl "validates length"
+validates :$1, length: $2..$3
+endsnippet
+
+snippet vi "validates inclusion"
+validates :$1, inclusion: { in: $2 }
+endsnippet
+
+snippet vu "validates uniqueness"
+validates :$1, uniqueness: true
+endsnippet
+
+snippet vpl "validates presence and length"
+validates :$1, presence: true, length: $2..$3
+endsnippet
+
+snippet vpi "validates presence and inclusion"
+validates :$1, presence: true, inclusion: { in: $2 }
+endsnippet
+
+snippet vpu "validates presence and uniqueness"
+validates :$1, presence: true, uniqueness: true
+endsnippet
