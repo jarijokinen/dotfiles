@@ -21,8 +21,6 @@ filetype plugin indent on
 
 colorscheme railscasts
 
-autocmd User Rails Rnavcommand factory spec/factories
-autocmd User Rails Rnavcommand outes config -default=routes
 autocmd BufNewFile,BufRead Gemfile setfiletype ruby
 autocmd BufNewFile,BufRead *.pp setfiletype puppet
 
