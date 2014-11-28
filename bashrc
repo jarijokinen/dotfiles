@@ -1,31 +1,41 @@
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-if [ -f ~/.bash_functions ]; then
+if  [ -f  ~/.bash_fucntions ]; then
     . ~/.bash_functions
 fi
 
 HISTCONTROL=ignoreboth
+HISTSIZE=1000
+HISTFILESIZE=2000
+
 shopt -s histappend
 shopt -s checkwinsize
 
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-if [ -f "/usr/bin/git" ] && [ "$LOGNAME" == "jari" ]; then
-    PS1='\w$(git_branch)\$ '
-    xterm_title="\[\e]0;\w\$(git_branch)\a\]$PS1"
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 
 case "$TERM" in
     xterm*|rxvt*)
-        PS1=$xterm_title
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
         ;;
     *)
         ;;
 esac
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -35,13 +45,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [ -e /lib/terminfo/x/xterm-256color ]; then
-    export TERM="xterm-256color"
-else
-    export TERM="xterm-color"
-fi
-
-export EDITOR="vim"
-
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export EDITOR='vim'
+export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-PATH=$PATH:$HOME/.rvm/bin

@@ -4,20 +4,17 @@ dotfiles=(
   bash_aliases
   bash_functions
   bashrc
-  config/autostart
-  config/Thunar
-  config/xfce4
-  config/user-dirs.dirs
-  config/user-dirs.locale
+  config/autostart/dropbox.desktop
+  config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
+  config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
   gemrc
   gitconfig
   gitignore
-  Guardfile
+  kernel-pkg.conf
   muttrc
   profile
   railsrc
   screenrc
-  rspec
   vim
   vimrc
   Xresources
@@ -55,5 +52,8 @@ for dotfile in ${dotfiles[@]}; do
     `$cmd`
   fi
 done
+
+git submodule init
+git submodule update
 
 exit 0

@@ -13,7 +13,6 @@ set showcmd
 set softtabstop=2
 set tabstop=2
 set textwidth=0
-set t_Co=256
 
 call pathogen#infect()
 syntax on

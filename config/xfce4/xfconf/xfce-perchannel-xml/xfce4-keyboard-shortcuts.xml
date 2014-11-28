@@ -3,18 +3,27 @@
 <channel name="xfce4-keyboard-shortcuts" version="1.0">
   <property name="commands" type="empty">
     <property name="default" type="empty">
-      <property name="&lt;Alt&gt;F2" type="empty"/>
+      <property name="&lt;Alt&gt;F1" type="empty"/>
+      <property name="&lt;Alt&gt;F2" type="empty">
+        <property name="startup-notify" type="empty"/>
+      </property>
+      <property name="&lt;Alt&gt;F3" type="empty">
+        <property name="startup-notify" type="empty"/>
+      </property>
       <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="empty"/>
       <property name="XF86Display" type="empty"/>
       <property name="&lt;Super&gt;p" type="empty"/>
       <property name="&lt;Primary&gt;Escape" type="empty"/>
+      <property name="XF86WWW" type="empty"/>
+      <property name="XF86Mail" type="empty"/>
     </property>
     <property name="custom" type="empty">
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;p" type="string" value="gimp"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="chromium"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;s" type="string" value="spotify"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="gimp"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
@@ -129,7 +138,7 @@
     </property>
   </property>
   <property name="providers" type="array">
-    <value type="string" value="xfwm4"/>
     <value type="string" value="commands"/>
+    <value type="string" value="xfwm4"/>
   </property>
 </channel>

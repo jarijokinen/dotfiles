@@ -1,13 +1,5 @@
 XTerm*background: #000000
 XTerm*faceName: Terminus
 XTerm*faceSize: 12
-XTerm*foreground: #aaaaaa
+XTerm*foreground: #ffffff
 XTerm*geometry: 80x35
-XTerm*termName: xterm-256color
-
-UXTerm*background: #000000
-UXTerm*faceName: Terminus
-UXTerm*faceSize: 12
-UXTerm*foreground: #aaaaaa
-UXTerm*geometry: 80x35
-UXTerm*termName: xterm-256color
