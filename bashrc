@@ -3,7 +3,7 @@ case $- in
       *) return;;
 esac
 
-if  [ -f  ~/.bash_fucntions ]; then
+if  [ -f  ~/.bash_functions ]; then
     . ~/.bash_functions
 fi
 
