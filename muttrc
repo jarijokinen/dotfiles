@@ -1,4 +1,4 @@
-source ~/.mutt_private
+source ~/.mutt_personal
 
 set abort_nosubject=yes
 set abort_unmodified=yes
@@ -40,3 +40,7 @@ folder-hook Trash 'bind index d delete-message'
 # Go back to inbox
 macro index "i" "c!\n" "Change to inbox"
 macro pager "i" "c!\n" "Change to inbox"
+
+# Profiles
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt_personal<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt_work<enter><change-folder>!<enter>'
