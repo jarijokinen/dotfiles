@@ -1,4 +1,5 @@
 set autoindent
+set background=dark
 set backspace=2
 set directory=~/.vim/swap
 set encoding=utf-8
@@ -14,16 +15,8 @@ set softtabstop=2
 set tabstop=2
 set textwidth=0
 
-call pathogen#infect()
+execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
 colorscheme railscasts
-
-autocmd BufNewFile,BufRead Gemfile setfiletype ruby
-autocmd BufNewFile,BufRead *.pp setfiletype puppet
-
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsSnippetDirectories = ["ultisnips"]

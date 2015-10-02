@@ -1,12 +1,7 @@
 #!/bin/bash
 
 dotfiles=(
-  bash_aliases
-  bash_functions
   bashrc
-  config/autostart/dropbox.desktop
-  config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml
-  config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
   gemrc
   gitconfig
   gitignore
@@ -20,7 +15,8 @@ dotfiles=(
   Xresources
 )
 
-[[ -d $HOME/.config ]] || mkdir -p $HOME/.config
+set -e
+msg() { echo "$1"; }
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for dotfile in ${dotfiles[@]}; do
@@ -28,28 +24,24 @@ for dotfile in ${dotfiles[@]}; do
   dst="$HOME/.$dotfile"
   cmd="ln -s $src $dst"
 
-  if [ -e $dst ]; then
-    if [ -h $dst ]; then
-      if [ $(readlink $dst) == "$src" ]; then
-        echo "[ skip    ] $dst"
-        continue
+  if [[ -e $dst ]]; then
+    if [[ -h $dst ]]; then
+      if [[ $(readlink $dst) == $src ]]; then
+        msg "[ skip    ] $dst"
       else
-        echo "[ replace ] $dst"
-        `rm -rf $dst`
-        `$cmd`
-        continue
+        msg "[ replace ] $dst"
+        rm -rf "$dst"
+        eval "$cmd"
       fi
     else
-      echo "[ backup  ] $dst"
-      backup_cmd="mv $dst $dst.backup"
-      `$backup_cmd`
-      echo "[ replace ] $dst"
-      `$cmd`
-      continue
+      msg "[ backup  ] $dst"
+      mv "$dst" "$dst.backup"
+      msg "[ replace ] $dst"
+      eval "$cmd"
     fi
   else
-    echo "[ create  ] $dst"
-    `$cmd`
+    msg "[ create  ] $dst"
+    eval "$cmd"
   fi
 done
 
