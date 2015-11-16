@@ -20,3 +20,10 @@ syntax on
 filetype plugin indent on
 
 colorscheme railscasts
+
+autocmd BufNewFile,BufRead Gemfile setfiletype ruby
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsSnippetDirectories = ["ultisnips"]
