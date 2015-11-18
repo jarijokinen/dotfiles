@@ -22,6 +22,8 @@ filetype plugin indent on
 colorscheme railscasts
 
 autocmd BufNewFile,BufRead Gemfile setfiletype ruby
+autocmd BufNewFile,BufRead *.php setfiletype html
+autocmd BufNewFile,BufRead *.php set syntax=php
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
