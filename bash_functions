@@ -7,6 +7,12 @@ function clone {
     git clone git@github.com:jarijokinen/$1.git
   fi
 }
+function push {
+  git push origin master
+}
+function pull {
+  git pull
+}
 function clean {
   echo -n "Delete swap files... "
   find $HOME/.vim/swap -maxdepth 1 -type f -mtime +2 -name "*.s??" -delete
