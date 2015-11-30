@@ -1,6 +1,7 @@
 #!/bin/bash
 
 dotfiles=(
+  bash_functions
   bashrc
   gemrc
   gitconfig
