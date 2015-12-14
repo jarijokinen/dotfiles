@@ -61,5 +61,5 @@ function update_kernel {
   cd $src/$mainline_version
   cp /boot/config-`uname -r` ./.config
   make silentoldconfig
-  make-kpkg --rootcmd fakeroot --revision 1 --initrd kernel_image
+  make-kpkg -j3 --rootcmd fakeroot --revision 1 --initrd kernel_image
 }
