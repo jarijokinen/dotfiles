@@ -1,0 +1,150 @@
+snippet reset
+body, header, footer, main, section, div, h1, h2, h3, ul, li, img, p {
+	border: 0;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+}
+header, footer, main, section {
+	display: block;
+}
+endsnippet
+
+snippet	body
+body {
+	background: #fff;
+	color: #000;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+	padding-top: 90px;
+}
+endsnippet
+
+snippet c	
+.container {
+	margin: 0 auto;
+	max-width: 1170px;
+}
+@media(max-width: 1199px) {
+	.container {
+		margin: 0 15px;
+	}
+}
+endsnippet
+
+snippet header
+header {
+	background: rgba(255, 255, 255, 0.95);
+	border-bottom: 1px solid #eee;
+	height: 90px;
+	left: 0;
+	position: fixed;
+	top: 0;
+	user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	width: 100%;
+	z-index: 9999;
+}
+header:after {
+	clear: both;
+	content: '';
+	display: block;
+	height: 0;
+}
+header h1, header > div > a {
+	color: #131313;
+	float: left;
+	font-size: 32px;
+	margin: 29px 30px 29px 0;
+	text-decoration: none;
+}
+header h1 {
+	cursor: default;
+}
+header nav {
+	color: #131313;
+	display: inline-block;
+	margin: 37px 0;
+}
+header nav:first-child {
+	float: left;
+}
+header nav:last-child {
+	float: right;
+}
+header ul, header li {
+	display: block;
+	list-style-type: none;
+}
+header li {
+	display: inline;
+	margin-left: 10px;
+}
+header nav a {
+	color: #131313;
+	text-decoration: none;
+}
+header nav a:hover {
+	color: #000;
+}
+header nav:last-child a {
+	background: #999;
+	border-radius: 5px;
+	color: #fff;
+	display: inline-block;
+	padding: 10px;
+	margin-top: -20px;
+}
+header nav:last-child a:hover {
+	background: #888;
+	color: #fff;
+}
+endsnippet
+
+snippet main
+main {
+	min-height: 90vh;
+}
+endsnippet
+
+snippet footer
+footer {
+	padding: 30px 0;
+}
+endsnippet
+
+snippet intro
+#intro {
+	background: #f9f9f9;
+	border-bottom: 1px dashed #f1f1f1;
+	text-align: center;
+}
+#intro .container {
+	padding: 100px 0;
+}
+#intro h2 {
+	font-size: 42px;
+	line-height: 1.1;
+}
+#intro a {
+	background: #999;
+	border-radius: 5px;
+	color: #fff;
+	display: inline-block;
+	font-weight: 600;
+	margin: 5px 0;
+	padding: 10px;
+	text-decoration: none;
+}
+#intro a:hover {
+	background: #888;
+}
+#intro p {
+	font-size: 22px;
+	line-height: 1.4;
+	margin: 15px 0;
+}
+endsnippet
