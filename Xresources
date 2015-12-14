@@ -1,6 +1,6 @@
 xterm*background: rgb:1b/1b/1b
 xterm*faceName: Terminus
-xterm*faceSize: 13
+xterm*faceSize: 16
 xterm*foreground: rgb:ff/ff/ff
 xterm*geometry: 80x32
 xterm*termName: xterm-256color
