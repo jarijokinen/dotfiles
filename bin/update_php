@@ -6,7 +6,7 @@ src_path=$HOME/src
 package_path=$HOME/php
 
 package_url="https://php.net$(
-  curl -s http://www.php.net/downloads.php | grep .tar.gz \
+  curl -s http://php.net/downloads.php | grep .tar.gz \
   | grep -oP '/get/php.+?.tar.gz' | head -1
 )"
 package_archive=$(echo ${package_url##*/})
