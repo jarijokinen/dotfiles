@@ -1,0 +1,31 @@
+#!/bin/bash
+
+src_path=$HOME/src
+
+package_url=$(
+  curl -s https://kernel.org | grep "Download complete" | head -1 \
+  | grep -oP 'https://.+?xz'
+)
+package_archive=$(echo ${package_url##*/})
+package_version=$(echo $package_archive | cut -d . -f -2 | cut -d - -f 2,3)
+echo "Latest version is $package_version"
+
+installed_version=$(uname -r)
+echo "Installed version is ${installed_version/.0-rc/-rc}"
+
+if [[ $package_version != $installed_version ]]; then
+  echo "Updating..."
+  [[ -d "$src_path" ]] || mkdir -p $src_path
+  if [[ ! -d "$src_path/linux-$package_version" ]]; then
+    if [[ ! -f "$src_path/$package_archive" ]]; then
+      wget $package_url -O $src_path/$package_archive
+    fi
+    tar -xf $src_path/$package_archive -C $src_path
+  fi
+  cd $src_path/linux-$package_version
+  cp /boot/config-`uname -r` ./.config
+  make silentoldconfig
+  make-kpkg -j3 --rootcmd fakeroot --revision 1 --initrd kernel_image
+fi
+
+exit 0

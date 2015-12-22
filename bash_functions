@@ -37,29 +37,3 @@ function update {
   cd $HOME/code/dotfiles
   git submodule foreach git pull origin master
 }
-function update_kernel {
-  src=$HOME/src
-
-  mainline_url=$(
-    curl -s https://kernel.org | grep "Download complete" | head -1 \
-    | grep -oP 'https://.+?xz'
-  )
-  mainline_version=$(echo ${mainline_url##*/} | cut -d . -f -2)
-  mainline_archive="$mainline_version.tar.xz"
-  echo "Latest mainline kernel is $mainline_version"
-
-  if [[ ! -d $src/$mainline_version ]]; then
-    echo "Kernel source missing, fetching..."
-    if [[ ! -f $src/$mainline_archive ]]; then
-      echo "Kernel archive missing, downloading..."
-      mkdir -p $src
-      wget $mainline_url -O $src/$mainline_archive
-    fi
-    tar -xvf $src/$mainline_archive -C $src
-  fi
-
-  cd $src/$mainline_version
-  cp /boot/config-`uname -r` ./.config
-  make silentoldconfig
-  make-kpkg -j3 --rootcmd fakeroot --revision 1 --initrd kernel_image
-}

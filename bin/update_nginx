@@ -1,0 +1,41 @@
+#!/bin/bash
+
+src_path=$HOME/src
+package_path=$HOME/nginx
+
+package_url="http://nginx.org$(
+  curl -s http://nginx.org/en/download.html | grep .tar.gz \
+  | grep -oP '/download/nginx.+?.tar.gz' | head -1
+)"
+
+package_archive=$(echo ${package_url##*/})
+package_version=$(echo $package_archive | cut -d . -f -3 | cut -d - -f 2)
+echo "Latest version is $package_version"
+
+if [[ -x "$package_path/sbin/nginx" ]]; then
+  installed=1
+  installed_version=$($package_path/sbin/nginx -v 2>&1 | cut -d "/" -f 2)
+  echo "Installed version is $installed_version"
+else
+  installed=0
+  echo "Not installed"
+fi
+
+if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
+  echo "Updating..."
+  [[ -d "$src_path" ]] || mkdir -p $src_path
+  if [[ ! -d "$src_path/nginx-$package_version" ]]; then
+    if [[ ! -f "$src_path/$package_archive" ]]; then
+      wget $package_url -O $src_path/$package_archive
+    fi
+    tar -xf $src_path/$package_archive -C $src_path
+  fi
+  cd $src_path/nginx-$package_version
+  ./configure --prefix=$package_path --with-http_ssl_module \
+    --with-http_gzip_static_module 
+  #--add-module=$HOME/src/ngx_cache_purge-2.3
+  make
+  make install
+fi
+
+exit 0

@@ -3,6 +3,7 @@
 dotfiles=(
   bash_functions
   bashrc
+  bin
   gemrc
   gitconfig
   gitignore
