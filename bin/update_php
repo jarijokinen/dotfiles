@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -e
+
+src_path=$HOME/src
+package_path=$HOME/php
+
+package_url="https://php.net$(
+  curl -s http://www.php.net/downloads.php | grep .tar.gz \
+  | grep -oP '/get/php.+?.tar.gz' | head -1
+)"
+package_archive=$(echo ${package_url##*/})
+package_version=$(echo $package_archive | cut -d . -f -3 | cut -d - -f 2)
+echo "Latest version is $package_version"
+
+if [[ -x "$package_path/sbin/php-fpm" ]]; then
+  installed=1
+  installed_version=$($package_path/sbin/php-fpm -v | head -1 | cut -d " " -f2)
+  echo "Installed version is $installed_version"
+else
+  installed=0
+  echo "Not installed"
+fi
+
+if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
+  echo "Updating..."
+  [[ -d "$src_path" ]] || mkdir -p $src_path
+  if [[ ! -d "$src_path/php-$package_version" ]]; then
+    if [[ ! -f "$src_path/$package_archive" ]]; then
+      wget $package_url/from/this/mirror -O $src_path/$package_archive
+    fi
+    tar -xf $src_path/$package_archive -C $src_path
+  fi
+  cd $src_path/php-$package_version
+  ./configure --prefix=$package_path --enable-fpm --with-mysqli --with-curl \
+    --with-zlib
+  make
+  make install
+
+  if [[ ! -f "$package_path/lib/php.ini" ]]; then
+    cp php.ini-production $package_path/lib/php.ini
+    sed -i 's|;cgi.fix_pathinfo=1|cgi.fix_pathinfo=0|' $package_path/lib/php.ini
+  fi
+  if [[ ! -f "$package_path/etc/php-fpm.conf" ]]; then
+    cp $package_path/etc/php-fpm.conf.default $package_path/etc/php-fpm.conf
+  fi
+  if [[ ! -f "$package_path/etc/php-fpm.d/www.conf" ]]; then
+    cp $package_path/etc/php-fpm.d/www.conf.default \
+      $package_path/etc/php-fpm.d/www.conf
+  fi
+fi
+
+exit 0

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 src_path=$HOME/src
 package_path=$HOME/nginx
 
