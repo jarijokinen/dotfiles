@@ -13,7 +13,8 @@ package_version=$(echo $package_archive | cut -d . -f -2 | cut -d - -f 2,3)
 echo "Latest version is $package_version"
 
 installed_version=$(uname -r)
-echo "Installed version is ${installed_version/.0-rc/-rc}"
+installed_version=${installed_version/\.0-rc/-rc}
+echo "Installed version is $installed_version"
 
 if [[ $package_version != $installed_version ]]; then
   echo "Updating..."
