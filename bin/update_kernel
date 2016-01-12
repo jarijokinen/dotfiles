@@ -14,6 +14,7 @@ echo "Latest version is $package_version"
 
 installed_version=$(uname -r)
 installed_version=${installed_version/\.0-rc/-rc}
+installed_version=$(echo $installed_version | sed 's/\.0$//')
 echo "Installed version is $installed_version"
 
 if [[ $package_version != $installed_version ]]; then
