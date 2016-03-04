@@ -17,7 +17,7 @@ if [[ -x "$package_path/sbin/php-fpm" ]]; then
   installed=1
   installed_version=$($package_path/sbin/php-fpm -v | head -1 | cut -d " " -f2)
   configure_options=$($package_path/bin/php -i | grep Configure | \
-    cut -d " " -f6-)
+    cut -d " " -f6- | tr -d "'")
   echo "Installed version is $installed_version"
 else
   installed=0
