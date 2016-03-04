@@ -16,9 +16,13 @@ echo "Latest version is $package_version"
 if [[ -x "$package_path/sbin/php-fpm" ]]; then
   installed=1
   installed_version=$($package_path/sbin/php-fpm -v | head -1 | cut -d " " -f2)
+  configure_options=$($package_path/bin/php -i | grep Configure | \
+    cut -d " " -f6-)
   echo "Installed version is $installed_version"
 else
   installed=0
+  configure_options="--prefix=$package_path --enable-fpm --with-mysqli \
+    --with-curl --with-zlib"
   echo "Not installed"
 fi
 
@@ -32,8 +36,7 @@ if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
     tar -xf $src_path/$package_archive -C $src_path
   fi
   cd $src_path/php-$package_version
-  ./configure --prefix=$package_path --enable-fpm --with-mysqli --with-curl \
-    --with-zlib
+  ./configure $configure_options
   make
   make install
 
