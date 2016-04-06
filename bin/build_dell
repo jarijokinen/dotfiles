@@ -105,7 +105,7 @@ export LANG="C.UTF-8"
 msg() { echo "$1"; }
 err() { msg "E: $1"; exit 1; }
 
-[[ $EUID -eq 0 ]] || error "this script must be run as root."
+[[ $EUID -eq 0 ]] || err "this script must be run as root."
 
 msg "Downloading the system..."
 pre_install_packages=$(echo $pre_install_packages | tr ' ' ,)
