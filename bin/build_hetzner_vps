@@ -6,14 +6,18 @@
 # Copyright (C) 2016 Jari Jokinen, MIT License.
 
 packages="
-  anacron
+  build-essential
   ca-certificates
   console-setup
   curl
-  dnsutils
   git
   grub2
   initramfs-tools
+  libcurl4-openssl-dev
+  libpcre3-dev
+  libssl-dev
+  libxml2-dev
+  linux-image-amd64
   lsb-release
   openssh-server
   screen
