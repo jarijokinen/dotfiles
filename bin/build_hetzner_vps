@@ -21,8 +21,11 @@ packages="
   libffi-dev
   libgdbm-dev
   libgmp-dev
+  libjpeg-dev
+  libmcrypt-dev
   libncurses5-dev
   libpcre3-dev
+  libpng-dev
   libreadline6-dev
   libsqlite3-dev
   libssl-dev
