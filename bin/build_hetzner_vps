@@ -36,6 +36,7 @@ packages="
   lsb-release
   openssh-server
   pkg-config
+  postfix
   screen
   sqlite3
   vim-nox
