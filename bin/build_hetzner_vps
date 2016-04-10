@@ -39,6 +39,7 @@ packages="
   postfix
   screen
   sqlite3
+  unzip
   vim-nox
 "
 
