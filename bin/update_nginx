@@ -2,8 +2,16 @@
 
 set -e
 
+if [[ $1 == 'wordpress' ]]; then
+  wordpress_support=1
+else
+  wordpress_support=0
+fi
+
 src_path=$HOME/src
 package_path=$HOME/nginx
+
+[[ -d "$src_path" ]] || mkdir -p $src_path
 
 package_url="http://nginx.org$(
   curl -s http://nginx.org/en/download.html | grep .tar.gz \
@@ -25,17 +33,27 @@ else
   configure_options="--prefix=$package_path --with-http_ssl_module \
     --with-http_gzip_static_module"
   echo "Not installed"
+  
+  if [[ $wordpress_support == 1 ]]; then
+    mod_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
+    mod_package_archive=$(echo ${mod_package_url##*/})
+    wget $mod_package_url -O $src_path/$mod_package_archive
+    tar -xf $src_path/$mod_package_archive -C $src_path
+    configure_options="--prefix=$package_path --with-http_ssl_module \
+      --with-http_gzip_static_module \
+      --add-module=$src_path/ngx_cache_purge-2.3"
+  fi
 fi
 
 if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
   echo "Updating..."
-  [[ -d "$src_path" ]] || mkdir -p $src_path
   if [[ ! -d "$src_path/nginx-$package_version" ]]; then
     if [[ ! -f "$src_path/$package_archive" ]]; then
       wget $package_url -O $src_path/$package_archive
     fi
     tar -xf $src_path/$package_archive -C $src_path
   fi
+
   cd $src_path/nginx-$package_version
   ./configure $configure_options
   make

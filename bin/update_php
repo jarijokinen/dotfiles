@@ -2,6 +2,12 @@
 
 set -e
 
+if [[ $1 == 'wordpress' ]]; then
+  wordpress_support=1
+else
+  wordpress_support=0
+fi
+
 src_path=$HOME/src
 package_path=$HOME/php
 
@@ -24,6 +30,13 @@ else
   configure_options="--prefix=$package_path --enable-fpm --with-mysqli \
     --with-curl --with-zlib"
   echo "Not installed"
+
+  if [[ $wordpress_support == 1 ]]; then
+    configure_options="--prefix=$package_path --enable-fpm --with-mysqli \
+      --with-curl --with-zlib --with-gd \
+      --with-jpeg-dir=/usr/lib/x86_64-linux-gnu --with-mcrypt \
+      --enable-mbstring"
+  fi
 fi
 
 if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
