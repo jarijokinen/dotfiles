@@ -31,6 +31,7 @@ packages="
   kernel-package
   libffi-dev
   libgdbm-dev
+  libgmp-dev
   libncurses5-dev
   libreadline6-dev
   libreoffice-calc
