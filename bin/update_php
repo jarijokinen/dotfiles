@@ -56,6 +56,7 @@ if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
   if [[ ! -f "$package_path/lib/php.ini" ]]; then
     cp php.ini-production $package_path/lib/php.ini
     sed -i 's|;cgi.fix_pathinfo=1|cgi.fix_pathinfo=0|' $package_path/lib/php.ini
+    sed -i 's|mysqli.default_socket =|mysqli.default_socket = /var/run/mysqld/mysqld.sock|' $package_path/lib/php.ini
   fi
   if [[ ! -f "$package_path/etc/php-fpm.conf" ]]; then
     cp $package_path/etc/php-fpm.conf.default $package_path/etc/php-fpm.conf
