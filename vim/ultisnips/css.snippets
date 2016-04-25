@@ -21,13 +21,13 @@ body {
 }
 endsnippet
 
-snippet c	
-.container {
+snippet c
+header > div, main > section > div, footer > div, .container {
 	margin: 0 auto;
 	max-width: 1170px;
 }
 @media(max-width: 1199px) {
-	.container {
+	header > div, main > section > div, footer > div, .container {
 		margin: 0 15px;
 	}
 }
@@ -54,7 +54,7 @@ header:after {
 	display: block;
 	height: 0;
 }
-header h1, header > div > a {
+header .logo {
 	color: #131313;
 	float: left;
 	font-size: 32px;

@@ -10,7 +10,71 @@ snippet html
 		<link rel="stylesheet" media="all" href="/stylesheets/$3.css">
 	</head>
 	<body>
-		$4
+		<header>
+			<div>
+				<a class="logo" href="#">Logo</a>
+				<nav>
+					<ul>
+						<li>Menu 1</li>
+						<li>Menu 2</li>
+						<li>Menu 3</li>
+						<li>Menu 4</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main>
+			<section>
+				<div>
+					<h2>Section 1</h2>
+					<p>Lorem ipsum dolor sit amet.</p>
+					<a class="more" href="#">Read More</a>
+				</div>
+			</section>
+			<section>
+				<div>
+					<h2>Section 2</h2>
+					<p>Lorem ipsum dolor sit amet.</p>
+					<a class="more" href="#">Read More</a>
+				</div>
+			</section>
+			<section>
+				<div>
+					<h2>Section 3</h2>
+					<p>Lorem ipsum dolor sit amet.</p>
+					<a class="more" href="#">Read More</a>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<div>
+				<div class="logo">Logo</div>
+				<nav>
+					<h2>Menu 1</h2>
+					<ul>
+						<li>Subpage 1</li>
+						<li>Subpage 2</li>
+						<li>Subpage 3</li>
+					</ul>
+				</nav>
+				<nav>
+					<h2>Menu 2</h2>
+					<ul>
+						<li>Subpage 1</li>
+						<li>Subpage 2</li>
+						<li>Subpage 3</li>
+					</ul>
+				</nav>
+				<nav>
+					<h2>Menu 3</h2>
+					<ul>
+						<li>Subpage 1</li>
+						<li>Subpage 2</li>
+						<li>Subpage 3</li>
+					</ul>
+				</nav>
+			</div>
+		</footer>
 	</body>
 </html>
 endsnippet
@@ -58,23 +122,6 @@ snippet h3
 endsnippet
 snippet p
 <p>$1</p>
-endsnippet
-snippet topbar
-<header>
-	<div class="container">
-		<a href="/">$1</a>
-		<nav>
-			<ul>
-				<li><a href="/">$2</a></li>
-			</ul>
-		</nav>
-		<nav>
-			<ul>
-				<li><a href="/">$3</a></li>
-			</ul>
-		</nav>
-	</div>
-</header>
 endsnippet
 snippet img
 <img src="$1" alt="$2">
