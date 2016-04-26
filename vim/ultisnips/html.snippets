@@ -7,27 +7,30 @@ snippet html
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<title>$2</title>
 		<link rel="stylesheet" media="all" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800">
-		<link rel="stylesheet" media="all" href="/stylesheets/$3.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" media="all" href="stylesheets/$3.css">
 	</head>
 	<body>
 		<header>
 			<div>
-				<a class="logo" href="#">Logo</a>
+				<a class="logo" href="#">$2</a>
 				<nav>
 					<ul>
-						<li>Menu 1</li>
-						<li>Menu 2</li>
-						<li>Menu 3</li>
-						<li>Menu 4</li>
+						<li><strong>Etusivu</strong></li>
+						<li><a href="#">Menu A</a></li>
+						<li><a href="#">Menu B</a></li>
+						<li><a href="#">Menu C</a></li>
+						<li><a href="#">Menu D</a></li>
+						<li><a href="#">Menu E</a></li>
 					</ul>
 				</nav>
 			</div>
 		</header>
 		<main>
-			<section>
+			<section class="intro">
 				<div>
 					<h2>Section 1</h2>
-					<p>Lorem ipsum dolor sit amet.</p>
+					<p class="lead">Lorem ipsum dolor sit amet.</p>
 					<a class="more" href="#">Read More</a>
 				</div>
 			</section>
@@ -48,9 +51,14 @@ snippet html
 		</main>
 		<footer>
 			<div>
-				<div class="logo">Logo</div>
 				<nav>
-					<h2>Menu 1</h2>
+					<div class="logo">$2</div>
+					<p>Street</p>
+					<p>Business ID</p>
+					<p>Email</p>
+				</nav>
+				<nav>
+					<h2>Menu A</h2>
 					<ul>
 						<li>Subpage 1</li>
 						<li>Subpage 2</li>
@@ -58,7 +66,7 @@ snippet html
 					</ul>
 				</nav>
 				<nav>
-					<h2>Menu 2</h2>
+					<h2>Menu B</h2>
 					<ul>
 						<li>Subpage 1</li>
 						<li>Subpage 2</li>
@@ -66,15 +74,18 @@ snippet html
 					</ul>
 				</nav>
 				<nav>
-					<h2>Menu 3</h2>
+					<h2>Menu C</h2>
 					<ul>
 						<li>Subpage 1</li>
 						<li>Subpage 2</li>
 						<li>Subpage 3</li>
 					</ul>
 				</nav>
+				<p>Lorem ipsum dolor sit amet.</p>
+				<p class="copyright">&copy; 2016 $2</p>
 			</div>
 		</footer>
+		<script src="javascripts/$3.js"></script>
 	</body>
 </html>
 endsnippet

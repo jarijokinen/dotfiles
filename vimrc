@@ -24,6 +24,8 @@ colorscheme railscasts
 autocmd BufNewFile,BufRead Gemfile setfiletype ruby
 autocmd BufNewFile,BufRead *.php set filetype=html
 autocmd BufNewFile,BufRead *.php set syntax=php
+autocmd BufNewFile,BufRead *.scss set filetype=css
+autocmd BufNewFile,BufRead *.scss set syntax=scss
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"

@@ -9,6 +9,7 @@ dotfiles=(
   gitignore
   kernel-pkg.conf
   muttrc
+  npmrc
   profile
   railsrc
   screenrc
