@@ -1,0 +1,168 @@
+#!/bin/bash
+#
+# This script creates a full Debian GNU/Linux desktop system from scratch.  
+# The system is optimized for Intel Haswell desktop.
+#
+# Copyright (C) 2016 Jari Jokinen, MIT License.
+
+packages="
+  anacron
+  archivemail
+  automake
+  bison
+  ca-certificates
+  chromium
+  console-setup
+  curl
+  debootstrap
+  dnsutils
+  evince
+  fakeroot
+  gawk
+  geeqie
+  gimp
+  git
+  gnome-backgrounds
+  grub2
+  initramfs-tools
+  inkscape
+  keepassx
+  kernel-package
+  libffi-dev
+  libgdbm-dev
+  libgmp-dev
+  libncurses5-dev
+  libreadline6-dev
+  libreoffice-calc
+  libreoffice-style-tango
+  libreoffice-writer
+  libsasl2-modules
+  libsqlite3-dev
+  libssl-dev
+  libtool
+  libyaml-dev
+  lightdm
+  linux-image-amd64
+  lsb-release
+  mutt
+  openssh-client
+  pepperflashplugin-nonfree
+  pkg-config
+  pulseaudio
+  screen
+  sqlite3
+  thunar-volman
+  ttf-mscorefonts-installer
+  vim-nox
+  whois
+  wireless-tools
+  wpasupplicant
+  x11-xserver-utils
+  xfdesktop4
+  xfce4-battery-plugin
+  xfce4-mixer
+  xfce4-panel
+  xfce4-screenshooter
+  xfce4-session
+  xfonts-100dpi
+  xfonts-base
+  xfonts-terminus
+  xfonts-terminus-oblique
+  xfwm4
+  xserver-xorg
+  xserver-xorg-input-synaptics
+  xserver-xorg-video-intel
+  xterm
+  zlib1g-dev
+"
+
+pre_install_packages="
+  locales
+"
+
+exclude_packages="
+  nano
+  tasksel
+  tasksel-data
+  vim-tiny
+"
+
+arch="amd64"
+suite="jessie"
+components="main,contrib,non-free"
+mirror="http://ftp.debian.org/debian"
+image_version=`date +"%Y-%m-%d-%s"`
+target="/root/$suite-image-$image_version"
+
+#kernel_package_url="https://www.dropbox.com/s/5hnf0lvcxo4b40l/\
+#linux-image-4.3.0-dell_1_amd64.deb"
+dropbox_package_url="https://www.dropbox.com/download?dl=packages/debian/\
+dropbox_2015.10.28_amd64.deb"
+
+set -e
+export LANG="C.UTF-8"
+
+msg() { echo "$1"; }
+err() { msg "E: $1"; exit 1; }
+
+[[ $EUID -eq 0 ]] || err "this script must be run as root."
+
+msg "Downloading the system..."
+pre_install_packages=$(echo $pre_install_packages | tr ' ' ,)
+exclude_packages=$(echo $exclude_packages | tr ' ' ,)
+debootstrap --arch=$arch --components=$components --exclude=$exclude_packages \
+  --include=$pre_install_packages $suite $target $mirror
+
+msg "Mounting devices..."
+mount --bind --make-rslave /dev $target/dev
+mount --bind --make-rslave /sys $target/sys
+mount --bind --make-rslave /proc $target/proc
+
+msg "Configuring apt..."
+components=${components//,/ }
+cat << EOF > $target/etc/apt/sources.list
+deb $mirror $suite $components
+deb $mirror $suite-updates $components
+deb http://security.debian.org/ $suite/updates $components
+EOF
+echo 'APT::Install-Recommends "0";' > $target/etc/apt/apt.conf.d/01recommends
+chroot $target apt-get update
+chroot $target apt-get dist-upgrade
+
+msg "Configuring settings..."
+chroot $target dpkg-reconfigure locales
+chroot $target dpkg-reconfigure debconf
+chroot $target dpkg-reconfigure tzdata
+
+msg "Installing packages..."
+chroot $target apt-get install $packages
+
+msg "Installing Dropbox..."
+wget -O $target/tmp/dropbox.deb $dropbox_package_url
+chroot $target dpkg -i /tmp/dropbox.deb
+
+msg "Configuring iptables..."
+chroot $target ln -s /home/jari/.bin/iptables_desktop \
+  /etc/network/if-up.d/iptables
+
+#msg "Installing kernel..."
+#wget -O $target/tmp/kernel.deb $kernel_package_url
+#chroot $target dpkg -i /tmp/kernel.deb
+
+msg "Configuring grub..."
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
+chroot $target update-grub
+
+msg "Setting up root password..."
+chroot $target passwd
+
+msg "Unmounting devices..."
+umount -l $target/dev
+umount -l $target/sys
+umount -l $target/proc
+
+msg "Removing packages..."
+rm -rf $target/var/cache/apt/archives/*.deb
+rm -rf $target/tmp/*.deb
+
+exit 0
