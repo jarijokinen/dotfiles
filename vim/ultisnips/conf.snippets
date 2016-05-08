@@ -1,0 +1,30 @@
+snippet nginx
+user jari;
+events {}
+
+http {
+	include mime.types;
+	server_tokens off;
+
+	server {
+		listen 80;
+		server_name $1;
+
+		gzip on;
+		gzip_min_length 1000;
+		gzip_proxied expired no-cache no-store private auth;
+		gzip_types text/plain text/css application/javascript;
+
+		root /home/jari/websites/$1;
+		index index.php;
+		charset utf-8;
+
+		location ~* \.php$ {
+			include fastcgi.conf;
+			include fastcgi_params;
+			fastcgi_pass 127.0.0.1:9000;
+			fastcgi_index index.php;
+		}
+	}
+}
+endsnippet
