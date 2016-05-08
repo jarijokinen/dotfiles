@@ -13,9 +13,6 @@
 [submodule "vim/bundle/html5"]
 	path = vim/bundle/html5
 	url = https://github.com/othree/html5.vim.git
-#[submodule "vim/bundle/ultisnips"]
-#	path = vim/bundle/ultisnips
-#	url = https://github.com/SirVer/ultisnips.git
 [submodule "vim/bundle/railscasts-theme"]
 	path = vim/bundle/railscasts-theme
 	url = https://github.com/vim-scripts/Railscasts-Theme-GUIand256color
