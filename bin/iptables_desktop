@@ -67,6 +67,16 @@ ipt -A INPUT -p tcp --sport 43 -m state --state ESTABLISHED -j ACCEPT
 ipt -A OUTPUT -p tcp --dport 11371 -m state --state NEW,ESTABLISHED -j ACCEPT
 ipt -A INPUT -p tcp --sport 11371 -m state --state ESTABLISHED -j ACCEPT
 
+# WHM client
+
+ipt -A OUTPUT -p tcp --dport 2087 -m state --state NEW,ESTABLISHED -j ACCEPT
+ipt -A INPUT -p tcp --sport 2087 -m state --state ESTABLISHED -j ACCEPT
+
+# Cpanel client
+
+ipt -A OUTPUT -p tcp --dport 2083 -m state --state NEW,ESTABLISHED -j ACCEPT
+ipt -A INPUT -p tcp --sport 2083 -m state --state ESTABLISHED -j ACCEPT
+
 # Logging
 
 ipt -A INPUT -j LOG --log-level info

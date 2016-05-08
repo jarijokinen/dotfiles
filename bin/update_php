@@ -2,10 +2,15 @@
 
 set -e
 
+magento_support=0
+wordpress_support=0
+
+if [[ $1 == 'magento' ]]; then
+  magento_support=1
+fi
+
 if [[ $1 == 'wordpress' ]]; then
   wordpress_support=1
-else
-  wordpress_support=0
 fi
 
 src_path=$HOME/src
@@ -26,16 +31,53 @@ if [[ -x "$package_path/sbin/php-fpm" ]]; then
     cut -d " " -f6- | tr -d "'")
   echo "Installed version is $installed_version"
 else
-  installed=0
-  configure_options="--prefix=$package_path --enable-fpm --with-mysqli \
-    --with-curl --with-zlib"
   echo "Not installed"
+  installed=0
+
+  configure_options="
+    --prefix=$package_path
+    --enable-fpm
+    --with-curl
+    --with-mysql-sock=/var/run/mysqld/mysqld.sock
+    --with-mysqli
+    --with-zlib
+  "
+  
+  if [[ $magento_support == 1 ]]; then
+    configure_options="
+      --prefix=$package_path
+      --enable-bcmath
+      --enable-fpm
+      --enable-intl
+      --enable-mbstring
+      --enable-soap
+      --enable-zip
+      --with-curl
+      --with-gd
+      --with-jpeg-dir=/usr/lib/x86_64-linux-gnu
+      --with-mcrypt
+      --with-mhash
+      --with-mysql-sock=/var/run/mysqld/mysqld.sock
+      --with-openssl
+      --with-pdo-mysql
+      --with-xsl
+      --with-zlib 
+    "
+  fi
 
   if [[ $wordpress_support == 1 ]]; then
-    configure_options="--prefix=$package_path --enable-fpm --with-mysqli \
-      --with-curl --with-zlib --with-gd \
-      --with-jpeg-dir=/usr/lib/x86_64-linux-gnu --with-mcrypt \
-      --enable-mbstring"
+    configure_options="
+      --prefix=$package_path
+      --enable-fpm
+      --enable-mbstring
+      --with-curl
+      --with-gd
+      --with-jpeg-dir=/usr/lib/x86_64-linux-gnu
+      --with-mcrypt
+      --with-mysql-sock=/var/run/mysqld/mysqld.sock
+      --with-mysqli
+      --with-zlib
+    "
   fi
 fi
 
@@ -56,7 +98,6 @@ if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
   if [[ ! -f "$package_path/lib/php.ini" ]]; then
     cp php.ini-production $package_path/lib/php.ini
     sed -i 's|;cgi.fix_pathinfo=1|cgi.fix_pathinfo=0|' $package_path/lib/php.ini
-    sed -i 's|mysqli.default_socket =|mysqli.default_socket = /var/run/mysqld/mysqld.sock|' $package_path/lib/php.ini
     sed -i 's|expose_php = On|expose_php = Off|' $package_path/lib/php.ini
   fi
   if [[ ! -f "$package_path/etc/php-fpm.conf" ]]; then

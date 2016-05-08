@@ -18,6 +18,7 @@ packages="
   dnsutils
   evince
   fakeroot
+  firmware-realtek
   gawk
   geeqie
   gimp

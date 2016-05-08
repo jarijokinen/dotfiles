@@ -1,5 +1,5 @@
 snippet reset
-body, header, footer, main, section, div, h1, h2, h3, ul, li, img, p {
+body, header, footer, main, section, div, h1, h2, h3, ul, li, img, p, form {
 	border: 0;
 	line-height: 1;
 	margin: 0;
@@ -8,30 +8,42 @@ body, header, footer, main, section, div, h1, h2, h3, ul, li, img, p {
 ul, li {
 	list-style-type: none;
 }
-header, footer, main, section, ul, li {
+article, aside, footer, header, main, nav, section, ul, li {
 	display: block;
 }
 endsnippet
 
-snippet	body
+snippet	defaults
 body {
 	background: #fff;
-	color: #000;
+	color: #282828;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	font-weight: 300;
-	padding-top: 90px;
+	padding-top: 71px;
+}
+h1, h2, h3 {
+	font-weight: 300;
+	line-height: 1.2;
+}
+a {
+	background: transparent;
+	color: #282828;
+	text-decoration: none;
+}
+form, textarea {
+	max-width: 100%;
 }
 endsnippet
 
-snippet c
+snippet container
 header > div, main > section > div, footer > div, .container {
 	margin: 0 auto;
-	max-width: 1170px;
+	max-width: 1000px;
 }
-@media(max-width: 1199px) {
+@media(max-width: 1050px) {
 	header > div, main > section > div, footer > div, .container {
-		margin: 0 15px;
+		margin: 0 25px;
 	}
 }
 endsnippet
@@ -40,7 +52,7 @@ snippet header
 header {
 	background: rgba(255, 255, 255, 0.95);
 	border-bottom: 1px solid #eee;
-	height: 90px;
+	height: 70px;
 	left: 0;
 	position: fixed;
 	top: 0;
@@ -57,20 +69,18 @@ header:after {
 	display: block;
 	height: 0;
 }
-header .logo {
-	color: #131313;
+header > a, header > h1 {
 	float: left;
 	font-size: 32px;
-	margin: 29px 30px 29px 0;
-	text-decoration: none;
+	font-weight: 800;
+	margin: 19px 30px 19px 0;
 }
-header h1 {
+header > h1 {
 	cursor: default;
 }
 header nav {
-	color: #131313;
 	display: inline-block;
-	margin: 37px 0;
+	margin: 27px 0;
 }
 header nav:first-child {
 	float: left;
@@ -78,32 +88,84 @@ header nav:first-child {
 header nav:last-child {
 	float: right;
 }
-header ul, header li {
-	display: block;
-	list-style-type: none;
-}
 header li {
 	display: inline;
 	margin-left: 10px;
 }
-header nav a {
-	color: #131313;
-	text-decoration: none;
-}
-header nav a:hover {
-	color: #000;
-}
-header nav:last-child a {
-	background: #999;
-	border-radius: 5px;
-	color: #fff;
-	display: inline-block;
-	padding: 10px;
-	margin-top: -20px;
-}
-header nav:last-child a:hover {
-	background: #888;
-	color: #fff;
+@media(max-width: 767px) {
+	header nav {
+		margin: 35px 0;
+	}
+	header ul {
+		display: none;
+	}
+	header nav .toggle {
+		display: block;
+		height: 33px;
+		position: absolute;
+		right: 25px;
+		top: 40px;
+		width: 33px;
+	}
+	header nav .toggle span {
+		position: relative;
+	}
+	header nav .toggle span:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: -9px;
+	}
+	header nav .toggle span:after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 9px;
+	}
+	header nav .toggle span,
+	header nav .toggle span:before,
+	header nav .toggle span:after {
+		backface-visibility: hidden;
+		background: #777;
+		border-radius: 2px;
+		display: block;
+		height: 5px;
+		transition: all 0.15s;
+		width: 100%;
+	}
+	header nav .toggle.on span {
+		background: transparent;
+	}
+	header nav .toggle.on span:before {
+		transform: rotate(45deg) translate(5px, 5px);
+	}
+	header nav .toggle.on span:after {
+		transform: rotate(-45deg) translate(7px, -8px);
+	}
+	header nav .toggle.on + ul {
+		background: rgba(255, 255, 255, 0.95);
+		display: block;
+		height: 100vh;
+		left: 0;
+		margin: 0;
+		padding: 15px 0;
+		position: absolute;
+		top: 81px;
+		width: 100%;
+	}
+	header nav .toggle.on + ul li {
+		display: block;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+	}
+	header nav .toggle.on + ul li a {
+		display: block;
+		font-size: 22px;
+		padding: 15px 0;
+		text-align: center;
+		width: 100%;
+	}
 }
 endsnippet
 
