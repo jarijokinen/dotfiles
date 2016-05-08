@@ -21,6 +21,7 @@ packages="
   libffi-dev
   libgdbm-dev
   libgmp-dev
+  libicu-dev
   libjpeg-dev
   libmcrypt-dev
   libncurses5-dev
@@ -31,6 +32,7 @@ packages="
   libssl-dev
   libtool
   libxml2-dev
+  libxslt1-dev
   libyaml-dev
   linux-image-amd64
   lsb-release
