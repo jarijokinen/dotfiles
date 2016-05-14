@@ -19,6 +19,10 @@ http {
 		index index.php;
 		charset utf-8;
 
+		location / {
+			try_files $uri $uri/ /index.php?$args;
+		}
+
 		location ~* \.php$ {
 			include fastcgi.conf;
 			include fastcgi_params;
