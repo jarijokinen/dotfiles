@@ -4,7 +4,7 @@
 # The system is optimized for Dell XPS 13 (2015) laptop with Intel(R) 
 # Core(TM) i5-5300U processor and Intel(R) 7265 wireless network controller.
 #
-# Copyright (C) 2015 Jari Jokinen, MIT License.
+# Copyright (C) 2015 - 2016 Jari Jokinen, MIT License.
 
 packages="
   anacron
@@ -94,8 +94,8 @@ mirror="http://ftp.debian.org/debian"
 image_version=`date +"%Y-%m-%d-%s"`
 target="/root/$suite-image-$image_version"
 
-kernel_package_url="https://www.dropbox.com/s/5hnf0lvcxo4b40l/\
-linux-image-4.3.0-dell_1_amd64.deb"
+kernel_package_url="https://www.dropbox.com/s/hswv55sd9qck41x/\
+linux-image-4.6.0_1_amd64.deb"
 dropbox_package_url="https://www.dropbox.com/download?dl=packages/debian/\
 dropbox_2015.10.28_amd64.deb"
 iwlwifi_package_url="https://wireless.wiki.kernel.org/_media/en/users/drivers/iwlwifi-7265-ucode-16.242414.0.tgz"
@@ -173,6 +173,18 @@ chroot $target update-grub
 
 msg "Setting up root password..."
 chroot $target passwd
+
+msg "Setting up regular user..."
+chroot $target adduser jari --gecos "Jari Jokinen,,,"
+chroot --userspec=jari:jari $target mkdir -m0700 /home/jari/.ssh
+chroot --userspec=jari:jari $target mkdir -m0700 /home/jari/code
+chroot --userspec=jari:jari $target env HOME=/home/jari git clone \
+  https://github.com/jarijokinen/dotfiles.git /home/jari/code/dotfiles
+chroot --userspec=jari:jari $target env HOME=/home/jari \
+  /home/jari/code/dotfiles/install.sh
+cp -pr /home/jari/.ssh/id_rsa* $target/home/jari/.ssh/
+cp -pr /home/jari/.mutt_* $target/home/jari/
+cp -pr /home/jari/.signature_* $target/home/jari/
 
 msg "Unmounting devices..."
 umount -l $target/dev

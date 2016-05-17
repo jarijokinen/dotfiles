@@ -48,6 +48,7 @@ for dotfile in ${dotfiles[@]}; do
   fi
 done
 
+cd $script_path
 git submodule init
 git submodule update
 
