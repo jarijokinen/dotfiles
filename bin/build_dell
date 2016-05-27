@@ -29,10 +29,15 @@ packages="
   inkscape
   keepassx
   kernel-package
+  libcurl4-openssl-dev
   libffi-dev
   libgdbm-dev
   libgmp-dev
+  libjpeg-dev
+  libmcrypt-dev
   libncurses5-dev
+  libpcre3-dev
+  libpng-dev
   libreadline6-dev
   libreoffice-calc
   libreoffice-style-tango
@@ -41,6 +46,7 @@ packages="
   libsqlite3-dev
   libssl-dev
   libtool
+  libxml2-dev
   libyaml-dev
   lightdm
   lsb-release
