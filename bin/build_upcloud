@@ -1,0 +1,147 @@
+#!/bin/bash
+#
+# This script creates a full Debian GNU/Linux system from scratch.  
+# The system is optimized for Upcloud.
+#
+# Copyright (C) 2016 Jari Jokinen, MIT License.
+
+packages="
+  autoconf
+  automake
+  bison
+  build-essential
+  ca-certificates
+  console-setup
+  curl
+  gawk
+  git
+  grub2
+  initramfs-tools
+  libcurl4-openssl-dev
+  libffi-dev
+  libgdbm-dev
+  libgmp-dev
+  libicu-dev
+  libjpeg-dev
+  libmcrypt-dev
+  libncurses5-dev
+  libpcre3-dev
+  libpng-dev
+  libreadline6-dev
+  libsqlite3-dev
+  libssl-dev
+  libtool
+  libxml2-dev
+  libxslt1-dev
+  libyaml-dev
+  linux-image-amd64
+  lsb-release
+  openssh-server
+  pkg-config
+  postfix
+  screen
+  sqlite3
+  unzip
+  vim-nox
+"
+
+pre_install_packages="
+  locales
+"
+
+exclude_packages="
+  nano
+  tasksel
+  tasksel-data
+  vim-tiny
+"
+
+arch="amd64"
+suite="jessie"
+components="main,contrib,non-free"
+mirror="http://ftp.debian.org/debian"
+image_version=`date +"%Y-%m-%d-%s"`
+target="/root/$suite-image-$image_version"
+
+#kernel_package_url="https://www.dropbox.com/s/5hnf0lvcxo4b40l/\
+#linux-image-4.3.0-dell_1_amd64.deb"
+
+set -e
+export LANG="C.UTF-8"
+
+msg() { echo "$1"; }
+err() { msg "E: $1"; exit 1; }
+
+[[ $EUID -eq 0 ]] || err "this script must be run as root."
+
+msg "Downloading the system..."
+pre_install_packages=$(echo $pre_install_packages | tr ' ' ,)
+exclude_packages=$(echo $exclude_packages | tr ' ' ,)
+debootstrap --arch=$arch --components=$components --exclude=$exclude_packages \
+  --include=$pre_install_packages $suite $target $mirror
+
+msg "Mounting devices..."
+mount --bind --make-rslave /dev $target/dev
+mount --bind --make-rslave /sys $target/sys
+mount --bind --make-rslave /proc $target/proc
+
+msg "Configuring apt..."
+components=${components//,/ }
+cat << EOF > $target/etc/apt/sources.list
+deb $mirror $suite $components
+deb $mirror $suite-updates $components
+deb $mirror $suite-backports main
+deb http://security.debian.org/ $suite/updates $components
+EOF
+echo 'APT::Install-Recommends "0";' > $target/etc/apt/apt.conf.d/01recommends
+chroot $target apt-get update
+chroot $target apt-get dist-upgrade
+
+msg "Configuring settings..."
+chroot $target dpkg-reconfigure locales
+chroot $target dpkg-reconfigure debconf
+chroot $target dpkg-reconfigure tzdata
+
+msg "Installing packages..."
+chroot $target apt-get install $packages
+
+msg "Configuring iptables..."
+chroot $target ln -s /home/jari/.bin/iptables_server \
+  /etc/network/if-up.d/iptables
+
+#msg "Installing kernel..."
+#wget -O $target/tmp/kernel.deb $kernel_package_url
+#chroot $target dpkg -i /tmp/kernel.deb
+
+msg "Configuring grub..."
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
+chroot $target update-grub
+
+msg "Configuring network..."
+cat << EOF > $target/etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet dhcp
+
+auto eth2
+iface eth2 inet6 auto
+EOF
+
+msg "Setting up root password..."
+chroot $target passwd
+
+msg "Unmounting devices..."
+umount -l $target/dev
+umount -l $target/sys
+umount -l $target/proc
+
+msg "Removing packages..."
+rm -rf $target/var/cache/apt/archives/*.deb
+rm -rf $target/tmp/*.deb
+
+exit 0
