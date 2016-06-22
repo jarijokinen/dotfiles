@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+echo 'Updating system...'
+su -c 'apt-get update; apt-get dist-upgrade'
+
+if [[ -e $HOME/.rvm ]]; then
+  echo 'Updating RVM...'
+  rvm get stable
+  gem update --system
+  gem update
+fi
+
+if [[ -e $HOME/code/dotfiles ]]; then
+  echo 'Updating git submodules...'
+  cd $HOME/code/dotfiles
+  git submodule foreach git pull origin master
+fi
+
+if [[ -e $HOME/nodejs ]]; then
+  echo 'Updating NodeJS...'
+  update_nodejs
+fi
+
+if [[ -e $HOME/nginx ]]; then
+  echo 'Updating Nginx...'
+  update_nginx
+fi
+
+if [[ -e $HOME/php ]]; then
+  echo 'Updating PHP...'
+  update_php
+fi

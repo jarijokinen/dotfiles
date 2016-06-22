@@ -25,15 +25,9 @@ function clean {
   echo "OK."
 
   echo -n "Create symlinks... "
-  rm -f $HOME/.xsession-errors
-  ln -s /dev/null $HOME/.xsession-errors
+  if [[ -f $HOME/.xsession-errors ]]; then
+    rm -f $HOME/.xsession-errors
+    ln -s /dev/null $HOME/.xsession-errors
+  fi
   echo "OK."
-}
-function update {
-  su -c 'apt-get update; apt-get dist-upgrade'
-  rvm get stable
-  gem update --system
-  gem update
-  cd $HOME/code/dotfiles
-  git submodule foreach git pull origin master
 }
