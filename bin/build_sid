@@ -88,6 +88,7 @@ case "$1" in
       curl
       dnsutils
       evince
+      firmware-iwlwifi
       geeqie
       gimp
       git
@@ -133,7 +134,8 @@ case "$1" in
       x11-xkb-utils
       x11-xserver-utils
       xserver-xorg-core
-      xserver-xorg-input-synaptics
+      xserver-xorg-input-libinput
+      xserver-xorg-input-multitouch
       xterm
     "
   ;;
