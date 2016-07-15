@@ -40,11 +40,14 @@ if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
   ./configure $configure_options
   make
   make install
+  [[ -e $HOME/.bin/node ]] || ln -s $package_path/bin/node $HOME/.bin/node
+  [[ -e $HOME/.bin/npm ]]  || ln -s $package_path/bin/npm $HOME/.bin/npm
   npm -g install bower
   npm -g install grunt-cli
   npm -g install gulp-cli
   npm -g install yo
   npm -g install express
+  npm -g install express-generator
   npm -g install sails
 fi
 
