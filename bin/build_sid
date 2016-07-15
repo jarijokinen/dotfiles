@@ -2,9 +2,6 @@
 
 set -e
 
-packages="
-"
-
 pre_install_packages="
   locales
 "
@@ -20,129 +17,151 @@ exclude_packages="
   vim-tiny
 "
 
+base_packages="
+"
+
+x_packages="
+  chromium
+  evince
+  geeqie
+  gimp
+  gnome-backgrounds
+  gnome-icon-theme-symbolic
+  inkscape
+  keepassx
+  libgl1-mesa-dri
+  libreoffice-style-tango
+  libreoffice-writer
+  lightdm
+  pavucontrol
+  pepperflashplugin-nonfree
+  policykit-1
+  pulseaudio
+  ttf-mscorefonts-installer
+  x11-utils
+  x11-xkb-utils
+  x11-xserver-utils
+  xfce4-panel
+  xfce4-pulseaudio-plugin
+  xfce4-screenshooter
+  xfce4-session
+  xfdesktop4
+  xfonts-100dpi
+  xfonts-scalable
+  xfonts-terminus
+  xfonts-terminus-oblique
+  xfwm4
+  xkb-data
+  xserver-xorg-core
+  xserver-xorg-input-evdev
+  xterm
+"
+
+wifi_packages="
+  firmware-iwlwifi
+  wireless-tools
+  wpasupplicant
+"
+
+rvm_packages="
+  autoconf
+  automake
+  bison
+  gawk
+  libffi-dev
+  libgdbm-dev
+  libgmp-dev
+  libncurses5-dev
+  libreadline6-dev
+  libsqlite3-dev
+  libssl-dev
+  libtool
+  libyaml-dev
+  pkg-config 
+  sqlite3
+"
+
+rails_packages="
+  libgmp-dev
+  zlib1g-dev
+"
+
+nginx_packages="
+  libpcre3-dev
+  libssl-dev
+"
+
+php_packages="
+  libcurl4-openssl-dev
+  libxml2-dev
+  zlib1g-dev
+"
+
+php_wordpress_packages="
+  libjpeg-dev
+  libmcrypt-dev
+  libpng-dev
+"
+
 case "$1" in
   desktop)
     packages="
-      $packages
+      $base_packages
+      $rvm_packages
+      $rails_packages
+      $x_packages
       anacron
       archivemail
-      chromium
       console-setup
       curl
       dnsutils
-      evince
-      geeqie
-      gimp
       git
-      gnome-backgrounds
-      gnome-icon-theme-symbolic
       grub-pc
       initramfs-tools
-      inkscape
       irqbalance
-      keepassx
       kernel-package
-      libgl1-mesa-dri
-      libreoffice-style-tango
-      libreoffice-writer
       libsasl2-modules
-      lightdm
       linux-image-amd64
       mutt
       openssh-client
-      pavucontrol
-      pepperflashplugin-nonfree
-      policykit-1
-      pulseaudio
       screen
-      ttf-mscorefonts-installer
+      unzip
       vim-nox
       whois
-      x11-utils
-      xfce4-panel
-      xfce4-pulseaudio-plugin
-      xfce4-screenshooter
-      xfce4-session
-      xfdesktop4
-      xfonts-100dpi
-      xfonts-scalable
-      xfonts-terminus
-      xfonts-terminus-oblique
-      xfwm4
-      xkb-data
-      x11-xkb-utils
-      x11-xserver-utils
-      xserver-xorg-core
-      xserver-xorg-input-evdev
-      xterm
     "
   ;;
 
   laptop)
     packages="
-      $packages
+      $base_packages
+      $rvm_packages
+      $rails_packages
+      $x_packages
+      $wifi_packages
       anacron
       archivemail
-      chromium
       console-setup
       curl
       dnsutils
-      evince
-      firmware-iwlwifi
-      geeqie
-      gimp
       git
-      gnome-backgrounds
-      gnome-icon-theme-symbolic
       grub-pc
       initramfs-tools
-      inkscape
       irqbalance
-      keepassx
       kernel-package
-      libgl1-mesa-dri
-      libreoffice-style-tango
-      libreoffice-writer
       libsasl2-modules
-      lightdm
       linux-image-amd64
       mutt
       openssh-client
-      pavucontrol
-      pepperflashplugin-nonfree
-      policykit-1
-      pulseaudio
       screen
-      ttf-mscorefonts-installer
+      unzip
       vim-nox
       whois
-      wireless-tools
-      wpasupplicant
-      x11-utils
-      xfce4-battery-plugin
-      xfce4-panel
-      xfce4-pulseaudio-plugin
-      xfce4-screenshooter
-      xfce4-session
-      xfdesktop4
-      xfonts-100dpi
-      xfonts-scalable
-      xfonts-terminus
-      xfonts-terminus-oblique
-      xfwm4
-      xkb-data
-      x11-xkb-utils
-      x11-xserver-utils
-      xserver-xorg-core
-      xserver-xorg-input-libinput
-      xserver-xorg-input-multitouch
-      xterm
     "
   ;;
 
   vps)
     packages="
-      $packages
+      $base_packages
     "
   ;;
 
@@ -184,8 +203,8 @@ cat << EOF > $target/etc/apt/sources.list
 deb $mirror $suite $components
 EOF
 echo 'APT::Install-Recommends "0";' > $target/etc/apt/apt.conf.d/01recommends
-chroot $target apt-get update
-chroot $target apt-get dist-upgrade
+chroot $target apt update
+chroot $target apt dist-upgrade
 
 msg "Configuring settings..."
 chroot $target dpkg-reconfigure locales
@@ -193,7 +212,43 @@ chroot $target dpkg-reconfigure debconf
 chroot $target dpkg-reconfigure tzdata
 
 msg "Installing packages..."
-chroot $target apt-get install $packages
+chroot $target apt install $packages
+
+msg "Installing Dropbox..."
+case "$1" in
+  desktop)
+    cat << EOF > $target/etc/apt/sources.list.d/dropbox.list
+deb [arch=i386,amd64] http://linux.dropbox.com/debian sid main
+EOF
+    chroot $target apt update
+    chroot $target apt install dropbox
+  ;;
+  laptop)
+    cat << EOF > $target/etc/apt/sources.list.d/dropbox.list
+deb [arch=i386,amd64] http://linux.dropbox.com/debian sid main
+EOF
+    chroot $target apt update
+    chroot $target apt install dropbox
+  ;;
+esac
+
+msg "Configuring touchpad..."
+case "$1" in
+  laptop)
+    mkdir -p $target/etc/X11/xorg.conf.d
+    cat << EOF > $target/etc/X11/xorg.conf.d/30-touchpad.conf
+Section "InputClass"
+        Identifier "touchpad"
+        MatchProduct "DLL0665:01 06CB:76AD Touchpad"
+        Driver "libinput"
+        Option "Tapping" "on"
+        Option "AccelSpeed" "0.5"
+EndSection
+EOF
+    chroot $target apt update
+    chroot $target apt install dropbox
+  ;;
+esac
 
 msg "Configuring network..."
 case "$1" in
@@ -206,9 +261,9 @@ EOF
   laptop)
     read -p "WLAN SSID: " wpa_ssid
     read -p "WLAN Password: " wpa_psk
-    cat << EOF > $target/etc/network/interfaces.d/wlp3s0
-auto wlp3s0
-iface wlp3s0 inet dhcp
+    cat << EOF > $target/etc/network/interfaces.d/wlp2s0
+auto wlp2s0
+iface wlp2s0 inet dhcp
   wpa-ssid $wpa_ssid
   wpa-psk $wpa_psk
 EOF

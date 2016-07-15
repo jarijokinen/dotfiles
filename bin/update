@@ -7,7 +7,8 @@ su -c 'apt-get update; apt-get dist-upgrade'
 
 if [[ -e $HOME/.rvm ]]; then
   echo 'Updating RVM...'
-  rvm get stable
+  update_rvm
+  echo 'Updating RubyGems...'
   gem update --system
   gem update
 fi
