@@ -29,7 +29,8 @@ if [[ $package_version != $installed_version ]]; then
   cd $src_path/linux-$package_version
   cp /boot/config-`uname -r` ./.config
   make silentoldconfig
-  make-kpkg -j3 --rootcmd fakeroot --revision 1 --initrd kernel_image
+  core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
+  make-kpkg -j $core_count --rootcmd fakeroot --revision 1 --initrd kernel_image
 fi
 
 exit 0
