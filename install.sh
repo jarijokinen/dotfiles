@@ -19,6 +19,7 @@ dotfiles=(
   profile
   railsrc
   screenrc
+  themes/axiomd
   vim
   vimrc
   Xresources
