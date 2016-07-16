@@ -25,6 +25,7 @@ msg() { echo "$1"; }
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 mkdir -p $HOME/.config/xfce4/xfconf
+mkdir -p $HOME/.themes
 
 for dotfile in ${dotfiles[@]}; do
   src="$script_path/$dotfile"

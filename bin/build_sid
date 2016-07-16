@@ -30,9 +30,11 @@ x_packages="
   inkscape
   keepassx
   libgl1-mesa-dri
+  libpango1.0-0
   libreoffice-style-tango
   libreoffice-writer
   lightdm
+  lsb-release
   pavucontrol
   pepperflashplugin-nonfree
   policykit-1
@@ -182,6 +184,9 @@ mirror="http://ftp.debian.org/debian"
 image_version=`date +"%Y-%m-%d-%s"`
 target="/root/$suite-image-$image_version"
 
+dropbox_package_url="https://www.dropbox.com/download?dl=packages/debian/\
+dropbox_2015.10.28_amd64.deb"
+
 export LANG="C.UTF-8"
 
 msg() { echo "$1"; }
@@ -220,18 +225,12 @@ chroot $target apt install $packages
 msg "Installing Dropbox..."
 case "$1" in
   desktop)
-    cat << EOF > $target/etc/apt/sources.list.d/dropbox.list
-deb [arch=i386,amd64] http://linux.dropbox.com/debian sid main
-EOF
-    chroot $target apt update
-    chroot $target apt install dropbox
+    wget -O $target/tmp/dropbox.deb $dropbox_package_url
+    chroot $target dpkg -i /tmp/dropbox.deb
   ;;
   laptop)
-    cat << EOF > $target/etc/apt/sources.list.d/dropbox.list
-deb [arch=i386,amd64] http://linux.dropbox.com/debian sid main
-EOF
-    chroot $target apt update
-    chroot $target apt install dropbox
+    wget -O $target/tmp/dropbox.deb $dropbox_package_url
+    chroot $target dpkg -i /tmp/dropbox.deb
   ;;
 esac
 
