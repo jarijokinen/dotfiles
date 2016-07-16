@@ -83,6 +83,7 @@ rvm_packages="
 
 rails_packages="
   libgmp-dev
+  libsqlite3-dev
   zlib1g-dev
 "
 
