@@ -116,6 +116,7 @@ case "$1" in
       console-setup
       curl
       dnsutils
+      fakeroot
       git
       grub-pc
       initramfs-tools
@@ -144,6 +145,7 @@ case "$1" in
       console-setup
       curl
       dnsutils
+      fakeroot
       git
       grub-pc
       initramfs-tools
