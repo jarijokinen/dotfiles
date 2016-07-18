@@ -83,6 +83,11 @@ rvm_packages="
   sqlite3
 "
 
+gcc_packages="
+  gcc
+  make
+"
+
 rails_packages="
   libgmp-dev
   libsqlite3-dev
@@ -90,6 +95,7 @@ rails_packages="
 "
 
 nginx_packages="
+  certbot
   libpcre3-dev
   libssl-dev
 "
@@ -100,16 +106,18 @@ php_packages="
   zlib1g-dev
 "
 
-php_wordpress_packages="
+wordpress_packages="
   libjpeg-dev
   libmcrypt-dev
   libpng-dev
+  mariadb-server
 "
 
 case "$1" in
   desktop)
     packages="
       $base_packages
+      $gcc_packages
       $rvm_packages
       $rails_packages
       $x_packages
@@ -138,6 +146,7 @@ case "$1" in
   laptop)
     packages="
       $base_packages
+      $gcc_packages
       $rvm_packages
       $rails_packages
       $x_packages
@@ -164,15 +173,29 @@ case "$1" in
     "
   ;;
 
-  vps)
+  upcloud_wordpress)
     packages="
       $base_packages
+      $gcc_packages
+      $nginx_packages
+      $php_packages
+      $wordpress_packages
+      console-setup
+      cron
+      curl
+      git
+      grub-pc
+      initramfs-tools
+      linux-image-amd64
+      openssh-server
+      postfix
+      vim-nox
     "
   ;;
 
   *)
     echo "Usage: build_sid PROFILE"
-    echo "Available profiles: desktop laptop vps"
+    echo "Available profiles: desktop laptop upcloud_wordpress"
     exit -1
   ;;
 esac
@@ -222,21 +245,22 @@ chroot $target dpkg-reconfigure tzdata
 msg "Installing packages..."
 chroot $target apt install $packages
 
-msg "Installing Dropbox..."
 case "$1" in
   desktop)
+    msg "Installing Dropbox..."
     wget -O $target/tmp/dropbox.deb $dropbox_package_url
     chroot $target dpkg -i /tmp/dropbox.deb
   ;;
   laptop)
+    msg "Installing Dropbox..."
     wget -O $target/tmp/dropbox.deb $dropbox_package_url
     chroot $target dpkg -i /tmp/dropbox.deb
   ;;
 esac
 
-msg "Configuring touchpad..."
 case "$1" in
   laptop)
+    msg "Configuring touchpad..."
     mkdir -p $target/etc/X11/xorg.conf.d
     cat << EOF > $target/etc/X11/xorg.conf.d/30-touchpad.conf
 Section "InputClass"
@@ -268,6 +292,20 @@ auto wlp2s0
 iface wlp2s0 inet dhcp
   wpa-ssid $wpa_ssid
   wpa-psk $wpa_psk
+EOF
+  ;;
+  upcloud_wordpress)
+    cat << EOF > $target/etc/network/interfaces.d/ens16
+auto ens16
+iface ens16 inet dhcp
+EOF
+    cat << EOF > $target/etc/network/interfaces.d/ens17
+auto ens17
+iface ens17 inet dhcp
+EOF
+    cat << EOF > $target/etc/network/interfaces.d/ens18
+auto ens18
+iface ens18 inet6 dhcp
 EOF
   ;;
 esac

@@ -6,5 +6,6 @@
       <property name="Rate" type="int" value="75"/>
       <property name="Delay" type="int" value="322"/>
     </property>
+    <property name="Numlock" type="bool" value="false"/>
   </property>
 </channel>
