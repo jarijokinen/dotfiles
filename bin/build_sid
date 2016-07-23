@@ -310,6 +310,9 @@ EOF
   ;;
 esac
 
+read -p "Hostname: " host_name
+echo "$host_name" > $target/etc/hostname
+
 msg "Configuring grub..."
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
 chroot $target update-grub
