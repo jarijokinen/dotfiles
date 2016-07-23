@@ -286,33 +286,33 @@ esac
 msg "Configuring network..."
 case "$1" in
   desktop)
-    cat << EOF > $target/etc/network/interfaces.d/enp3s0
-auto enp3s0
-iface enp3s0 inet dhcp
+    cat << EOF > $target/etc/network/interfaces.d/eth0
+auto eth0
+iface eth0 inet dhcp
 EOF
   ;;
   laptop)
     read -p "WLAN SSID: " wpa_ssid
     read -p "WLAN Password: " wpa_psk
-    cat << EOF > $target/etc/network/interfaces.d/wlp2s0
-auto wlp2s0
-iface wlp2s0 inet dhcp
+    cat << EOF > $target/etc/network/interfaces.d/wlan0
+auto wlan0
+iface wlan0 inet dhcp
   wpa-ssid $wpa_ssid
   wpa-psk $wpa_psk
 EOF
   ;;
   upcloud_wordpress)
-    cat << EOF > $target/etc/network/interfaces.d/ens16
-auto ens16
-iface ens16 inet dhcp
+    cat << EOF > $target/etc/network/interfaces.d/eth0
+auto eth0
+iface eth0 inet dhcp
 EOF
-    cat << EOF > $target/etc/network/interfaces.d/ens17
-auto ens17
-iface ens17 inet dhcp
+    cat << EOF > $target/etc/network/interfaces.d/eth1
+auto eth1
+iface eth1 inet dhcp
 EOF
-    cat << EOF > $target/etc/network/interfaces.d/ens18
-auto ens18
-iface ens18 inet6 dhcp
+    cat << EOF > $target/etc/network/interfaces.d/eth2
+auto eth2
+iface eth2 inet6 dhcp
 EOF
   ;;
 esac
