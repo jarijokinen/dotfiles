@@ -121,6 +121,9 @@ case "$1" in
       $rvm_packages
       $rails_packages
       $x_packages
+      $nginx_packages
+      $php_packages
+      $wordpress_packages
       anacron
       archivemail
       console-setup
@@ -151,6 +154,9 @@ case "$1" in
       $rails_packages
       $x_packages
       $wifi_packages
+      $nginx_packages
+      $php_packages
+      $wordpress_packages
       anacron
       archivemail
       console-setup
