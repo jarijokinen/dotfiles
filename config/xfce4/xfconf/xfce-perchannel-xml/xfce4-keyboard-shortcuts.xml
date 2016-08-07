@@ -30,6 +30,9 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="chromium --start-maximized"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="gimp"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;7" type="string" value="keepassx &quot;/home/jari/Dropbox/Shared/2017.kdbx&quot;"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;6" type="string" value="keepassx &quot;/home/jari/Dropbox/Shared/2016.kdbx&quot;"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;3" type="string" value="keepassx &quot;/home/jari/Dropbox/Shared/2013.kdbx&quot;"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
