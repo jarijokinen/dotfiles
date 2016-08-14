@@ -19,3 +19,6 @@
 [submodule "vim/bundle/ultisnips"]
 	path = vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/bundle/pug"]
+	path = vim/bundle/pug
+	url = https://github.com/digitaltoad/vim-pug
