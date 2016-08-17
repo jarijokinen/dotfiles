@@ -69,6 +69,8 @@ rvm_packages="
   autoconf
   automake
   bison
+  bzip2 
+  g++ 
   gawk
   libffi-dev
   libgdbm-dev
@@ -78,6 +80,7 @@ rvm_packages="
   libsqlite3-dev
   libtool
   libyaml-dev
+  patch 
   pkg-config 
   sqlite3
 "
@@ -128,6 +131,7 @@ case "$1" in
       archivemail
       console-setup
       curl
+      debootstrap
       dnsutils
       fakeroot
       git
@@ -158,6 +162,7 @@ case "$1" in
       archivemail
       console-setup
       curl
+      debootstrap
       dnsutils
       fakeroot
       git
@@ -173,6 +178,26 @@ case "$1" in
       unzip
       vim-nox
       whois
+    "
+  ;;
+  
+  upcloud_rails)
+    packages="
+      $base_packages
+      $gcc_packages
+      $nginx_packages
+      $rvm_packages
+      $rails_packages
+      console-setup
+      cron
+      curl
+      git
+      grub-pc
+      initramfs-tools
+      linux-image-amd64
+      openssh-server
+      postfix
+      vim-nox
     "
   ;;
 
@@ -195,10 +220,10 @@ case "$1" in
       vim-nox
     "
   ;;
-
+  
   *)
     echo "Usage: build_jessie PROFILE"
-    echo "Available profiles: desktop laptop upcloud_wordpress"
+    echo "Available profiles: desktop laptop upcloud_rails upcloud_wordpress"
     exit -1
   ;;
 esac
@@ -299,6 +324,20 @@ auto wlan0
 iface wlan0 inet dhcp
   wpa-ssid $wpa_ssid
   wpa-psk $wpa_psk
+EOF
+  ;;
+  upcloud_rails)
+    cat << EOF > $target/etc/network/interfaces.d/eth0
+auto eth0
+iface eth0 inet dhcp
+EOF
+    cat << EOF > $target/etc/network/interfaces.d/eth1
+auto eth1
+iface eth1 inet dhcp
+EOF
+    cat << EOF > $target/etc/network/interfaces.d/eth2
+auto eth2
+iface eth2 inet6 dhcp
 EOF
   ;;
   upcloud_wordpress)

@@ -21,4 +21,4 @@
 	url = https://github.com/SirVer/ultisnips.git
 [submodule "vim/bundle/pug"]
 	path = vim/bundle/pug
-	url = https://github.com/digitaltoad/vim-pug.git
+	url = https://github.com/digitaltoad/vim-pug

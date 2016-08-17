@@ -1,4 +1,11 @@
 bin/bower
+bin/composer
+bin/express
 bin/grunt
+bin/gulp
 bin/node
 bin/npm
+bin/phar
+bin/php
+bin/sails
+bin/yo
