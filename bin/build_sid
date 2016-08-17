@@ -327,7 +327,7 @@ iface ens17 inet dhcp
 EOF
     cat << EOF > $target/etc/network/interfaces.d/ens18
 auto ens18
-iface ens18 inet6 dhcp
+iface ens18 inet6 auto
 EOF
   ;;
 esac
