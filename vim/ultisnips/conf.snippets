@@ -32,7 +32,7 @@ http {
 
 	server {
 		listen 80;
-		server_name $2;
+		server_name $2 www.$2;
 		return 301 https://$server_name$request_uri;
 	}
 
@@ -93,6 +93,7 @@ http {
 				return 404;
 			}
 			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+			fastcgi_hide_header Link;
 		}
 
 		location ~ /purge(/.*) {
