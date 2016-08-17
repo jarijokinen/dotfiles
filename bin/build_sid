@@ -234,6 +234,12 @@ mount --bind --make-rslave /dev $target/dev
 mount --bind --make-rslave /sys $target/sys
 mount --bind --make-rslave /proc $target/proc
 
+read -p "Hostname: " host_name
+echo "$host_name" > $target/etc/hostname
+
+msg "Setting up root password..."
+chroot $target passwd
+
 msg "Configuring apt..."
 components=${components//,/ }
 cat << EOF > $target/etc/apt/sources.list
@@ -316,15 +322,9 @@ EOF
   ;;
 esac
 
-read -p "Hostname: " host_name
-echo "$host_name" > $target/etc/hostname
-
 msg "Configuring grub..."
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
 chroot $target update-grub
-
-msg "Setting up root password..."
-chroot $target passwd
 
 msg "Unmounting devices..."
 umount -l $target/dev
