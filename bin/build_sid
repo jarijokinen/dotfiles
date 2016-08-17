@@ -186,6 +186,7 @@ case "$1" in
       $nginx_packages
       $php_packages
       $wordpress_packages
+      acpi-support-base
       console-setup
       cron
       curl
@@ -235,7 +236,7 @@ mount --bind --make-rslave /sys $target/sys
 mount --bind --make-rslave /proc $target/proc
 
 read -p "Hostname: " host_name
-chroot $target hostnamectl set-hostname $host_name
+echo "$host_name" > $target/etc/hostname
 
 msg "Setting up root password..."
 chroot $target passwd
@@ -244,6 +245,7 @@ msg "Setting up a regular user account..."
 read -p "Username: " user_name
 chroot $target adduser $user_name
 if [[ -f "/home/$user_name/.ssh/id_rsa.pub" ]]; then
+  mkdir -p $target/home/$user_name/.ssh
   cp -pr /home/$user_name/.ssh/id_rsa.pub \
     $target/home/$user_name/.ssh/authorized_keys
 fi
