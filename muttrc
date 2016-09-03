@@ -31,6 +31,9 @@ set use_envelope_from=yes
 ignore headers *
 unignore headers from to subject date cc
 
+# Archive
+macro index,pager A "<enter-command>set noconfirmappend\n<enter-command>set delete=yes\n<save-message>=Archive\n<sync-mailbox><enter-command>set confirmappend=yes\n<enter-command>set delete=ask-yes\n"
+
 # Trash
 set noconfirmappend
 folder-hook . 'macro index d s+Trash\n'
