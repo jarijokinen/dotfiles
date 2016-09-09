@@ -57,3 +57,6 @@ core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
 alias make="make -j $core_count"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+export N_PREFIX="$HOME/n"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
