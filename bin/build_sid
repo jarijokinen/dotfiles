@@ -176,6 +176,7 @@ case "$1" in
       unzip
       vim-nox
       whois
+      xfce4-battery-plugin
       xserver-xorg-input-libinput
     "
   ;;
