@@ -13,6 +13,7 @@ set mail_check=120
 set mask=!^[a-z]
 set mbox_type=Maildir
 set move=no
+set noconfirmappend
 set postpone=ask-no
 set postponed=+Drafts
 set print_command=a2ps
@@ -32,10 +33,9 @@ ignore headers *
 unignore headers from to subject date cc
 
 # Archive
-macro index,pager A "<enter-command>set noconfirmappend\n<enter-command>set delete=yes\n<save-message>=Archive\n<sync-mailbox><enter-command>set confirmappend=yes\n<enter-command>set delete=ask-yes\n"
+macro index,pager A "<enter-command>set delete=yes\n<save-message>=Archive\n<sync-mailbox><enter-command>set delete=ask-yes\n"
 
 # Trash
-set noconfirmappend
 folder-hook . 'macro index d s+Trash\n'
 folder-hook trash 'bind index d delete-message'
 folder-hook Trash 'bind index d delete-message'
