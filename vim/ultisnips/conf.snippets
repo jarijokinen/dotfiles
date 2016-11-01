@@ -1,9 +1,7 @@
 snippet nginx
 user $1;
-worker_processes 1;
 
 events {
-	worker_connections 1024;
 }
 
 http {
@@ -11,9 +9,7 @@ http {
 	default_type application/octet-stream;
 	index index.php;
 	charset utf-8;
-	keepalive_timeout 65;
 	sendfile on;
-	tcp_nopush off;
 	server_tokens off;
 
 	fastcgi_cache_path /var/run/nginx-cache levels=1:2
@@ -39,9 +35,10 @@ http {
 	server {
 		listen 443 ssl;
 		server_name $2;
-		root /home/$1/websites/$2;
+		root /home/$1/wordpress;
 
 		add_header Strict-Transport-Security "max-age=31536000";
+
 		ssl_certificate /etc/letsencrypt/live/$2/fullchain.pem;
 		ssl_certificate_key /etc/letsencrypt/live/$2/privkey.pem;
 		ssl_session_cache shared:SSL:1m;
@@ -50,7 +47,6 @@ http {
 		ssl_prefer_server_ciphers on;
 		
 		gzip on;
-		gzip_min_length 1000;
 		gzip_proxied expired no-cache no-store private auth;
 		gzip_types text/plain text/css application/javascript;
 
