@@ -1,0 +1,147 @@
+#!/bin/bash
+
+set -e
+
+pre_install_packages="
+  locales
+"
+
+exclude_packages="
+  apt-utils
+  blends-tasks
+  bsdmainutils
+  debconf-i18n
+  nano
+  tasksel
+  tasksel-data
+  vim-tiny
+"
+
+base_packages="
+"
+
+backport_packages="
+  certbot
+  libssl-dev
+"
+
+case "$1" in
+  upcloud)
+    packages="
+      $base_packages
+      acpi-support-base
+      console-setup
+      cron
+      curl
+      git
+      grub-pc
+      initramfs-tools
+      linux-image-amd64
+      openssh-server
+      postfix
+      vim-nox
+    "
+  ;;
+  
+  *)
+    echo "Usage: build_jessie PROFILE"
+    echo "Available profiles: upcloud"
+    exit -1
+  ;;
+esac
+
+arch="amd64"
+suite="jessie"
+components="main,contrib,non-free"
+mirror="http://ftp.debian.org/debian"
+image_version=`date +"%Y-%m-%d-%s"`
+target="$HOME/$suite-image-$image_version"
+
+export LANG="C.UTF-8"
+
+msg() { echo "$1"; }
+err() { msg "E: $1"; exit 1; }
+
+[[ $EUID -eq 0 ]] || err "this script must be run as root."
+
+msg "Downloading the system..."
+pre_install_packages=$(echo $pre_install_packages | tr ' ' ,)
+exclude_packages=$(echo $exclude_packages | tr ' ' ,)
+debootstrap --arch=$arch --components=$components --exclude=$exclude_packages \
+  --include=$pre_install_packages $suite $target $mirror
+
+msg "Mounting devices..."
+mount --bind --make-rslave /dev $target/dev
+mount --bind --make-rslave /sys $target/sys
+mount --bind --make-rslave /proc $target/proc
+
+read -p "Hostname: " host_name
+echo "$host_name" > $target/etc/hostname
+
+msg "Setting up root password..."
+chroot $target passwd
+
+msg "Setting up a regular user account..."
+read -p "Username: " user_name
+chroot $target adduser --disabled-password $user_name
+if [[ -f "/home/$user_name/.ssh/id_rsa.pub" ]]; then
+  mkdir -p $target/home/$user_name/.ssh
+  cp -pr /home/$user_name/.ssh/id_rsa.pub \
+    $target/home/$user_name/.ssh/authorized_keys
+  chown -R $user_name:$user_name $target/home/$user_name/.ssh
+  chmod 700 $target/home/$user_name/.ssh
+  chmod 600 $target/home/$user_name/.ssh/authorized_keys
+fi
+
+msg "Configuring apt..."
+components=${components//,/ }
+cat << EOF > $target/etc/apt/sources.list
+deb $mirror $suite $components
+deb $mirror $suite-updates $components
+deb $mirror $suite-backports $components
+deb http://security.debian.org/ $suite/updates $components
+EOF
+echo 'APT::Install-Recommends "0";' > $target/etc/apt/apt.conf.d/01recommends
+chroot $target apt update
+chroot $target apt dist-upgrade
+
+msg "Configuring settings..."
+chroot $target dpkg-reconfigure locales
+chroot $target dpkg-reconfigure debconf
+chroot $target dpkg-reconfigure tzdata
+
+msg "Installing packages..."
+chroot $target apt -t ${suite}-backports install $backport_packages
+chroot $target apt install $packages
+
+msg "Configuring network..."
+case "$1" in
+  upcloud)
+    cat << EOF > $target/etc/network/interfaces.d/eth0
+auto eth0
+iface eth0 inet dhcp
+EOF
+    cat << EOF > $target/etc/network/interfaces.d/eth1
+auto eth1
+iface eth1 inet dhcp
+EOF
+    cat << EOF > $target/etc/network/interfaces.d/eth2
+auto eth2
+iface eth2 inet6 dhcp
+EOF
+  ;;
+esac
+
+msg "Configuring grub..."
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
+chroot $target update-grub
+
+msg "Unmounting devices..."
+umount -l $target/dev
+umount -l $target/sys
+umount -l $target/proc
+
+msg "Removing packages..."
+rm -rf $target/var/cache/apt/archives/*.deb
+
+exit 0

@@ -16,6 +16,9 @@ if [[ -d "$package_path" ]]; then
   exit 0
 fi
 
+echo "Checking required packages..."
+su -c "apt install libjpeg-dev libmcrypt-dev libpng-dev mariadb-server"
+
 echo "Installing..."
 [[ -d "$package_path" ]] || mkdir -p $package_path
 wget $package_url -O $src_path/wordpress.tar.gz

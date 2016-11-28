@@ -34,6 +34,9 @@ else
     --with-http_gzip_static_module"
   echo "Not installed"
   
+  echo "Checking required packages..."
+  su -c "apt install gcc make libpcre3-dev libssl-dev"
+  
   if [[ $wordpress_support == 1 ]]; then
     mod_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
     mod_package_archive=$(echo ${mod_package_url##*/})
