@@ -17,7 +17,7 @@ if [[ -d "$package_path" ]]; then
 fi
 
 echo "Checking required packages..."
-su -c "apt install libjpeg-dev libmcrypt-dev libpng-dev mariadb-server"
+su -c "apt install mariadb-server"
 
 echo "Installing..."
 [[ -d "$package_path" ]] || mkdir -p $package_path
