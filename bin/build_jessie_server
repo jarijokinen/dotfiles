@@ -136,6 +136,12 @@ msg "Configuring grub..."
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
 chroot $target update-grub
 
+msg "Configuring ssh..."
+sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' $target/etc/ssh/sshd_config
+sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/' \
+  $target/etc/ssh/sshd_config
+echo "AllowUsers $user_name" >> $target/etc/ssh/sshd_config
+
 msg "Unmounting devices..."
 umount -l $target/dev
 umount -l $target/sys
