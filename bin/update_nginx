@@ -42,12 +42,18 @@ else
   configure_options="$configure_options \
     --add-module=$src_path/ngx_pagespeed-$nps_version-beta"
   
+<<<<<<< HEAD
   psol_url="https://dl.google.com/dl/page-speed/psol/${nps_version}-x64.tar.gz"
   psol_archive=$(echo ${psol_url##*/})
   wget $psol_url -O $src_path/ngx_pagespeed-$nps_version-beta/$psol_archive
   tar -xf $src_path/ngx_pagespeed-$nps_version-beta/$psol_archive \
     -C $src_path/ngx_pagespeed-$nps_version-beta
 
+=======
+  echo "Checking required packages..."
+  su -c "apt install gcc make libpcre3-dev libssl-dev"
+  
+>>>>>>> b7bf019e00f5e0c01902c728028cb56ea50ddbb2
   if [[ $wordpress_support == 1 ]]; then
     mod_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
     mod_package_archive=$(echo ${mod_package_url##*/})

@@ -54,12 +54,27 @@ ipt -A INPUT -p tcp --sport 9418 -m state --state ESTABLISHED -j ACCEPT
 ipt -A OUTPUT -p tcp --dport 11371 -m state --state NEW,ESTABLISHED -j ACCEPT
 ipt -A INPUT -p tcp --sport 11371 -m state --state ESTABLISHED -j ACCEPT
 
+# SMTP client
+
+# ipt -A OUTPUT -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+# ipt -A INPUT -p tcp --sport 25 -m state --state ESTABLISHED -j ACCEPT
+
 ## SERVERS
 
 # SSH server
 
 ipt -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 ipt -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+# HTTP server
+
+# ipt -A INPUT -p tcp --dport 80 -j ACCEPT
+# ipt -A OUTPUT -p tcp --sport 80 -j ACCEPT
+
+# HTTPS server
+
+# ipt -A INPUT -p tcp --dport 443 -j ACCEPT
+# ipt -A OUTPUT -p tcp --sport 443 -j ACCEPT
 
 # Logging
 

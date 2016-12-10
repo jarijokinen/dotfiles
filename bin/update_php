@@ -28,6 +28,10 @@ if [[ -x "$package_path/sbin/php-fpm" ]]; then
 else
   echo "Not installed"
   installed=0
+  
+  echo "Checking required packages..."
+  su -c "apt install gcc make libcurl4-openssl-dev libxml2-dev zlib1g-dev \
+    libjpeg-dev libmcrypt-dev libpng-dev"
 
   configure_options="
     --prefix=$package_path
