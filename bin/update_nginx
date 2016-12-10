@@ -33,14 +33,27 @@ else
   configure_options="--prefix=$package_path --with-http_ssl_module \
     --with-http_gzip_static_module"
   echo "Not installed"
+
+  nps_version='1.12.34.1'
+  mod_package_url="https://github.com/pagespeed/ngx_pagespeed/archive/v${nps_version}-beta.tar.gz"
+  mod_package_archive="v${nps_version}-beta.tar.gz"
+  wget $mod_package_url -O $src_path/$mod_package_archive
+  tar -xf $src_path/$mod_package_archive -C $src_path
+  configure_options="$configure_options \
+    --add-module=$src_path/ngx_pagespeed-$nps_version-beta"
   
+  psol_url="https://dl.google.com/dl/page-speed/psol/${nps_version}-x64.tar.gz"
+  psol_archive=$(echo ${psol_url##*/})
+  wget $psol_url -O $src_path/ngx_pagespeed-$nps_version-beta/$psol_archive
+  tar -xf $src_path/ngx_pagespeed-$nps_version-beta/$psol_archive \
+    -C $src_path/ngx_pagespeed-$nps_version-beta
+
   if [[ $wordpress_support == 1 ]]; then
     mod_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
     mod_package_archive=$(echo ${mod_package_url##*/})
     wget $mod_package_url -O $src_path/$mod_package_archive
     tar -xf $src_path/$mod_package_archive -C $src_path
-    configure_options="--prefix=$package_path --with-http_ssl_module \
-      --with-http_gzip_static_module \
+    configure_options="$configure_options \
       --add-module=$src_path/ngx_cache_purge-2.3"
   fi
 fi
