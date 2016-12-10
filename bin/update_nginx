@@ -49,7 +49,7 @@ else
     -C $src_path/ngx_pagespeed-$nps_version-beta
 
   echo "Checking required packages..."
-  su -c "apt install gcc make libpcre3-dev libssl-dev"
+  su -c "apt install gcc make libpcre3-dev libssl-dev g++"
   
   if [[ $wordpress_support == 1 ]]; then
     mod_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
