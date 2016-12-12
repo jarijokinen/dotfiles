@@ -44,7 +44,7 @@ case "$1" in
   ;;
   
   *)
-    echo "Usage: build_jessie PROFILE"
+    echo "Usage: build_jessie_server PROFILE"
     echo "Available profiles: upcloud"
     exit -1
   ;;

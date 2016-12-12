@@ -1,0 +1,217 @@
+#!/bin/bash
+
+set -e
+
+exclude_packages="
+  apt-utils
+  blends-tasks
+  bsdmainutils
+  debconf-i18n
+  nano
+  tasksel
+  tasksel-data
+  vim-tiny
+"
+
+pre_install_packages="
+  locales
+"
+
+base_packages="
+  acpi-support-base
+  anacron
+  archivemail
+  console-setup
+  curl
+  dnsutils
+  fakeroot
+  git
+  grub-pc
+  initramfs-tools
+  irqbalance
+  libsasl2-modules
+  linux-image-amd64
+  mutt
+  openssh-client
+  screen
+  unzip
+  vim-nox
+  whois
+"
+
+x_packages="
+  evince
+  geeqie
+  gimp
+  gnome-icon-theme-symbolic
+  google-chrome-stable
+  inkscape
+  keepassx
+  libgl1-mesa-dri
+  libpango1.0-0
+  libreoffice-style-tango
+  libreoffice-writer
+  lightdm
+  lsb-release
+  pavucontrol
+  policykit-1
+  pulseaudio
+  ttf-mscorefonts-installer
+  x11-utils
+  x11-xkb-utils
+  x11-xserver-utils
+  xfce4-panel
+  xfce4-pulseaudio-plugin
+  xfce4-screenshooter
+  xfce4-session
+  xfdesktop4
+  xfonts-100dpi
+  xfonts-scalable
+  xfonts-terminus
+  xfonts-terminus-oblique
+  xfwm4
+  xkb-data
+  xserver-xorg-core
+  xserver-xorg-input-evdev
+  xterm
+"
+
+case "$1" in
+  haswell)
+    packages="
+      $base_packages
+      $x_packages
+    "
+  ;;
+
+  dell)
+    packages="
+      $base_packages
+      $x_packages
+      firmware-iwlwifi
+      wireless-tools
+      wpasupplicant
+      xfce4-battery-plugin
+      xserver-xorg-input-libinput
+    "
+  ;;
+
+  *)
+    echo "Usage: build_sid_desktop PROFILE"
+    echo "Available profiles: haswell dell"
+    exit -1
+  ;;
+esac
+
+arch="amd64"
+suite="sid"
+components="main,contrib,non-free"
+mirror="http://ftp.debian.org/debian"
+image_version=`date +"%Y-%m-%d-%s"`
+target="$HOME/$suite-image-$image_version"
+
+dropbox_package_url="https://www.dropbox.com/download?dl=packages/debian/\
+dropbox_2015.10.28_amd64.deb"
+
+export LANG="C.UTF-8"
+
+msg() { echo "$1"; }
+err() { msg "E: $1"; exit 1; }
+
+[[ $EUID -eq 0 ]] || err "this script must be run as root."
+
+msg "Downloading the system..."
+pre_install_packages=$(echo $pre_install_packages | tr ' ' ,)
+exclude_packages=$(echo $exclude_packages | tr ' ' ,)
+debootstrap --arch=$arch --components=$components --exclude=$exclude_packages \
+  --include=$pre_install_packages $suite $target $mirror
+
+msg "Mounting devices..."
+mount --bind --make-rslave /dev $target/dev
+mount --bind --make-rslave /sys $target/sys
+mount --bind --make-rslave /proc $target/proc
+
+read -p "Hostname: " host_name
+echo "$host_name" > $target/etc/hostname
+
+msg "Setting up root password..."
+chroot $target passwd
+
+msg "Setting up a regular user account..."
+read -p "Username: " user_name
+chroot $target adduser $user_name
+
+msg "Configuring apt..."
+components=${components//,/ }
+cat << EOF > $target/etc/apt/sources.list
+deb $mirror $suite $components
+EOF
+echo 'APT::Install-Recommends "0";' > $target/etc/apt/apt.conf.d/01recommends
+echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' \
+  > $target/etc/apt/sources.list.d/google-chrome.list
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
+  | chroot $target apt-key add -
+chroot $target apt update
+chroot $target apt dist-upgrade
+
+msg "Configuring settings..."
+chroot $target dpkg-reconfigure locales
+chroot $target dpkg-reconfigure debconf
+chroot $target dpkg-reconfigure tzdata
+
+msg "Installing packages..."
+chroot $target apt install $packages
+
+msg "Installing Dropbox..."
+wget -O $target/tmp/dropbox.deb $dropbox_package_url
+chroot $target dpkg -i /tmp/dropbox.deb
+
+case "$1" in
+  dell)
+    msg "Configuring touchpad..."
+    mkdir -p $target/etc/X11/xorg.conf.d
+    cat << EOF > $target/etc/X11/xorg.conf.d/30-touchpad.conf
+Section "InputClass"
+        Identifier "touchpad"
+        MatchProduct "DLL0665:01 06CB:76AD Touchpad"
+        Driver "libinput"
+        Option "Tapping" "on"
+        Option "AccelSpeed" "0.5"
+EndSection
+EOF
+  ;;
+esac
+
+msg "Configuring network..."
+case "$1" in
+  haswell)
+    cat << EOF > $target/etc/network/interfaces.d/enp3s0
+auto enp3s0
+iface enp3s0 inet dhcp
+EOF
+  ;;
+  dell)
+    read -p "WLAN SSID: " wpa_ssid
+    read -p "WLAN Password: " wpa_psk
+    cat << EOF > $target/etc/network/interfaces.d/wlp2s0
+auto wlp2s0
+iface wlp2s0 inet dhcp
+  wpa-ssid $wpa_ssid
+  wpa-psk $wpa_psk
+EOF
+  ;;
+esac
+
+msg "Configuring grub..."
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/g' $target/etc/default/grub
+chroot $target update-grub
+
+msg "Unmounting devices..."
+umount -l $target/dev
+umount -l $target/sys
+umount -l $target/proc
+
+msg "Removing packages..."
+rm -rf $target/var/cache/apt/archives/*.deb
+
+exit 0
