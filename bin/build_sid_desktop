@@ -24,7 +24,6 @@ base_packages="
   console-setup
   curl
   dnsutils
-  fakeroot
   git
   grub-pc
   initramfs-tools
@@ -37,6 +36,7 @@ base_packages="
   unzip
   vim-nox
   whois
+  yarn
 "
 
 x_packages="
@@ -150,6 +150,10 @@ echo 'APT::Install-Recommends "0";' > $target/etc/apt/apt.conf.d/01recommends
 echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' \
   > $target/etc/apt/sources.list.d/google-chrome.list
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
+  | chroot $target apt-key add -
+echo 'deb http://dl.yarnpkg.com/debian/ stable main' \
+  > $target/etc/apt/sources.list.d/yarn.list
+wget -q -O - https://dl.yarnpkg.com/debian/pubkey.gpg \
   | chroot $target apt-key add -
 chroot $target apt update
 chroot $target apt dist-upgrade

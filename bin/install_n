@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+su -c "apt install curl gcc make"
+curl -L https://git.io/n-install | bash -s -- -n latest
+
+exit 0
