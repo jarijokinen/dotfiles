@@ -2,12 +2,8 @@
 
 set -e
 
-wordpress_support=0
-
-if [[ $1 == 'wordpress' ]]; then
-  wordpress_support=1
-fi
-
+required_packages='gcc make libcurl4-openssl-dev libxml2-dev zlib1g-dev \
+  libjpeg-dev libmcrypt-dev libpng-dev libssl-dev pkg-config'
 src_path=$HOME/src
 package_path=$HOME/php
 
@@ -19,7 +15,7 @@ package_archive=$(echo ${package_url##*/})
 package_version=$(echo $package_archive | cut -d . -f -3 | cut -d - -f 2)
 echo "Latest version is $package_version"
 
-if [[ -x "$package_path/sbin/php-fpm" ]]; then
+if [[ -x "$package_path/bin/php" ]]; then
   installed=1
   installed_version=$($package_path/sbin/php-fpm -v | head -1 | cut -d " " -f2)
   configure_options=$($package_path/bin/php -i | grep Configure | \
@@ -29,34 +25,22 @@ else
   echo "Not installed"
   installed=0
   
-  echo "Checking required packages..."
-  su -c "apt install gcc make libcurl4-openssl-dev libxml2-dev zlib1g-dev \
-    libjpeg-dev libmcrypt-dev libpng-dev"
+  echo "Install required packages..."
+  su -c "apt install $required_packages"
 
   configure_options="
     --prefix=$package_path
     --enable-fpm
+    --enable-mbstring
     --with-curl
+    --with-gd
+    --with-jpeg-dir=/usr/lib/x86_64-linux-gnu
+    --with-mcrypt
     --with-mysql-sock=/var/run/mysqld/mysqld.sock
     --with-mysqli
     --with-openssl
     --with-zlib
   "
-
-  if [[ $wordpress_support == 1 ]]; then
-    configure_options="
-      --prefix=$package_path
-      --enable-fpm
-      --enable-mbstring
-      --with-curl
-      --with-gd
-      --with-jpeg-dir=/usr/lib/x86_64-linux-gnu
-      --with-mcrypt
-      --with-mysql-sock=/var/run/mysqld/mysqld.sock
-      --with-mysqli
-      --with-zlib
-    "
-  fi
 fi
 
 if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
@@ -87,7 +71,7 @@ if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
   fi
 fi
 
-if [[ $installed == 1 ]]; then
+if [[ -x "$package_path/bin/php" ]]; then
   [[ -e $HOME/.bin/php ]]  || ln -s $package_path/bin/php $HOME/.bin/php
   [[ -e $HOME/.bin/phar ]] || ln -s $package_path/bin/phar $HOME/.bin/phar
 fi
