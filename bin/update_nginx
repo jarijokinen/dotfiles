@@ -1,13 +1,10 @@
 #!/bin/bash
 
 set -e
-
-if [[ $1 == 'wordpress' ]]; then
-  wordpress_support=1
-else
-  wordpress_support=0
-fi
-
+ 
+required_packages='gcc make g++ libcurl4-openssl-dev libxml2-dev zlib1g-dev \
+  libjpeg-dev libmcrypt-dev libpng-dev libssl-dev pkg-config libpcre3-dev'
+nps_version='1.12.34.1'
 src_path=$HOME/src
 package_path=$HOME/nginx
 
@@ -31,34 +28,32 @@ if [[ -x "$package_path/sbin/nginx" ]]; then
 else
   installed=0
   configure_options="--prefix=$package_path --with-http_ssl_module \
-    --with-http_gzip_static_module"
+    --with-http_gzip_static_module \
+    --add-module=$src_path/ngx_pagespeed-$nps_version-beta \
+    --add-module=$src_path/ngx_cache_purge-2.3"
   echo "Not installed"
-
-  nps_version='1.12.34.1'
-  mod_package_url="https://github.com/pagespeed/ngx_pagespeed/archive/v${nps_version}-beta.tar.gz"
-  mod_package_archive="v${nps_version}-beta.tar.gz"
-  wget $mod_package_url -O $src_path/$mod_package_archive
-  tar -xf $src_path/$mod_package_archive -C $src_path
-  configure_options="$configure_options \
-    --add-module=$src_path/ngx_pagespeed-$nps_version-beta"
   
+  echo "Install required packages..."
+  su -c "apt install $required_packages"
+
+  # Install ngx_pagespeed
+
+  nps_package_url="https://github.com/pagespeed/ngx_pagespeed/archive/v${nps_version}-beta.tar.gz"
+  nps_package_archive="v${nps_version}-beta.tar.gz"
+  wget $nps_package_url -O $src_path/$nps_package_archive
+  tar -xf $src_path/$nps_package_archive -C $src_path
   psol_url="https://dl.google.com/dl/page-speed/psol/${nps_version}-x64.tar.gz"
   psol_archive=$(echo ${psol_url##*/})
   wget $psol_url -O $src_path/ngx_pagespeed-$nps_version-beta/$psol_archive
   tar -xf $src_path/ngx_pagespeed-$nps_version-beta/$psol_archive \
     -C $src_path/ngx_pagespeed-$nps_version-beta
-
-  echo "Checking required packages..."
-  su -c "apt install gcc make libpcre3-dev libssl-dev g++"
   
-  if [[ $wordpress_support == 1 ]]; then
-    mod_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
-    mod_package_archive=$(echo ${mod_package_url##*/})
-    wget $mod_package_url -O $src_path/$mod_package_archive
-    tar -xf $src_path/$mod_package_archive -C $src_path
-    configure_options="$configure_options \
-      --add-module=$src_path/ngx_cache_purge-2.3"
-  fi
+  # Install ngx_cache_purge
+  
+  ngxc_package_url='http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz'
+  ngxc_package_archive=$(echo ${ngxc_package_url##*/})
+  wget $ngxc_package_url -O $src_path/$ngxc_package_archive
+  tar -xf $src_path/$ngxc_package_archive -C $src_path
 fi
 
 if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
