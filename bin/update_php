@@ -68,6 +68,8 @@ if [[ $installed == 0 ]] || [[ $package_version != $installed_version ]]; then
   if [[ ! -f "$package_path/etc/php-fpm.d/www.conf" ]]; then
     cp $package_path/etc/php-fpm.d/www.conf.default \
       $package_path/etc/php-fpm.d/www.conf
+		sed -i 's|^user =|;user =|' $package_path/etc/php-fpm.d/www.conf
+		sed -i 's|^group =|;group =|' $package_path/etc/php-fpm.d/www.conf
   fi
 fi
 
