@@ -2,12 +2,13 @@
 
 set -e
 
-$HOME/.bin/update_nginx wordpress
-$HOME/.bin/update_php wordpress
-
 src_path=$HOME/src
 package_path=$HOME/wordpress
 package_url="https://wordpress.org/latest.tar.gz"
+nginx_conf_url='https://raw.githubusercontent.com/jarijokinen/nginx-conf/master/conf/localhost_wordpress.conf'
+
+$HOME/.bin/update_nginx
+$HOME/.bin/update_php
 
 [[ -d "$src_path" ]] || mkdir -p $src_path
 
@@ -16,12 +17,17 @@ if [[ -d "$package_path" ]]; then
   exit 0
 fi
 
-echo "Checking required packages..."
+echo "Install required packages..."
 su -c "apt install mariadb-server"
 
 echo "Installing..."
 [[ -d "$package_path" ]] || mkdir -p $package_path
 wget $package_url -O $src_path/wordpress.tar.gz
 tar -xf $src_path/wordpress.tar.gz --strip-components=1 -C $package_path
+
+echo "Configuring Nginx..."
+wget $nginx_conf_url -O $HOME/nginx/conf/localhost_wordpress.conf
+cp $HOME/nginx/conf/nginx.conf $HOME/nginx/conf/nginx.conf.old
+echo 'include localhost_wordpress.conf;' > $HOME/nginx/conf/nginx.conf
 
 exit 0
