@@ -1,0 +1,6 @@
+#!/bin/bash
+
+$HOME/php/sbin/php-fpm
+$HOME/nginx/sbin/nginx
+
+exit 0
