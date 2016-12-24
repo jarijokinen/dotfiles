@@ -18,6 +18,17 @@ exclude_packages="
 "
 
 base_packages="
+  acpi-support-base
+  console-setup
+  cron
+  curl
+  git
+  grub-pc
+  initramfs-tools
+  linux-image-amd64
+  openssh-server
+  postfix
+  vim-nox
 "
 
 backport_packages="
@@ -26,26 +37,20 @@ backport_packages="
 "
 
 case "$1" in
+  hetzner)
+    packages="
+      $base_packages
+    "
+  ;;
   upcloud)
     packages="
       $base_packages
-      acpi-support-base
-      console-setup
-      cron
-      curl
-      git
-      grub-pc
-      initramfs-tools
-      linux-image-amd64
-      openssh-server
-      postfix
-      vim-nox
     "
   ;;
   
   *)
     echo "Usage: build_jessie_server PROFILE"
-    echo "Available profiles: upcloud"
+    echo "Available profiles: hetzner upcloud"
     exit -1
   ;;
 esac
