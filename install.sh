@@ -31,9 +31,11 @@ for dotfile in ${dotfiles[@]}; do
   dst="$HOME/.$dotfile"
   cmd="cp -pr $src $dst"
 
+  mkdir -p "$HOME/.backups"
+
   if [[ -e $dst ]]; then
     msg "[ backup  ] $dst"
-    mv "$dst" "$dst.backup"
+    mv "$dst" "$HOME/.backups/$dotfile"
     msg "[ replace ] $dst"
     eval "$cmd"
   else
