@@ -35,7 +35,8 @@ for dotfile in ${dotfiles[@]}; do
 
   if [[ -e $dst ]]; then
     msg "[ backup  ] $dst"
-    mv "$dst" "$HOME/.backups/$dotfile"
+    cp -pr "$dst" "$HOME/.backups/$(basename $dotfile)"
+    rm -rf "$dst"
     msg "[ replace ] $dst"
     eval "$cmd"
   else
