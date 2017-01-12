@@ -3,12 +3,7 @@
 dotfiles=(
   bash_functions
   bashrc
-  bin
-  gemrc
   profile
-  screenrc
-  vim
-  vimrc
 )
 
 set -e
@@ -18,23 +13,16 @@ script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 for dotfile in ${dotfiles[@]}; do
   src="$script_path/$dotfile"
   dst="$HOME/.$dotfile"
-  cmd="ln -s $src $dst"
+  cmd="cp -pr $src $dst"
+
+  mkdir -p "$HOME/.backups"
 
   if [[ -e $dst ]]; then
-    if [[ -h $dst ]]; then
-      if [[ $(readlink $dst) == $src ]]; then
-        msg "[ skip    ] $dst"
-      else
-        msg "[ replace ] $dst"
-        rm -rf "$dst"
-        eval "$cmd"
-      fi
-    else
-      msg "[ backup  ] $dst"
-      mv "$dst" "$dst.backup"
-      msg "[ replace ] $dst"
-      eval "$cmd"
-    fi
+    msg "[ backup  ] $dst"
+    cp -pr "$dst" "$HOME/.backups/$(basename $dotfile)"
+    rm -rf "$dst"
+    msg "[ replace ] $dst"
+    eval "$cmd"
   else
     msg "[ create  ] $dst"
     eval "$cmd"
