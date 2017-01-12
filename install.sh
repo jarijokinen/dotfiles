@@ -29,23 +29,13 @@ mkdir -p $HOME/.themes
 for dotfile in ${dotfiles[@]}; do
   src="$script_path/$dotfile"
   dst="$HOME/.$dotfile"
-  cmd="ln -s $src $dst"
+  cmd="cp -pr $src $dst"
 
   if [[ -e $dst ]]; then
-    if [[ -h $dst ]]; then
-      if [[ $(readlink $dst) == $src ]]; then
-        msg "[ skip    ] $dst"
-      else
-        msg "[ replace ] $dst"
-        rm -rf "$dst"
-        eval "$cmd"
-      fi
-    else
-      msg "[ backup  ] $dst"
-      mv "$dst" "$dst.backup"
-      msg "[ replace ] $dst"
-      eval "$cmd"
-    fi
+    msg "[ backup  ] $dst"
+    mv "$dst" "$dst.backup"
+    msg "[ replace ] $dst"
+    eval "$cmd"
   else
     msg "[ create  ] $dst"
     eval "$cmd"
