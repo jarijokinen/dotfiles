@@ -26,13 +26,12 @@
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="override" type="bool" value="true"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="gimp"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;7" type="string" value="keepassx &quot;/home/jari/Dropbox/Shared/2017.kdbx&quot;"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;6" type="string" value="keepassx &quot;/home/jari/Dropbox/Shared/2016.kdbx&quot;"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;3" type="string" value="keepassx &quot;/home/jari/Dropbox/Shared/2013.kdbx&quot;"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="/usr/bin/google-chrome-stable %U --start-maximized"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="/usr/bin/google-chrome-stable %U"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm -fs 24 -fn Terminus -bg black -fg white -geometry 80x32 -tn xterm-256color"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;n" type="string" value="xterm -fs 16 -fn Terminus -bg black -fg white -geometry 80x32 -tn xterm-256color"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

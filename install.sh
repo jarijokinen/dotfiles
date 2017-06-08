@@ -16,7 +16,6 @@ dotfiles=(
   themes/axiomd
   vim
   vimrc
-  Xresources
 )
 
 set -e
