@@ -1,7 +1,6 @@
 #!/bin/bash
 
 dotfiles=(
-  bash_functions
   bashrc
   bin
   config/xfce4/xfconf/xfce-perchannel-xml
