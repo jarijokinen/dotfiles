@@ -53,13 +53,13 @@ pip install awscli
 
 echo 'Installing Node...'
 curl -L https://git.io/n-install | bash
+export PATH="$PATH:$HOME/n/bin"
 
 echo 'Installing Angular...'
-npm install -g @angular/cli
-ng set --global packageManager=yarn
+yarn global add @angular/cli
 
 echo 'Installing Ionic...'
-npm install -g cordova ionic
+yarn global add cordova ionic
 
 echo 'Installing RVM...'
 gpg --keyserver hkp://keys.gnupg.net \
