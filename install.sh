@@ -10,7 +10,6 @@ dotfiles=(
   gitignore
   kernel-pkg.conf
   profile
-  railsrc
   screenrc
   themes/axiomd
   vim
