@@ -3,15 +3,13 @@
 dotfiles=(
   bashrc
   bin
-  config/xfce4/xfconf/xfce-perchannel-xml
+  config
   gemrc
   gitconfig
   gitignore
-  kernel-pkg.conf
   profile
   screenrc
-  themes/axiomd
-  vim
+  themes
   vimrc
 )
 
