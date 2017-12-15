@@ -14,7 +14,6 @@ dotfiles=(
 )
 
 set -e
-msg() { echo "$1"; }
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 mkdir -p $HOME/.config/xfce4/xfconf
@@ -28,19 +27,61 @@ for dotfile in ${dotfiles[@]}; do
   mkdir -p "$HOME/.backups"
 
   if [[ -e $dst ]]; then
-    msg "[ backup  ] $dst"
+    echo "[ backup  ] $dst"
     cp -pr "$dst" "$HOME/.backups/$(basename $dotfile)"
     rm -rf "$dst"
-    msg "[ replace ] $dst"
+    echo "[ replace ] $dst"
     eval "$cmd"
   else
-    msg "[ create  ] $dst"
+    echo "[ create  ] $dst"
     eval "$cmd"
   fi
 done
 
-cd $script_path
-git submodule init
-git submodule update
+f="$HOME/.vim/pack/default/start"
+mkdir -p $f
+mkdir -p $HOME/.vim/swap
+
+git clone https://github.com/jpo/vim-railscasts-theme $f/railscasts
+git clone https://github.com/sheerun/vim-polyglot $f/polyglot
+
+echo 'Adding user to docker group...'
+su -c "adduser $USER docker"
+
+echo 'Installing AWS CLI...'
+pip install awscli
+
+echo 'Installing Node...'
+curl -L https://git.io/n-install | bash
+
+echo 'Installing Angular...'
+npm install -g @angular/cli
+ng set --global packageManager=yarn
+
+echo 'Installing Ionic...'
+npm install -g cordova ionic
+
+echo 'Installing RVM...'
+gpg --keyserver hkp://keys.gnupg.net \
+  --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
+  7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s head --autolibs=read-fail
+source $HOME/.rvm/scripts/rvm
+
+echo 'Installing Ruby...'
+rvm install ruby
+gem update --system
+gem update
+
+echo 'Installing Rails...'
+gem install rails
+
+echo 'Installing Android Studio...'
+package_url=$(
+  curl -s https://developer.android.com/studio/index.html | 
+  grep -oP https.+?linux.zip | head -1
+)
+wget $package_url -O /tmp/android-studio.zip
+unzip /tmp/android-studio.zip -d $HOME
 
 exit 0
