@@ -55,6 +55,9 @@ echo 'Installing Node...'
 curl -L https://git.io/n-install | bash
 export PATH="$PATH:$HOME/n/bin"
 
+echo 'Installing Vue.js...'
+yarn global add vue-cli
+
 echo 'Installing Angular...'
 yarn global add @angular/cli
 
