@@ -48,6 +48,21 @@ git clone https://github.com/sheerun/vim-polyglot $f/polyglot
 echo 'Adding user to docker group...'
 su -c "adduser $USER docker"
 
+echo 'Installing Python...'
+curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+cat <<'EOF' >> $HOME/.bashrc
+export PATH="/home/jari/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+EOF
+export PATH="/home/jari/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+pyenv update
+pyenv install 3.6.3
+pyenv global 3.6.3
+pip install -U pip
+
 echo 'Installing AWS CLI...'
 pip install awscli
 
@@ -78,21 +93,6 @@ gem update
 
 echo 'Installing Rails...'
 gem install rails
-
-echo 'Installing Python...'
-curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
-cat <<'EOF' >> $HOME/.bashrc
-export PATH="/home/jari/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-EOF
-export PATH="/home/jari/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-pyenv update
-pyenv install 3.6.3
-pyenv global 3.6.3
-pip install -U pip
 
 echo 'Installing Android Studio...'
 package_url=$(
