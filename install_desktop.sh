@@ -79,6 +79,19 @@ gem update
 echo 'Installing Rails...'
 gem install rails
 
+echo 'Installing Python...'
+curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+cat <<'EOF' > $HOME/.bashrc
+export PATH="/home/jari/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+EOF
+export PATH="/home/jari/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+pyenv update
+pyenv install 3.6.3
+
 echo 'Installing Android Studio...'
 package_url=$(
   curl -s https://developer.android.com/studio/index.html | 
