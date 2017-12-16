@@ -15,7 +15,6 @@ set softtabstop=2
 set tabstop=2
 set textwidth=0
 
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
