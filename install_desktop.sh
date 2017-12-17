@@ -81,6 +81,7 @@ yarn global add cordova ionic
 
 echo 'Installing React...'
 yarn global add create-react-app
+yarn global add create-react-native-app
 
 echo 'Installing RVM...'
 gpg --keyserver hkp://keys.gnupg.net \
