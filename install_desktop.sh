@@ -79,6 +79,9 @@ yarn global add @angular/cli
 echo 'Installing Ionic...'
 yarn global add cordova ionic
 
+echo 'Installing React...'
+yarn global add create-react-app
+
 echo 'Installing RVM...'
 gpg --keyserver hkp://keys.gnupg.net \
   --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
