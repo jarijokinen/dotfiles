@@ -60,7 +60,6 @@ desktop_packages='
   lightdm
   make
   mplayer
-  mutt
   nasm
   nautilus-dropbox
   patch 
