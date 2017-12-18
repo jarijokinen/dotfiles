@@ -38,15 +38,17 @@ for dotfile in ${dotfiles[@]}; do
   fi
 done
 
+echo 'Adding user to docker group...'
+su -c "adduser $USER docker"
+
+echo 'Installing Vim plugins...'
 f="$HOME/.vim/pack/default/start"
 mkdir -p $f
 mkdir -p $HOME/.vim/swap
-
 git clone https://github.com/jpo/vim-railscasts-theme $f/railscasts
 git clone https://github.com/sheerun/vim-polyglot $f/polyglot
-
-echo 'Adding user to docker group...'
-su -c "adduser $USER docker"
+git clone https://github.com/tpope/vim-rails $f/rails
+git clone https://github.com/SirVer/ultisnips $f/ultisnips
 
 echo 'Installing Python...'
 curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
