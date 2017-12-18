@@ -20,12 +20,9 @@ filetype plugin indent on
 
 colorscheme railscasts
 
-autocmd BufNewFile,BufRead Gemfile setfiletype ruby
-autocmd BufNewFile,BufRead *.php set filetype=html
-autocmd BufNewFile,BufRead *.php set syntax=php
-autocmd BufNewFile,BufRead *.scss set filetype=css
-autocmd BufNewFile,BufRead *.scss set syntax=scss
+autocmd BufNewFile,BufRead *.vue setlocal filetype=html.javascript.css.vue
 
+let g:jsx_ext_required = 0
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
