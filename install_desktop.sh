@@ -41,6 +41,12 @@ done
 echo 'Adding user to docker group...'
 su -c "adduser $USER docker"
 
+echo 'Installing Google Fonts...'
+wget https://github.com/google/fonts/archive/master.zip -O /tmp/gfonts.zip
+mkdir $HOME/.fonts
+unzip /tmp/gfonts.zip -d $HOME/.fonts
+fc-cache
+
 echo 'Installing Vim plugins...'
 f="$HOME/.vim/pack/default/start"
 mkdir -p $f
