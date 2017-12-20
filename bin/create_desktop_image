@@ -40,6 +40,7 @@ desktop_packages='
   gimp
   git
   google-chrome-stable
+  groff
   keepassx
   inkscape
   irqbalance
