@@ -88,6 +88,7 @@ echo 'Installing Ionic...'
 yarn global add cordova ionic
 
 echo 'Installing React...'
+yarn global add react-native-cli
 yarn global add create-react-app
 yarn global add create-react-native-app
 
@@ -116,5 +117,10 @@ package_url=$(
 )
 wget $package_url -O /tmp/android-studio.zip
 unzip /tmp/android-studio.zip -d $HOME
+cat <<'EOF' >> $HOME/.bashrc
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+EOF
 
 exit 0
