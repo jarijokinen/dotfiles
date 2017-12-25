@@ -44,6 +44,8 @@ desktop_packages='
   keepassx
   inkscape
   irqbalance
+  lib32stdc++6
+  lib32z1
   libav-tools
   libc6-dev
   libffi-dev
