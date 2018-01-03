@@ -21,7 +21,6 @@ base_packages='
 
 desktop_packages='
   anacron
-  android-tools-adb
   autoconf
   automake
   archivemail
