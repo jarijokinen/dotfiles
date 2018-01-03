@@ -20,6 +20,7 @@ filetype plugin indent on
 
 colorscheme railscasts
 
+autocmd BufNewFile,BufRead *.php setlocal filetype=php.html
 autocmd BufNewFile,BufRead *.vue setlocal filetype=html.javascript.css.vue
 
 let g:jsx_ext_required = 0
