@@ -122,5 +122,6 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 EOF
+su -c "usermod -aG plugdev $USER"
 
 exit 0
