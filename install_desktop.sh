@@ -122,6 +122,9 @@ export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 EOF
+su -c 'cat <<"EOF" >> /etc/udev/rules.d/51-anrdoid.rules
+SUBSYSTEM=="usb", ATTR{idProduct}=="4ee7", MODE="0660", GROUP="plugdev", SYMLINK+="android%n"
+EOF'
 su -c "usermod -aG plugdev $USER"
 
 exit 0
