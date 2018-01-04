@@ -28,6 +28,7 @@
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="gimp"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="google-chrome-stable"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;a" type="string" value="/home/jari/android-studio/bin/studio.sh"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm -fn &apos;-*-terminus-medium-r-normal-*-18-*-*-*-*-*-*-*&apos; -geometry 80x28"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;n" type="string" value="xterm -fn &apos;-*-terminus-medium-r-normal-*-16-*-*-*-*-*-*-*&apos; -geometry 80x28"/>
