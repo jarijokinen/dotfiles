@@ -40,8 +40,10 @@ desktop_packages='
   gimp
   git
   google-chrome-stable
+  google-cloud-sdk
   groff
   keepassx
+  kubectl
   inkscape
   irqbalance
   lib32stdc++6
@@ -264,11 +266,21 @@ install_desktop() {
   echo 'deb [arch=amd64] https://download.docker.com/linux/debian stretch stable' > $f
   wget -qO - https://download.docker.com/linux/debian/gpg \
     | chroot $target apt-key add -
-
+  
+  echo 'Configuring Google Cloud SDK repository...'
+  f=$target/etc/apt/sources.list.d/google-cloud-sdk.list
+  echo 'deb http://packages.cloud.google.com/apt cloud-sdk-stretch main' > $f
+  wget -qO - https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+    | chroot $target apt-key add -
 
   echo 'Installing desktop packages...'
   chroot $target apt-get update
   chroot $target apt-get -qy install $desktop_packages
+
+  echo 'Installing minikube...'
+  wget -qO $target/usr/local/bin/minikube \
+    https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  chmod 755 $target/usr/local/bin/minikube
 }
 
 setup_wlan() {
