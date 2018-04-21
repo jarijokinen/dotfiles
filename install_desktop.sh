@@ -70,8 +70,8 @@ export PATH="/home/jari/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 pyenv update
-pyenv install 3.6.3
-pyenv global 3.6.3
+pyenv install 3.6.5
+pyenv global 3.6.5
 pip install -U pip
 
 echo 'Installing AWS CLI...'
