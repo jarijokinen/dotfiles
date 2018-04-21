@@ -77,6 +77,9 @@ pip install -U pip
 echo 'Installing AWS CLI...'
 pip install awscli
 
+echo 'Installing Firebase CLI...'
+npm install -g firebase-tools
+
 echo 'Installing Node...'
 curl -L https://git.io/n-install | bash
 export PATH="$PATH:$HOME/n/bin"
