@@ -55,6 +55,9 @@ git clone https://github.com/jpo/vim-railscasts-theme $f/railscasts
 git clone https://github.com/sheerun/vim-polyglot $f/polyglot
 git clone https://github.com/tpope/vim-rails $f/rails
 git clone https://github.com/SirVer/ultisnips $f/ultisnips
+git clone https://github.com/vim-airline/vim-airline $f/airline
+git clone https://github.com/scrooloose/nerdtree $f/nerdtree
+git clone https://github.com/tomasiser/vim-code-dark $f/code-dark
 
 echo 'Installing Python...'
 curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash

@@ -18,10 +18,12 @@ set textwidth=0
 syntax on
 filetype plugin indent on
 
-colorscheme railscasts
+colorscheme codedark
 
 autocmd BufNewFile,BufRead *.php setlocal filetype=php.html
 autocmd BufNewFile,BufRead *.vue setlocal filetype=html.javascript.css.vue
+
+map <C-n> :NERDTreeToggle<CR>
 
 let g:jsx_ext_required = 0
 let g:UltiSnipsExpandTrigger="<tab>"
