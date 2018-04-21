@@ -85,18 +85,18 @@ curl -L https://git.io/n-install | bash
 export PATH="$PATH:$HOME/n/bin"
 
 echo 'Installing Vue.js...'
-yarn global add vue-cli
+npm install -g vue-cli
 
 echo 'Installing Angular...'
-yarn global add @angular/cli
+npm install -g @angular/cli
 
 echo 'Installing Ionic...'
-yarn global add cordova ionic
+npm install -g cordova ionic
 
 echo 'Installing React...'
-yarn global add react-native-cli
-yarn global add create-react-app
-yarn global add create-react-native-app
+npm install -g react-native-cli
+npm install -g create-react-app
+npm install -g create-react-native-app
 
 echo 'Installing RVM...'
 gpg --keyserver hkp://keys.gnupg.net \
