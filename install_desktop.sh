@@ -133,4 +133,13 @@ SUBSYSTEM=="usb", ATTR{idProduct}=="4ee7", MODE="0660", GROUP="plugdev", SYMLINK
 EOF'
 su -c "usermod -aG plugdev $USER"
 
+echo 'Installing Flutter...'
+package_url='https://storage.googleapis.com/flutter_infra/releases/beta/linux/flutter_linux_v0.2.8-beta.tar.xz'
+wget $package_url -O /tmp/flutter.tar.xz
+mkdir $HOME/flutter
+tar xf /tmp/flutter.tar.xz --strip-components=1 -C $HOME/flutter
+cat <<'EOF' >> $HOME/.bashrc
+export PATH=$PATH:$HOME/flutter/bin
+EOF
+
 exit 0

@@ -94,6 +94,7 @@ desktop_packages='
   xserver-xorg-input-synaptics
   xterm
   yarn
+  xz-utils
   zlib1g-dev
 '
 
