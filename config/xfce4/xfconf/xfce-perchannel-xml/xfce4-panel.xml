@@ -5,22 +5,19 @@
   <property name="panels" type="array">
     <value type="int" value="1"/>
     <property name="panel-1" type="empty">
-      <property name="position" type="string" value="p=12;x=587;y=1055"/>
+      <property name="position" type="string" value="p=12;x=223;y=1053"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="size" type="uint" value="32"/>
       <property name="length" type="uint" value="100"/>
       <property name="length-adjust" type="bool" value="false"/>
-      <property name="background-alpha" type="uint" value="100"/>
+      <property name="size" type="uint" value="32"/>
       <property name="plugin-ids" type="array">
-        <value type="int" value="7"/>
-        <value type="int" value="9"/>
-        <value type="int" value="8"/>
         <value type="int" value="6"/>
+        <value type="int" value="7"/>
+        <value type="int" value="5"/>
         <value type="int" value="3"/>
         <value type="int" value="1"/>
-        <value type="int" value="5"/>
-        <value type="int" value="2"/>
         <value type="int" value="4"/>
+        <value type="int" value="2"/>
       </property>
     </property>
   </property>
@@ -33,17 +30,13 @@
     <property name="plugin-4" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
     </property>
-    <property name="plugin-5" type="string" value="screenshooter"/>
-    <property name="plugin-6" type="string" value="separator">
-      <property name="style" type="uint" value="0"/>
+    <property name="plugin-5" type="string" value="separator">
       <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-7" type="string" value="showdesktop"/>
-    <property name="plugin-8" type="string" value="tasklist">
+    <property name="plugin-6" type="string" value="showdesktop"/>
+    <property name="plugin-7" type="string" value="tasklist">
       <property name="show-handle" type="bool" value="false"/>
-    </property>
-    <property name="plugin-9" type="string" value="pager">
-      <property name="rows" type="uint" value="2"/>
     </property>
   </property>
 </channel>
