@@ -20,12 +20,13 @@ install_dotfiles() {
 	script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	install -m0600 -b -T $script_path/bashrc $HOME/.bashrc
 	install -m0700 -b -d $script_path/config $HOME/.config
+	install -m0600 -b -T $script_path/profile $HOME/.profile
 	install -m0600 -b -T $script_path/screenrc $HOME/.screenrc
 	install -m0700 -b -d $script_path/themes $HOME/.themes
 	install -m0600 -b -T $script_path/vimrc $HOME/.vimrc
 }
 
-#install_vim_plugins
+install_vim_plugins
 install_dotfiles
 
 exit 0
