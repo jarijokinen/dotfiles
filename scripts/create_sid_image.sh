@@ -135,9 +135,10 @@ configure_networking() {
   echo 'Configuring networking...'
   if [[ $network_type == 'wifi' ]]; then
     chroot $target apt-get -qy install $wifi_packages
-    echo -e "auto wlan0\niface wlan0 inet dhcp\nwpa-ssid $ssid\nwpa-psk $psk" \
+    echo -e "auto wlan0\niface wlan0 inet dhcp" \
       > $target/etc/network/interfaces.d/wlan0
     chmod 600 $target/etc/network/interfaces.d/wlan0
+    chroot $target iwctl device wlan0 connect $ssid
   else
     echo -e "auto eth0\niface eth0 inet dhcp" \
       > $target/etc/network/interfaces.d/eth0
@@ -172,6 +173,9 @@ install_setup_scripts() {
 	chroot . /setup_disks.sh
 	exit 0
 	EOF
+	
+  script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  cp $script_path/setup_desktop.sh $target/
 
   chmod 700 $target/*.sh
 }
