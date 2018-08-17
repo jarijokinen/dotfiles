@@ -24,7 +24,7 @@ packages='
   locales
   netbase
   systemd-sysv
-  vim-tiny
+  vim-nox
 '
 
 wifi_packages='
