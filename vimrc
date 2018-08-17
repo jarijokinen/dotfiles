@@ -8,25 +8,29 @@ set laststatus=2
 set nobackup
 set nocompatible
 set nowritebackup
-set pastetoggle=<Ins>
 set shiftwidth=2
 set showcmd
+set smartindent
 set softtabstop=2
 set tabstop=2
 set textwidth=0
 
-syntax on
-filetype plugin indent on
+if &term =~ "xterm.*"
+  let &t_ti = &t_ti . "\e[?2004h"
+  let &t_te = "\e[?2004l" . &t_te
+  function! XTermPasteBegin(ret)
+    set pastetoggle=<Esc>[201~
+    set paste
+    return a:ret
+  endfunction
+  map <expr> <Esc>[200~ XTermPasteBegin("i")
+  imap <expr> <Esc>[200~ XTermPasteBegin("")
+  vmap <expr> <Esc>[200~ XTermPasteBegin("c")
+  cmap <Esc>[200~ <nop>
+  cmap <Esc>[201~ <nop>
+endif
 
 colorscheme codedark
 
-autocmd BufNewFile,BufRead *.php setlocal filetype=php.html
-autocmd BufNewFile,BufRead *.vue setlocal filetype=html.javascript.css.vue
-
-map <C-n> :NERDTreeToggle<CR>
-
-let g:jsx_ext_required = 0
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+syntax on
+filetype plugin indent on
