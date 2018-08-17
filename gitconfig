@@ -1,5 +1,0 @@
-[user]
-  name = Jari Jokinen
-  email = jari.jokinen@j2.fi
-[core]
-  excludesfile = ~/.gitignore
