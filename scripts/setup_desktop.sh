@@ -46,6 +46,7 @@ packages='
   xfce4-battery-plugin
   xfce4-panel
   xfce4-pulseaudio-plugin
+  xfce4-screenshooter
   xfce4-session
   xfdesktop4
   xfonts-100dpi
