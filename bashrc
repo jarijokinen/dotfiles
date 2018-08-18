@@ -50,7 +50,6 @@ fi
 
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export EDITOR='vim'
-export PATH="$PATH:$HOME/.yarn/bin:$HOME/.bin"
 
 core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
 alias make="make -j $core_count"
