@@ -21,7 +21,7 @@ fi
 PS1='${debian_chroot:+($debian_chroot)}\u@\H:\w\$ '
 
 case "$TERM" in
-  xterm*|rxvt*)
+  xterm*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\H: \w\a\]$PS1"
     ;;
   *)
