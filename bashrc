@@ -5,10 +5,6 @@ case $- in
   *) return;;
 esac
 
-if [[ -f  ~/.bash_functions ]]; then
-  source ~/.bash_functions
-fi
-
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -38,10 +34,6 @@ if [[ -x /usr/bin/dircolors ]]; then
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
-fi
-
-if [[ -f ~/.bash_aliases ]]; then
-  source ~/.bash_aliases
 fi
 
 if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
