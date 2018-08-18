@@ -1,9 +1,11 @@
-export TERM=xterm-256color
-
 case $- in
   *i*) ;;
   *) return;;
 esac
+
+export EDITOR='vim'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export TERM='xterm-256color'
 
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
@@ -40,8 +42,6 @@ if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
   source /etc/bash_completion
 fi
 
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-export EDITOR='vim'
 
 core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
 alias make="make -j $core_count"
