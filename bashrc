@@ -29,8 +29,6 @@ case "$TERM" in
 esac
 
 if [[ -x /usr/bin/dircolors ]]; then
-  test -r ~/.dircolors && 
-  eval "$(dircolors -b ~/.dircolors)" || 
   eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'
@@ -41,7 +39,6 @@ fi
 if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
   source /etc/bash_completion
 fi
-
 
 core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
 alias make="make -j $core_count"
