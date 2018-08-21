@@ -61,6 +61,7 @@ packages='
 '
 
 npm_packages='
+  @angular/cli
   firebase-tools
   gulp-cli
 '
