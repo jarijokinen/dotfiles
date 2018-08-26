@@ -14,19 +14,10 @@ HISTFILESIZE=2000
 shopt -s histappend
 shopt -s checkwinsize
 
-if [[ -z "${debian_chroot:-}" ]] && [[ -r /etc/debian_chroot ]]; then
-  debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-PS1='${debian_chroot:+($debian_chroot)}\u@\H:\w\$ '
-
-case "$TERM" in
-  xterm*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\H: \w\a\]$PS1"
-    ;;
-  *)
-    ;;
-esac
+git_branch() {
+  git branch 2>> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1="\u@\h\[\033[32m\]\w\[\033[33m\]\$(git_branch)\[\033[00m\]\$ "
 
 if [[ -x /usr/bin/dircolors ]]; then
   eval "$(dircolors -b)"
