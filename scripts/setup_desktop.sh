@@ -64,6 +64,7 @@ npm_packages='
   @angular/cli
   firebase-tools
   gulp-cli
+  npm-check-updates
 '
 
 pip_packages='
