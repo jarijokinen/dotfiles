@@ -34,3 +34,7 @@ colorscheme codedark
 
 syntax on
 filetype plugin indent on
+
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsSnippetDirectories = ["ultisnips"]
