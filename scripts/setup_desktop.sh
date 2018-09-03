@@ -66,6 +66,7 @@ npm_packages='
   firebase-tools
   gulp-cli
   npm-check-updates
+  react-native-cli
 '
 
 pip_packages='
