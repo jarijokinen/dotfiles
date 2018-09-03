@@ -43,6 +43,7 @@ packages='
   radare2
   rng-tools
   screen
+  software-properties-common
   ttf-mscorefonts-installer
   vim-nox
   wget
@@ -147,6 +148,15 @@ install_android_studio() {
 	EOF
 }
 
+install_docker() {
+  curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+  add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+  apt-get -qy update
+  apt-get -qy install docker-ce docker-compose
+  usermod -aG docker $username
+}
+
 show_prompts
 install_packages
 install_chrome
@@ -155,5 +165,6 @@ install_npm_packages
 install_pip_packages
 install_watchman
 install_android_studio
+install_docker
 
 exit 0
