@@ -62,6 +62,7 @@ packages='
 
 npm_packages='
   @angular/cli
+  create-react-native-app
   firebase-tools
   gulp-cli
   npm-check-updates
