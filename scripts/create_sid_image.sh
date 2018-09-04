@@ -23,6 +23,7 @@ packages='
   linux-image-amd64
   locales
   netbase
+  rsyslog
   systemd-sysv
   vim-nox
 '
