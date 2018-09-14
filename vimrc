@@ -20,6 +20,8 @@ colorscheme codedark
 syntax on
 filetype plugin indent on
 
+au BufNewFile,BufRead *.php set filetype=php.html
+
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
