@@ -69,7 +69,9 @@ packages='
 
 npm_packages='
   @angular/cli
+  create-react-app
   create-react-native-app
+  eslint
   firebase-tools
   gulp-cli
   npm-check-updates
