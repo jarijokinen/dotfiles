@@ -12,6 +12,7 @@ install_vim_plugins() {
   git clone https://github.com/sheerun/vim-polyglot $f/polyglot
   git clone https://github.com/tpope/vim-rails $f/rails
   git clone https://github.com/SirVer/ultisnips $f/ultisnips
+  git clone https://github.com/w0rp/ale $f/ale
 }
 
 install_dotfiles() {
