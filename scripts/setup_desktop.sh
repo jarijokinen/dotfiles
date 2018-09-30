@@ -73,6 +73,7 @@ npm_packages='
   create-react-native-app
   eslint
   firebase-tools
+  gatsby-cli
   gulp-cli
   npm-check-updates
   react-native-cli
