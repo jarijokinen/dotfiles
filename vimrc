@@ -8,6 +8,7 @@ set laststatus=2
 set nobackup
 set nocompatible
 set nowritebackup
+set pastetoggle=<Ins>
 set shiftwidth=2
 set showcmd
 set smartindent
