@@ -1,0 +1,12 @@
+snippet toggle
+'use strict';
+
+(() => {
+	document.addEventListener('DOMContentLoaded', () => {
+		document.querySelector('${1:.header-nav-toggle}').onclick = function() {
+			this.parentNode.classList.toggle('${2:header-nav-active}');
+			document.body.classList.toggle('noscroll');
+		}
+	}, false);
+}).call(this);
+endsnippet
