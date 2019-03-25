@@ -23,6 +23,7 @@ install_dotfiles() {
 	install -m0600 -b -T $script_path/vimrc $HOME/.vimrc
 	cp -pr $script_path/config $HOME/.config
 	cp -pr $script_path/themes $HOME/.themes
+  cp -pr $script_path/vim/ultisnips $HOME/.vim/ultisnips
 }
 
 install_vim_plugins
