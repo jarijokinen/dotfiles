@@ -20,7 +20,7 @@ snippet baseof
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>{{- block "title . -}}{{ site.Title }}{{- end -}}</title>
+		<title>{{- block "title" . -}}{{ site.Title }}{{- end -}}</title>
 		<link rel="stylesheet" href="/css/${3}.css">
 		
 		{{- if not site.IsServer }}
