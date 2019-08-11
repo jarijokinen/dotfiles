@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <channel name="pointers" version="1.0">
-  <property name="DLL066501_06CB76AD_Touchpad" type="empty">
+  <property name="DELL07E600_06CB76AF_Touchpad" type="empty">
     <property name="Properties" type="empty">
       <property name="Synaptics_Tap_Action" type="array">
         <value type="int" value="0"/>
