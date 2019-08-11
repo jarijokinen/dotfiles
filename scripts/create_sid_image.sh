@@ -214,6 +214,16 @@ install_desktop_packages() {
   chroot $target apt-get -qy install $desktop_packages
 }
 
+install_google_chrome() {
+  echp 'Installing Google Chrome...'
+  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
+    | chroot $target apt-key add
+  tmpfile='/tmp/chrome.deb'
+  u='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+  chroot $target wget -q -O $tmpfile $u
+  chroot $target apt install $tmpfile
+}
+
 clean_packages() {
   echo 'Cleaning packages...'
   chroot $target apt-get clean
@@ -237,6 +247,7 @@ configure_locales
 configure_timezone
 install_setup_scripts
 install_desktop_packages
+install_google_chrome
 configure_keyboard
 configure_console
 configure_grub
