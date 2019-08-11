@@ -1,10 +1,9 @@
 #!/bin/bash
 #
 # create_sid_image.sh
-# Copyright (C) 2018 Jari Jokinen. MIT License.
+# Copyright (C) 2018 - 2019 Jari Jokinen. MIT License.
 #
-# This script creates a minimal system of Debian sid (unstable). The resulting
-# image can be used as a base for desktop or server installations.
+# This script creates a desktop system of Debian sid (unstable).
 
 suite='sid'
 version=$(date +'%Y-%m-%d-%s')
@@ -12,26 +11,60 @@ target=$HOME/$suite-$version
 mirror='https://deb.debian.org/debian'
 components='main,contrib,non-free'
 
-packages='
-  acpi-support-base
+base_packages='
   console-setup
-  grub-efi-amd64
-  ifupdown
-  irqbalance
-  isc-dhcp-client
-  kmod
-  linux-image-amd64
   locales
-  netbase
-  rsyslog
-  systemd-sysv
-  vim-nox
 '
 
-wifi_packages='
-  dbus
+desktop_packages='
+  bc
+  curl
+  dbus-x11
+  dialog
+  firmware-atheros
   firmware-iwlwifi
+  firmware-misc-nonfree
+  gimp
+  git
+  gnupg
+  grub-efi-amd64
+  ht
+  ifupdown
+  info
+  inkscape
+  irqbalance
+  isc-dhcp-client
   iwd
+  keepassx
+  kmod
+  less
+  lightdm
+  linux-image-amd64
+  man
+  nasm
+  nautilus-dropbox
+  netbase
+  openssh-client
+  pulseaudio
+  rsyslog
+  screen
+  systemd-sysv
+  ttf-mscorefonts-installer
+  wget
+  whois
+  wpasupplicant
+  vim-nox
+  xfce4
+  xfce4-battery-plugin
+  xfce4-screenshooter
+  xfonts-100dpi
+  xfonts-scalable
+  xfonts-terminus
+  xfonts-terminus-oblique
+  xserver-xorg
+  xserver-xorg-input-libinput
+  xserver-xorg-input-synaptics
+  xterm
 '
 
 set -e
@@ -70,9 +103,9 @@ prepare_host() {
 
 bootstrap_base_system() {
   echo 'Bootstrapping the base system...'
-  packages=$(echo $packages | tr ' ' ,)
-  debootstrap --merged-usr --variant=minbase --components=$components \
-    --include=$packages $suite $target $mirror
+  packages=$(echo $base_packages | tr ' ' ,)
+  debootstrap --variant=minbase --components=$components --include=$packages \
+    $suite $target $mirror
 }
 
 prepare_chroot() {
@@ -135,8 +168,7 @@ configure_grub() {
 configure_networking() {
   echo 'Configuring networking...'
   if [[ $network_type == 'wifi' ]]; then
-    chroot $target apt-get -qy install $wifi_packages
-    echo -e "auto wlan0\niface wlan0 inet dhcp" \
+    echo -e "auto wlan0\niface wlan0 inet dhcp\nwpa-ssid $ssid\nwpa-psk $psk" \
       > $target/etc/network/interfaces.d/wlan0
     chmod 600 $target/etc/network/interfaces.d/wlan0
     chroot $target iwctl device wlan0 connect $ssid
@@ -152,15 +184,15 @@ install_setup_scripts() {
   cat <<-'EOF' > $target/setup_disks.sh
 	#!/bin/bash
 	set -e
-	uuid_efi=$(blkid /dev/sda1 -s UUID -o value)
-	uuid_root=$(blkid /dev/sda2 -s UUID -o value)
-	uuid_swap=$(blkid /dev/sda3 -s UUID -o value)
+	uuid_efi=$(blkid /dev/nvme0n1p1 -s UUID -o value)
+	uuid_root=$(blkid /dev/nvme0n1p2 -s UUID -o value)
+	uuid_swap=$(blkid /dev/nvme0n1p3 -s UUID -o value)
 	echo "UUID=$uuid_root / ext4 defaults 0 1" > /etc/fstab
 	echo "UUID=$uuid_efi /boot/efi vfat umask=0077 0 1" >> /etc/fstab
 	echo "UUID=$uuid_swap none swap defaults 0 0" >> /etc/fstab
 	mkdir /boot/efi
-	mount /dev/sda1 /boot/efi
-	/usr/sbin/grub-install /dev/sda
+	mount /dev/nvme0n1p1 /boot/efi
+	/usr/sbin/grub-install /dev/nvme0n1
 	/usr/sbin/update-grub
 	exit 0
 	EOF
@@ -175,10 +207,11 @@ install_setup_scripts() {
 	exit 0
 	EOF
 	
-  script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-  cp $script_path/setup_desktop.sh $target/
-
   chmod 700 $target/*.sh
+}
+
+install_desktop_packages() {
+  chroot $target apt-get -qy install $desktop_packages
 }
 
 clean_packages() {
@@ -187,7 +220,7 @@ clean_packages() {
 }
 
 finish_chroot() {
-  echo 'Finish chroot environment...'
+  echo 'Finishing chroot environment...'
   umount -l $target/dev
   umount -l $target/proc
   umount -l $target/sys
@@ -201,12 +234,13 @@ set_hostname
 set_root_password
 configure_apt
 configure_locales
-configure_keyboard
 configure_timezone
+install_setup_scripts
+install_desktop_packages
+configure_keyboard
 configure_console
 configure_grub
 configure_networking
-install_setup_scripts
 clean_packages
 finish_chroot
 

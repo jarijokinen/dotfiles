@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pip3 install awscli --upgrade --user
+
+cat <<-'EOF' >> $HOME/.bashrc
+export PATH="$HOME/.local/bin:$PATH"
+EOF
+
+exit 0
