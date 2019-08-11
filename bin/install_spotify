@@ -2,6 +2,6 @@
 
 echo 'Installing Spotify...'
 
-su -c 'apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A87FF9DF48BF1C90 ; echo deb http://repository.spotify.com stable non-free | tee /etc/apt/sources.list.d/spotify.list ; apt-get update ; apt-get -qy install spotify-client'
+su -c 'apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4773BD5E130D1D4 ; echo deb http://repository.spotify.com stable non-free | tee /etc/apt/sources.list.d/spotify.list ; apt-get update ; apt-get -qy install spotify-client'
 
 exit 0
