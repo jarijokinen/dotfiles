@@ -17,10 +17,12 @@ base_packages='
 '
 
 desktop_packages='
+  anacron
   bc
   curl
   dbus-x11
   dialog
+  dnsutils
   firmware-atheros
   firmware-iwlwifi
   firmware-misc-nonfree
@@ -50,6 +52,7 @@ desktop_packages='
   screen
   systemd-sysv
   ttf-mscorefonts-installer
+  unzip
   wget
   whois
   wpasupplicant
