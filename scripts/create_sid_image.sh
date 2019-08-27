@@ -18,6 +18,7 @@ base_packages='
 
 desktop_packages='
   anacron
+  at-spi2-core
   bc
   curl
   dbus-x11
@@ -57,6 +58,7 @@ desktop_packages='
   whois
   wpasupplicant
   vim-nox
+  x11-xserver-utils
   xfce4
   xfce4-battery-plugin
   xfce4-screenshooter
