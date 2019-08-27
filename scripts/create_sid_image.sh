@@ -54,6 +54,7 @@ desktop_packages='
   systemd-sysv
   ttf-mscorefonts-installer
   unzip
+  upower
   wget
   whois
   wpasupplicant
