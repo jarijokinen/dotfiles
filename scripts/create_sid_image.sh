@@ -227,7 +227,7 @@ install_google_chrome() {
   tmpfile='/tmp/chrome.deb'
   u='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
   chroot $target wget -q -O $tmpfile $u
-  chroot $target apt install $tmpfile
+  chroot $target apt -qy install $tmpfile
 }
 
 clean_packages() {
