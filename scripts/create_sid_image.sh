@@ -221,7 +221,7 @@ install_desktop_packages() {
 }
 
 install_google_chrome() {
-  echp 'Installing Google Chrome...'
+  echo 'Installing Google Chrome...'
   wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
     | chroot $target apt-key add
   tmpfile='/tmp/chrome.deb'
