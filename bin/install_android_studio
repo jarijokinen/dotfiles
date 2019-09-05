@@ -2,6 +2,16 @@
   
 wget -O /tmp/android-studio.tar.gz https://dl.google.com/dl/android/studio/ide-zips/3.5.0.21/android-studio-ide-191.5791312-linux.tar.gz
 
-tar xf /tmp/android-studio.tar.gz -C $HOME
+mkdir $HOME/Android
+tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $HOME/Android/Studio
+
+cat <<-'EOF' >> $HOME/.bashrc
+export JAVA_HOME=$HOME/Android/Studio/jre
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+EOF
 
 exit 0
