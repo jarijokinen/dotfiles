@@ -2,8 +2,8 @@
 
 wget -O /tmp/gcloud.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-261.0.0-linux-x86_64.tar.gz
 
-tar xf /tmp/gcloud.tar.gz -C /tmp
+tar xf /tmp/gcloud.tar.gz -C $HOME
 
-/tmp/google-cloud-sdk/install.sh
+$HOME/google-cloud-sdk/install.sh
 
 exit 0
