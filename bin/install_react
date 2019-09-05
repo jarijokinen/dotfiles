@@ -1,0 +1,5 @@
+#!/bin/bash
+
+npm -g i create-react-app
+
+exit 0

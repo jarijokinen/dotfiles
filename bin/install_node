@@ -1,0 +1,7 @@
+#!/bin/bash
+
+curl -L https://git.io/n-install | bash
+
+npm -g i npm-check-updates
+
+exit 0
