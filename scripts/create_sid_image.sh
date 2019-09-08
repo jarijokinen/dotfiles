@@ -43,10 +43,12 @@ desktop_packages='
   less
   lightdm
   linux-image-amd64
+  linux-headers-amd64
   man
   nasm
   nautilus-dropbox
   netbase
+  nvidia-driver
   openssh-client
   pulseaudio
   rsyslog
