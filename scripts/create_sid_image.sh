@@ -50,6 +50,7 @@ desktop_packages='
   netbase
   nvidia-driver
   openssh-client
+  os-prober
   pulseaudio
   rsyslog
   screen
