@@ -2,6 +2,7 @@
 
 echo 'Installing required packages...'
 [[ -x $(command -v npm) ]] || install_node
+[[ -x "$HOME/Android/Studio/bin/studio.sh" ]] || install_android_studio
 su -c 'apt-get -qy install libssl-dev autoconf automake libtool g++ \
   pkg-config make'
 
