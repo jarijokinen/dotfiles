@@ -2,6 +2,7 @@
 
 curl -L https://git.io/n-install | bash
 
+export PATH=$PATH:$HOME/n/bin
 npm -g i npm-check-updates
 
 exit 0
