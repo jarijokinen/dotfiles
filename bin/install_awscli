@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo 'Installing required packages...'
+[[ ! -x $(command -v pip3) ]] || install_python
+
+echo 'Installing AWS CLI...'
 pip3 install awscli --upgrade --user
 
 cat <<-'EOF' >> $HOME/.bashrc
