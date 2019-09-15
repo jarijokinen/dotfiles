@@ -1,10 +1,11 @@
 #!/bin/bash
 
+echo 'Installing required packages...'
+su -c 'apt-get -qy install libssl-dev autoconf automake libtool g++ \
+  pkg-config make'
+
 echo 'Installing React Native CLI...'
 npm -g i react-native-cli
-
-echo 'Installing required packages...'
-su -c 'apt-get -qy install libssl-dev autoconf automake libtool g++'
 
 echo 'Installing Watchman...'
 git clone https://github.com/facebook/watchman.git /tmp/watchman
