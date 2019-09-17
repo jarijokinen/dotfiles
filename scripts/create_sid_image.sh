@@ -20,6 +20,7 @@ desktop_packages='
   anacron
   at-spi2-core
   bc
+  bolt
   curl
   dbus-x11
   dialog
@@ -27,6 +28,7 @@ desktop_packages='
   firmware-atheros
   firmware-iwlwifi
   firmware-misc-nonfree
+  fwupd
   gimp
   git
   gnupg
