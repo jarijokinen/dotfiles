@@ -76,6 +76,7 @@ desktop_packages='
   xserver-xorg-input-libinput
   xserver-xorg-input-synaptics
   xterm
+  xz-utils
 '
 
 set -e
