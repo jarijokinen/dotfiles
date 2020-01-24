@@ -4,7 +4,7 @@ set -e
 
 echo 'Installing Google Fonts...'
 
-#wget -O /tmp/fonts.zip https://github.com/google/fonts/archive/master.zip
+wget -O /tmp/fonts.zip https://github.com/google/fonts/archive/master.zip
 unzip /tmp/fonts.zip -d /tmp
 
 mkdir -p $HOME/.fonts
