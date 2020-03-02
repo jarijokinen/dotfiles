@@ -53,6 +53,7 @@ desktop_packages='
   nvidia-driver
   openssh-client
   os-prober
+  policykit-1
   pulseaudio
   rsyslog
   screen
