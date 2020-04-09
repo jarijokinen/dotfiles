@@ -2,14 +2,14 @@
 
 set -e
 
-#echo 'Downloading Android Studio...'
-#url=$(curl -s https://developer.android.com/studio/preview \
-#  | grep ide-zips | grep linux | sed -n 2p | egrep -o 'https://[^"]+')
-#wget -O /tmp/android-studio.tar.gz $url
-#
-#echo 'Installing Android Studio...'
-#mkdir -p $HOME/Android/Studio
-#tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $HOME/Android/Studio
+echo 'Downloading Android Studio...'
+url=$(curl -s https://developer.android.com/studio/preview \
+  | grep ide-zips | grep linux | sed -n 2p | egrep -o 'https://[^"]+')
+wget -O /tmp/android-studio.tar.gz $url
+
+echo 'Installing Android Studio...'
+mkdir -p $HOME/Android/Studio
+tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $HOME/Android/Studio
 
 if ! grep -q ANDROID_HOME $HOME/.bashrc; then
   cat <<-'EOF' >> $HOME/.bashrc
