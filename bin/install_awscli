@@ -1,13 +1,12 @@
 #!/bin/bash
 
-echo 'Installing required packages...'
-[[ -x $(command -v pip3) ]] || (install_python && source $HOME/.bashrc)
+set -e
 
 echo 'Installing AWS CLI...'
-pip3 install awscli --upgrade --user
 
-cat <<-'EOF' >> $HOME/.bashrc
-export PATH="$HOME/.local/bin:$PATH"
-EOF
+url='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
+curl $url -o /tmp/awscli.zip
+unzip /tmp/awscli.zip -d /tmp
+/tmp/aws/install -i $HOME/aws-cli -b $HOME/bin
 
 exit 0
