@@ -2,6 +2,10 @@
 
 set -e
 
+echo 'Installing required packages...'
+su -c 'apt-get -qy install libssl-dev autoconf automake libtool g++ \
+  pkg-config make'
+
 echo 'Installing Watchman...'
 git clone https://github.com/facebook/watchman.git /tmp/watchman
 cd /tmp/watchman
