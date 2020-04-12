@@ -1,9 +1,8 @@
 #!/bin/bash
 
-wget -O /tmp/gcloud.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-261.0.0-linux-x86_64.tar.gz
+set -e
 
-tar xf /tmp/gcloud.tar.gz -C $HOME
-
-$HOME/google-cloud-sdk/install.sh
+echo 'Installing Google Cloud SDK...'
+su -c 'curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - ; echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list ; apt-get update ; apt-get -qy install google-cloud-sdk'
 
 exit 0
