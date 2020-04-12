@@ -26,6 +26,7 @@
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="override" type="bool" value="true"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;a" type="string" value="/home/jari/opt/android/studio/bin/studio.sh"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="google-chrome-stable"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="gimp"/>
