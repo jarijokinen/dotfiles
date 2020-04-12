@@ -8,15 +8,15 @@ url=$(curl -s https://developer.android.com/studio/preview \
 wget -O /tmp/android-studio.tar.gz $url
 
 echo 'Installing Android Studio...'
-mkdir -p $HOME/Android/Studio
-tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $HOME/Android/Studio
+mkdir -p $HOME/opt/android/studio $HOME/opt/android/sdk
+tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $HOME/android/studio
 
 if ! grep -q ANDROID_HOME $HOME/.bashrc; then
   cat <<-'EOF' >> $HOME/.bashrc
 	
 	# Added by install_android_studio
-	export JAVA_HOME=$HOME/Android/Studio/jre
-	export ANDROID_HOME=$HOME/Android/Sdk
+	export JAVA_HOME=$HOME/opt/android/studio/jre
+	export ANDROID_HOME=$HOME/opt/android/sdk
 	export PATH=$PATH:$ANDROID_HOME/emulator
 	export PATH=$PATH:$ANDROID_HOME/tools
 	export PATH=$PATH:$ANDROID_HOME/tools/bin

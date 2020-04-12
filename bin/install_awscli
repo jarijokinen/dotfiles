@@ -7,6 +7,6 @@ echo 'Installing AWS CLI...'
 url='https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
 curl $url -o /tmp/awscli.zip
 unzip /tmp/awscli.zip -d /tmp
-/tmp/aws/install -i $HOME/aws-cli -b $HOME/bin
+/tmp/aws/install -i $HOME/opt/aws-cli -b $HOME/bin
 
 exit 0

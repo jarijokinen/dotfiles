@@ -3,18 +3,18 @@
 set -e
 
 echo 'Installing Node.js...'
-curl -L https://git.io/n-install | bash -s -- -n -q -y latest
+curl -L https://git.io/n-install | N_PREFIX=~/opt/n bash -s -- -n -q -y latest
 
 if ! grep -q N_PREFIX $HOME/.bashrc; then
   cat <<-'EOF' >> $HOME/.bashrc
 	
 	# Added by install_node
-	export N_PREFIX=$HOME/n
+	export N_PREFIX=$HOME/opt/n
 	export PATH=$PATH:$N_PREFIX/bin
 	EOF
 fi
 
-export PATH=$PATH:$HOME/n/bin
+export PATH=$PATH:$HOME/opt/n/bin
 npm -g i npm-check-updates
 
 exit 0
