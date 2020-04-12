@@ -5,11 +5,12 @@ set -e
 echo 'Downloading Android Studio...'
 url=$(curl -s https://developer.android.com/studio/preview \
   | grep ide-zips | grep linux | sed -n 2p | egrep -o 'https://[^"]+')
-wget -O /tmp/android-studio.tar.gz $url
+#wget -O /tmp/android-studio.tar.gz $url
 
 echo 'Installing Android Studio...'
-mkdir -p $HOME/opt/android/studio $HOME/opt/android/sdk
-tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $HOME/android/studio
+install_path=$HOME/opt/android
+mkdir -p $install_path/studio $install_path/sdk
+tar xf /tmp/android-studio.tar.gz --strip-components=1 -C $install_path/studio
 
 if ! grep -q ANDROID_HOME $HOME/.bashrc; then
   cat <<-'EOF' >> $HOME/.bashrc
