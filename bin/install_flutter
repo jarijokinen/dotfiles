@@ -1,11 +1,21 @@
 #!/bin/bash
 
-wget -O /tmp/flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_v1.9.1+hotfix.2-stable.tar.xz
+set -e
 
+echo 'Downloading Flutter...'
+json='https://storage.googleapis.com/flutter_infra/releases/releases_linux.json'
+archive=$(curl $json | grep archive | grep stable | head -1 \
+  | egrep -o 'stable[^"]+xz')
+url="https://storage.googleapis.com/flutter_infra/releases/$archive"
+wget -O /tmp/flutter.tar.xz $url
+
+echo 'Installing Flutter...'
 mkdir -p $HOME/opt
 tar xf /tmp/flutter.tar.xz -C $HOME/opt
 
 cat <<-'EOF' >> $HOME/.bashrc
+
+# Added by install_flutter
 export PATH=$PATH:$HOME/opt/flutter/bin
 EOF
 
