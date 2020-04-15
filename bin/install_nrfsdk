@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+echo 'Installing required packages...'
+su -c 'apt-get -qy install ccache cmake device-tree-compiler dfu-util \
+  gcc-multilib gperf ninja-build'
+
+[[ -d "$HOME/.pyenv" ]] || $HOME/bin/install_python
+pip install setuptools wheel
+
+echo 'Downloading ARM GNU Toolchain...'
+path=$(curl -s https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads \
+  | grep x86_64-linux.tar.bz2 | egrep -o '/-/media/[^"]+')
+wget https://developer.arm.com$path -O /tmp/gcc-arm.tar.bz2
+mkdir -p $HOME/opt/gcc-arm-eabi
+tar -xjf /tmp/gcc-arm.tar.bz2 --strip-components=1 -C $HOME/opt/gcc-arm-eabi
+
+echo 'Downloading nRF5 SDK...'
+path=$(curl -s https://www.nordicsemi.com/Software-and-tools/Software/nRF5-SDK \
+  | grep .zip | egrep -o '/-/media/[^"]+' | head -1)
+wget https://www.nordicsemi.com$path -O /tmp/nrf5-sdk.zip
+mkdir -p $HOME/opt/nrf5-sdk
+unzip -q /tmp/nrf5-sdk.zip -d $HOME/opt/nrf5-sdk
+
+echo 'Configuring nRF5 SDK...'
+cat <<-EOF >> $HOME/opt/nrf5-sdk/components/toolchain/gcc/Makefile.posix
+GNU_INSTALL_ROOT ?= $HOME/opt/gcc-arm-eabi/bin/
+GNU_VERSION ?= $($HOME/opt/gcc-arm-eabi/bin/arm-none-eabi-gcc --version \
+  | head -1 | rev | cut -d" " -f 6 | rev)
+GNU_PREFIX ?= arm-none-eabi
+EOF
+
+exit 0
