@@ -31,4 +31,16 @@ GNU_VERSION ?= $($HOME/opt/gcc-arm-eabi/bin/arm-none-eabi-gcc --version \
 GNU_PREFIX ?= arm-none-eabi
 EOF
 
+echo 'Downloading nRF Connect...'
+mkdir -p $HOME/opt/nrf-connect
+path=$(curl -s https://www.nordicsemi.com/Software-and-Tools/Development-Tools/nRF-Connect-for-desktop/Download | grep 8664.AppImage | egrep -o '/-/media/[^"<]+' | head -1)
+wget https://www.nordicsemi.com$path -O $HOME/opt/nrf-connect/nrf-connect.AppImage
+chmod 700 $HOME/opt/nrf-connect/nrf-connect.AppImage
+
+echo 'Configuring nRF Connect...'
+cat <<-EOF >> $HOME/bin/nrf-connect
+$HOME/opt/nrf-connect/nrf-connect.AppImage --no-sandbox
+EOF
+chmod 700 $HOME/bin/nrf-connect
+
 exit 0
