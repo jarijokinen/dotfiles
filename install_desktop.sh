@@ -13,6 +13,7 @@ install_vim_plugins() {
   git clone https://github.com/tpope/vim-rails $f/rails
   git clone https://github.com/SirVer/ultisnips $f/ultisnips
   git clone --depth 1 https://github.com/dense-analysis/ale $f/ale
+  git clone https://github.com/neoclide/coc.nvim $f/coc
 }
 
 install_dotfiles() {
