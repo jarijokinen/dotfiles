@@ -23,6 +23,8 @@ filetype plugin indent on
 
 au BufNewFile,BufRead *.php set filetype=php.html
 
+let g:airline#extensions#ale#enabled = 1
+
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsSnippetDirectories = ["ultisnips"]
