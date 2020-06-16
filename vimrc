@@ -50,8 +50,11 @@ nmap <silent> ,d <Plug>(coc-definition)
 nmap <silent> ,y <Plug>(coc-type-definition)
 nmap <silent> ,i <Plug>(coc-implementation)
 nmap <silent> ,r <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap ,rn <Plug>(coc-rename)
 nmap ,f <Plug>(coc-format-selected)
 xmap ,f <Plug>(coc-format-selected)
+inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
