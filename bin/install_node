@@ -15,6 +15,6 @@ if ! grep -q N_PREFIX $HOME/.bashrc; then
 fi
 
 export PATH=$PATH:$HOME/opt/n/bin
-npm -g i npm-check-updates yarn
+npm -g i eslint npm-check-updates prettier yarn
 
 exit 0
