@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+su -c 'apt-get -y update; apt-get -y dist-upgrade; \
+  fwupdmgr get-updates; fwupdmgr update'
+
+n install latest
+ncu -g
+
+exit 0
