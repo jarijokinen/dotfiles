@@ -24,9 +24,10 @@ install_dotfiles() {
 	install -m0600 -b -T $script_path/profile $HOME/.profile
 	install -m0600 -b -T $script_path/screenrc $HOME/.screenrc
 	install -m0600 -b -T $script_path/vimrc $HOME/.vimrc
-	cp -pr $script_path/bin $HOME/bin
+  cp -pr $script_path/bin $HOME/bin
 	cp -pr $script_path/config $HOME/.config
 	cp -pr $script_path/themes $HOME/.themes
+	cp -pr $script_path/vim/* $HOME/.vim/
 }
 
 install_vim_plugins
