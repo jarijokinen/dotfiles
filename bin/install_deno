@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+echo 'Installing Deno...'
+curl -fsSL https://deno.land/x/install/install.sh \
+  | DENO_INSTALL=$HOME/opt/deno sh
+
+if ! grep -q DENO_INSTALL $HOME/.bashrc; then
+  cat <<-'EOF' >> $HOME/.bashrc
+	
+	# Added by install_deno
+	export DENO_INSTALL=$HOME/opt/deno
+	export PATH=$PATH:$DENO_INSTALL/bin
+	EOF
+fi
+
+exit 0

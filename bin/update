@@ -12,7 +12,7 @@ if [[ -d "$HOME/opt/n" ]]; then
   ncu -g
 fi
 
-if [[ -d "$HOME/.deno" ]]; then
+if [[ -d "$HOME/opt/deno" ]]; then
   echo 'Updating Deno...'
   deno upgrade
 fi
