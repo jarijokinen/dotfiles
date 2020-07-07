@@ -2,10 +2,19 @@
 
 set -e
 
+echo 'Updating the system...'
 su -c 'apt-get -y update; apt-get -y dist-upgrade; \
   fwupdmgr get-updates; fwupdmgr update'
 
-n install latest
-ncu -g
+if [[ -d "$HOME/opt/n" ]]; then
+  echo 'Updating Node.js...'
+  n install latest
+  ncu -g
+fi
+
+if [[ -d "$HOME/.deno" ]]; then
+  echo 'Updating Deno...'
+  deno upgrade
+fi
 
 exit 0
