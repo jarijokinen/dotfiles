@@ -18,6 +18,7 @@ base_packages='
 '
 
 additional_packages='
+  acpi-support
   anacron
   bolt
   cryptsetup
@@ -159,6 +160,11 @@ configure_networking() {
     echo -e "auto eth0\niface eth0 inet dhcp" \
       > $target/etc/network/interfaces.d/eth0
   fi
+}
+
+configure_acpi_support() {
+  echo 'Configuring acpi-support...'
+  sed -i 's/#LID_SLEEP=true/LID_SLEEP=true/g' $target/etc/default/acpi-support
 }
 
 install_setup_scripts() {
