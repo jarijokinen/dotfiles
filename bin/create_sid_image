@@ -42,6 +42,7 @@ additional_packages='
   openssh-client
   os-prober
   policykit-1
+  procps
   rsyslog
   systemd-sysv
   upower

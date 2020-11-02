@@ -2,24 +2,42 @@
 
 set -e
 
-cryptsetup open /dev/nvme0n1p3 lvm_crypt
-vgchange -ay vg00
+dev='/dev/nvme0n1'
 
-mkfs.ext4 /dev/nvme0n1p2
+echo 'Setting up partitions...'
+parted $dev mklabel gpt
+parted $dev mkpart primary fat32 1MiB 512MiB
+parted $dev mkpart primary ext4 512MiB 1GiB
+parted $dev mkpart primary ext4 1GiB 100%
+parted $dev set 1 esp on
+
+echo 'Setting up LUKS and LVM...'
+cryptsetup luksFormat ${dev}p3
+cryptsetup open ${dev}p3 lvm_crypt
+pvcreate /dev/mapper/lvm_crypt
+vgcreate vg00 /dev/mapper/lvm_crypt
+lvcreate -n swap -L 32G vg00
+lvcreate -n root -l 100%FREE vg00
+
+echo 'Creating filesystems...'
+mkfs.ext4 ${dev}p2
 mkfs.ext4 /dev/mapper/vg00-root
 mkswap /dev/mapper/vg00-swap
 
+echo 'Mounting devices...'
 mkdir -p /mnt/sid
 mount -t ext4 /dev/mapper/vg00-root /mnt/sid
 mkdir -p /mnt/sid/boot
-mount -t ext4 /dev/nvme0n1p2 /mnt/sid/boot
+mount -t ext4 ${dev}p2 /mnt/sid/boot
 
+echo 'Unpacking the disk image...'
 tar -zxf ./sid.tar.gz -C /mnt/sid
+sed -i "s+/dev/nvme0n1+$dev+g" /mnt/sid/setup_disks.sh
 
+echo 'Entering chroot environment...'
 mount --bind --make-rslave /dev /mnt/sid/dev
 mount --bind --make-rslave /proc /mnt/sid/proc
 mount --bind --make-rslave /sys /mnt/sid/sys
-
 chroot /mnt/sid /setup_disks.sh
 
 read -p 'Press enter to reboot now...'
