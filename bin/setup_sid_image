@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+cryptsetup open /dev/nvme0n1p3 lvm_crypt
+vgchange -ay vg00
+
+mkfs.ext4 /dev/nvme0n1p2
+mkfs.ext4 /dev/mapper/vg00-root
+mkswap /dev/mapper/vg00-swap
+
+mkdir -p /mnt/sid
+mount -t ext4 /dev/mapper/vg00-root /mnt/sid
+mkdir -p /mnt/sid/boot
+mount -t ext4 /dev/nvme0n1p2 /mnt/sid/boot
+
+tar -zxf ./sid.tar.gz -C /mnt/sid
+
+mount --bind --make-rslave /dev /mnt/sid/dev
+mount --bind --make-rslave /proc /mnt/sid/proc
+mount --bind --make-rslave /sys /mnt/sid/sys
+
+chroot /mnt/sid /setup_disks.sh
+
+read -p 'Press enter to reboot now...'
+reboot
+
+exit 0

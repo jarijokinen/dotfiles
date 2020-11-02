@@ -21,6 +21,7 @@ additional_packages='
   anacron
   bolt
   cryptsetup
+  cryptsetup-initramfs
   dialog
   firmware-iwlwifi
   firmware-misc-nonfree
@@ -31,12 +32,13 @@ additional_packages='
   ifupdown
   irqbalance
   isc-dhcp-client
+  iwd
   kmod
   less
   linux-image-amd64
+  lvm2
   man
   netbase
-  nvidia-driver
   openssh-client
   os-prober
   policykit-1
@@ -160,30 +162,25 @@ configure_networking() {
 
 install_setup_scripts() {
   echo 'Installing setup scripts...'
-  
+
   cat <<-'EOF' > $target/setup_disks.sh
 	#!/bin/bash
 	set -e
 	uuid_efi=$(blkid /dev/nvme0n1p1 -s UUID -o value)
-	uuid_root=$(blkid /dev/nvme0n1p6 -s UUID -o value)
-	uuid_swap=$(blkid /dev/nvme0n1p7 -s UUID -o value)
+	uuid_boot=$(blkid /dev/nvme0n1p2 -s UUID -o value)
+	uuid_crypted=$(blkid /dev/nvme0n1p3 -s UUID -o value)
+	uuid_root=$(blkid /dev/mapper/vg00-root -s UUID -o value)
+	uuid_swap=$(blkid /dev/mapper/vg00-swap -s UUID -o value)
 	echo "UUID=$uuid_root / ext4 defaults 0 1" > /etc/fstab
+	echo "UUID=$uuid_boot /boot ext4 defaults 0 1" >> /etc/fstab
 	echo "UUID=$uuid_efi /boot/efi vfat umask=0077 0 1" >> /etc/fstab
 	echo "UUID=$uuid_swap none swap defaults 0 0" >> /etc/fstab
-	mkdir /boot/efi
+	echo "lvm_crypt UUID=$uuid_crypted none luks" >> /etc/crypttab
+	mkdir -p /boot/efi
 	mount /dev/nvme0n1p1 /boot/efi
+	/sbin/update-initramfs -c -k all
 	/usr/sbin/grub-install /dev/nvme0n1
 	/usr/sbin/update-grub
-	exit 0
-	EOF
-
-  cat <<-'EOF' > $target/setup_image.sh
-	#!/bin/sh
-	set -e
-	mount --bind --make-rslave /dev ./dev
-	mount --bind --make-rslave /proc ./proc
-	mount --bind --make-rslave /sys ./sys
-	chroot . /setup_disks.sh
 	exit 0
 	EOF
 	
