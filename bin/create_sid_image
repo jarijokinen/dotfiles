@@ -68,6 +68,7 @@ additional_packages='
   systemd-sysv
   tango-icon-theme
   ttf-mscorefonts-installer
+  unzip
   upower
   vim-nox
   wget
