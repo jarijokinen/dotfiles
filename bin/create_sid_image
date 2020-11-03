@@ -247,6 +247,13 @@ finish_chroot() {
   umount -l $target/dev
   umount -l $target/proc
   umount -l $target/sys
+  sleep 3
+}
+
+create_archive() {
+  echo 'Creating an archive...'
+  cd $target
+  tar -zcf sid.tar.gz *
 }
 
 show_prompts
@@ -268,5 +275,6 @@ configure_grub
 configure_networking
 clean_packages
 finish_chroot
+create_archive
 
 exit 0
