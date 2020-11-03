@@ -3,7 +3,7 @@
 # create_sid_image.sh
 # Copyright (C) 2018 - 2020 Jari Jokinen. MIT License.
 #
-# This script creates a minimal setup of Debian sid (unstable), customized 
+# This script creates a Debian sid (unstable) desktop, customized 
 # for Dell Precision 5750 laptop.
 
 suite='sid'
@@ -20,35 +20,66 @@ base_packages='
 additional_packages='
   acpi-support
   anacron
+  bc
+  bind9-dnsutils
   bolt
   cryptsetup
   cryptsetup-initramfs
+  curl
   dialog
   firmware-iwlwifi
   firmware-misc-nonfree
+  fonts-cantarell
+  fonts-terminus-otb
   fwupd
+  gimp
   git
   gnupg
   grub-efi-amd64
   ifupdown
+  info
+  inkscape
   irqbalance
   isc-dhcp-client
   iwd
+  keepassx
   kmod
   less
+  lightdm
+  linux-headers-amd64
   linux-image-amd64
   lvm2
   man
+  nautilus-dropbox
   netbase
+  netcat
+  net-tools
+  nmap
+  nvidia-driver
   openssh-client
   os-prober
+  pavucontrol
   policykit-1
   procps
+  pulseaudio
   rsyslog
+  rtkit
+  screen
   systemd-sysv
+  tango-icon-theme
+  ttf-mscorefonts-installer
   upower
   vim-nox
+  wget
+  whois
   wpasupplicant
+  xfce4
+  xfce4-battery-plugin
+  xfce4-screenshooter
+  xserver-xorg-core
+  xserver-xorg-input-libinput
+  xserver-xorg-input-synaptics
+  xterm
 '
 
 set -e
@@ -122,49 +153,10 @@ configure_locales() {
   chroot $target locale-gen
 }
 
-configure_keyboard() {
-  echo 'Configuring keyboard...'
-  f=$target/etc/default/keyboard
-  echo -e "XKBMODEL='$xkbmodel'\nXKBLAYOUT='$xkblayout'" > $f
-  chroot $target dpkg-reconfigure -f noninteractive keyboard-configuration
-}
-
 configure_timezone() {
   echo 'Configuring timezone...'
   chroot $target ln -fs /usr/share/zoneinfo/$timezone /etc/localtime
   chroot $target dpkg-reconfigure -f noninteractive tzdata
-}
-
-configure_console() {
-  echo 'Configuring console...'
-  f=$target/etc/default/console-setup
-  echo -e "CHARMAP='UTF-8'\nCODESET='guess'" > $f
-  chroot $target dpkg-reconfigure -f noninteractive console-setup
-}
-
-configure_grub() {
-  echo 'Configuring grub...'
-  f=$target/etc/default/grub
-  sed -i 's|GRUB_TIMEOUT=5|GRUB_TIMEOUT=1|g' $f
-  sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="net.ifnames=0"|g' $f
-}
-
-configure_networking() {
-  echo 'Configuring networking...'
-  if [[ $network_type == 'wifi' ]]; then
-    echo -e "auto wlan0\niface wlan0 inet dhcp\nwpa-ssid $ssid\nwpa-psk $psk" \
-      > $target/etc/network/interfaces.d/wlan0
-    chmod 600 $target/etc/network/interfaces.d/wlan0
-    chroot $target iwctl device wlan0 connect $ssid
-  else
-    echo -e "auto eth0\niface eth0 inet dhcp" \
-      > $target/etc/network/interfaces.d/eth0
-  fi
-}
-
-configure_acpi_support() {
-  echo 'Configuring acpi-support...'
-  sed -i 's/#LID_SLEEP=true/LID_SLEEP=true/g' $target/etc/default/acpi-support
 }
 
 install_setup_scripts() {
@@ -199,6 +191,51 @@ install_additional_packages() {
   chroot $target apt-get -qy install $additional_packages
 }
 
+install_google_chrome() {
+  echo 'Installing Google Chrome...'
+  url='https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+  wget -q -O $target/tmp/chrome.deb $url
+  chroot $target apt -qy install /tmp/chrome.deb
+}
+
+configure_acpi_support() {
+  echo 'Configuring acpi-support...'
+  sed -i 's/#LID_SLEEP=true/LID_SLEEP=true/g' $target/etc/default/acpi-support
+}
+
+configure_keyboard() {
+  echo 'Configuring keyboard...'
+  f=$target/etc/default/keyboard
+  echo -e "XKBMODEL='$xkbmodel'\nXKBLAYOUT='$xkblayout'" > $f
+  chroot $target dpkg-reconfigure -f noninteractive keyboard-configuration
+}
+
+configure_console() {
+  echo 'Configuring console...'
+  f=$target/etc/default/console-setup
+  echo -e "CHARMAP='UTF-8'\nCODESET='guess'" > $f
+  chroot $target dpkg-reconfigure -f noninteractive console-setup
+}
+
+configure_grub() {
+  echo 'Configuring grub...'
+  f=$target/etc/default/grub
+  sed -i 's|GRUB_TIMEOUT=5|GRUB_TIMEOUT=1|g' $f
+  sed -i 's|GRUB_CMDLINE_LINUX=""|GRUB_CMDLINE_LINUX="net.ifnames=0"|g' $f
+}
+
+configure_networking() {
+  echo 'Configuring networking...'
+  if [[ $network_type == 'wifi' ]]; then
+    echo -e "auto wlan0\niface wlan0 inet dhcp\nwpa-ssid $ssid\nwpa-psk $psk" \
+      > $target/etc/network/interfaces.d/wlan0
+    chmod 600 $target/etc/network/interfaces.d/wlan0
+  else
+    echo -e "auto eth0\niface eth0 inet dhcp" \
+      > $target/etc/network/interfaces.d/eth0
+  fi
+}
+
 clean_packages() {
   echo 'Cleaning packages...'
   chroot $target apt-get clean
@@ -222,6 +259,8 @@ configure_locales
 configure_timezone
 install_setup_scripts
 install_additional_packages
+install_google_chrome
+configure_acpi_support
 configure_keyboard
 configure_console
 configure_grub

@@ -30,7 +30,8 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;i" type="string" value="google-chrome-stable"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;k" type="string" value="keepassx"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="gimp"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm -fn &apos;-*-terminus-medium-r-normal-*-18-*-*-*-*-*-*-*&apos; -geometry 86x30"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;m" type="string" value="xterm -fa terminus -fs 12 -geometry 86x30"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;s" type="string" value="xfce4-scre    enshooter"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

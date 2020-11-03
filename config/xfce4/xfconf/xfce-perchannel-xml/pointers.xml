@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <channel name="pointers" version="1.0">
-  <property name="DELL07E600_06CB76AF_Touchpad" type="empty">
+  <property name="DELL099000_04F3311C_Touchpad" type="empty">
     <property name="Properties" type="empty">
       <property name="Synaptics_Tap_Action" type="array">
         <value type="int" value="0"/>
@@ -12,6 +12,7 @@
         <value type="int" value="3"/>
         <value type="int" value="2"/>
       </property>
+      <property name="libinput_Tapping_Enabled" type="int" value="1"/>
     </property>
     <property name="RightHanded" type="bool" value="true"/>
     <property name="Threshold" type="int" value="3"/>
