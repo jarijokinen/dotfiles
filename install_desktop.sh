@@ -18,6 +18,7 @@ git clone https://github.com/tpope/vim-surround $f/surround
 echo 'Installing dotfiles...'
 script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 install -m0600 -b -T $script_path/bashrc $HOME/.bashrc
+install -m0600 -b -T $script_path/gitconfig $HOME/.gitconfig
 install -m0600 -b -T $script_path/profile $HOME/.profile
 install -m0600 -b -T $script_path/screenrc $HOME/.screenrc
 install -m0600 -b -T $script_path/vimrc $HOME/.vimrc
