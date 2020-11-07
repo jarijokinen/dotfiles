@@ -36,6 +36,7 @@ additional_packages='
   git
   gnupg
   grub-efi-amd64
+  hugo
   ifupdown
   info
   inkscape
