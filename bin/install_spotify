@@ -2,6 +2,23 @@
 
 echo 'Installing Spotify...'
 
-su -c 'apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4773BD5E130D1D4 ; echo deb http://repository.spotify.com stable non-free | tee /etc/apt/sources.list.d/spotify.list ; apt-get update ; apt-get -qy install spotify-client'
+cat <<-EOF > /tmp/install_spotify.sh
+#!/bin/bash
+
+wget https://download.spotify.com/debian/pubkey_0D811D58.gpg \
+  -O /etc/apt/trusted.gpg.d/spotify.gpg.asc
+
+echo 'deb http://repository.spotify.com stable non-free' \
+  > /etc/apt/sources.list.d/spotify.list
+
+apt-get update
+apt-get -qy install spotify-client
+
+exit 0
+EOF
+
+chmod 700 /tmp/install_spotify.sh
+su -c /tmp/install_spotify.sh
+rm -f /tmp/install_spotify.sh
 
 exit 0

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -e
+
+echo 'Installing security tools...'
+
+cat <<-EOF > /tmp/install_sectools.sh
+#!/bin/bash
+
+packages='
+	crunch
+	hydra
+	metasploit-framework
+	nikto
+	owasp-zap
+	proxychains
+	sqlmap
+  tor
+	torbrowser-launcher
+	wireshark
+'
+
+wget https://apt.metasploit.com/metasploit-framework.gpg.key \
+  -O /etc/apt/trusted.gpg.d/metasploit.gpg.asc
+
+echo 'deb https://apt.metasploit.com/ sid main' \
+  > /etc/apt/sources.list.d/metasploit.list
+
+wget https://download.opensuse.org/repositories/home:/cabelo/Debian_Unstable/Release.key \
+  -O /etc/apt/trusted.gpg.d/owasp-zap.gpg.asc
+
+echo 'deb http://download.opensuse.org/repositories/home:/cabelo/Debian_Unstable/ /' \
+  > /etc/apt/sources.list.d/owasp-zap.list
+
+apt-get update
+apt-get -qy install \$packages
+
+/usr/sbin/adduser $USER wireshark
+
+exit 0
+EOF
+
+chmod 700 /tmp/install_sectools.sh
+su -c /tmp/install_sectools.sh
+rm -f /tmp/install_sectools.sh
+
+echo 'Installing Exploit Database...'
+git clone https://github.com/offensive-security/exploitdb.git $HOME/opt/exploitdb
+ln -sf $HOME/opt/exploitdb/searchsploit $HOME/bin/searchsploit
+
+echo 'Installing Sublist3r...'
+[[ -d "$HOME/.pyenv" ]] || $HOME/bin/install_python
+git clone https://github.com/aboul3la/Sublist3r.git $HOME/opt/sublist3r
+pip install -r $HOME/opt/sublist3r/requirements.txt
+
+echo 'Installing WPScan...'
+[[ -d "$HOME/.rvm" ]] || $HOME/bin/install_ruby
+gem install wpscan
+
+exit 0

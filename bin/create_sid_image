@@ -45,6 +45,7 @@ additional_packages='
   keepassx
   kmod
   less
+  libglu1-mesa
   lightdm
   linux-headers-amd64
   linux-image-amd64
@@ -52,7 +53,7 @@ additional_packages='
   man
   nautilus-dropbox
   netbase
-  netcat
+  netcat-openbsd
   net-tools
   nmap
   nvidia-driver

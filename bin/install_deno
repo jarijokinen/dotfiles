@@ -3,8 +3,7 @@
 set -e
 
 echo 'Installing Deno...'
-curl -fsSL https://deno.land/x/install/install.sh \
-  | DENO_INSTALL=$HOME/opt/deno sh
+curl -fsSL https://deno.land/x/install/install.sh | DENO_INSTALL=$HOME/opt/deno sh
 
 if ! grep -q DENO_INSTALL $HOME/.bashrc; then
   cat <<-'EOF' >> $HOME/.bashrc

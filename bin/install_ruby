@@ -2,26 +2,28 @@
 
 set -e
 
-echo 'Installing required packages...'
+[[ -d "$HOME/.rvm" ]] && echo 'Ruby already installed.' && exit -1
 
-su -c 'apt-get -qy install gpg patch bzip2 gawk bison libgdbm-dev \
-  libncurses5-dev libyaml-dev patch sqlite3 libgmp-dev libreadline6-dev'
+echo 'Installing required packages...'
+su -c 'apt-get -qy install autoconf automake bison bzip2 g++ gawk gpg patch \
+	libgdbm-dev libgmp-dev libncurses5-dev libreadline6-dev libtool libyaml-dev \
+	pkg-config sqlite3'
 
 echo 'Installing RVM...'
-
-gpg --keyserver hkp://pool.sks-keyservers.net \
-  --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \
-  7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-
+gpg --keyserver hkp://keys.gnupg.net \
+  --recv-keys 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 \curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles
 
-cat <<-'EOF' >> $HOME/.bashrc
-export PATH="$PATH:$HOME/.rvm/bin"
-source $HOME/.rvm/scripts/rvm
-EOF
+if ! grep -q rvm $HOME/.bashrc; then
+  cat <<-'EOF' >> $HOME/.bashrc
+	
+	# Added by install_ruby
+	export PATH="$PATH:$HOME/.rvm/bin"
+	source $HOME/.rvm/scripts/rvm
+	EOF
+fi
 
 echo 'Installing Ruby...'
-
 export PATH="$PATH:$HOME/.rvm/bin"
 source $HOME/.rvm/scripts/rvm
 rvm install ruby --autolibs=1

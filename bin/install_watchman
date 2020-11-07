@@ -3,13 +3,12 @@
 set -e
 
 echo 'Installing required packages...'
-su -c 'apt-get -qy install libssl-dev autoconf automake libtool g++ \
-  pkg-config make'
+su -c 'apt-get -qy install autoconf automake g++ libssl-dev libtool make \
+  pkg-config'
 
 echo 'Installing Watchman...'
-git clone https://github.com/facebook/watchman.git /tmp/watchman
+git clone https://github.com/facebook/watchman.git -b v4.9.0 --depth 1 /tmp/watchman
 cd /tmp/watchman
-git checkout v4.9.0
 ./autogen.sh
 ./configure --without-python  --without-pcre --enable-lenient
 make
