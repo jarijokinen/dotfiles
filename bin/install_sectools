@@ -8,16 +8,16 @@ cat <<-EOF > /tmp/install_sectools.sh
 #!/bin/bash
 
 packages='
-	crunch
-	hydra
-	metasploit-framework
-	nikto
-	owasp-zap
-	proxychains
-	sqlmap
+  crunch
+  hydra
+  metasploit-framework
+  nikto
+  owasp-zap
+  proxychains
+  sqlmap
   tor
-	torbrowser-launcher
-	wireshark
+  torbrowser-launcher
+  wireshark
 '
 
 wget https://apt.metasploit.com/metasploit-framework.gpg.key \
