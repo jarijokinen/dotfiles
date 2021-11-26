@@ -19,6 +19,7 @@ base_packages='
 
 additional_packages='
   acpi-support
+  alsa-ucm-conf
   anacron
   bc
   bind9-dnsutils
@@ -29,6 +30,7 @@ additional_packages='
   dialog
   firmware-iwlwifi
   firmware-misc-nonfree
+  firmware-sof-signed
   fonts-cantarell
   fonts-terminus-otb
   fwupd
@@ -36,7 +38,6 @@ additional_packages='
   git
   gnupg
   grub-efi-amd64
-  hugo
   ifupdown
   info
   inkscape
