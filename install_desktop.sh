@@ -20,7 +20,7 @@ script_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 install -m0600 -b -T $script_path/bashrc $HOME/.bashrc
 install -m0600 -b -T $script_path/gemrc $HOME/.gemrc
 install -m0600 -b -T $script_path/gitconfig $HOME/.gitconfig
-install -m0600 -b -T $script_path/prettier $HOME/.prettier
+install -m0600 -b -T $script_path/prettierrc $HOME/.prettierrc
 install -m0600 -b -T $script_path/profile $HOME/.profile
 install -m0600 -b -T $script_path/screenrc $HOME/.screenrc
 install -m0600 -b -T $script_path/vimrc $HOME/.vimrc
