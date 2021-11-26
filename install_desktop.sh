@@ -30,6 +30,7 @@ cp -pr $script_path/themes $HOME/.themes
 cp -pr $script_path/vim/* $HOME/.vim/
 
 echo 'Changing Downloads directory location...'
+mkdir -p $HOME/Downloads
 mkdir -p $HOME/Dropbox/Downloads
 mv $HOME/Downloads/* $HOME/Dropbox/Downloads/
 rm -rf $HOME/Downloads
