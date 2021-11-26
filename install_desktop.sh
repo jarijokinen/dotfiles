@@ -7,7 +7,7 @@ f=$HOME/.vim/pack/default/start
 mkdir -p $f
 mkdir -p $HOME/.vim/swap
 git clone https://github.com/vim-airline/vim-airline $f/airline
-git clone https://github.com/neoclide/coc.nvim $f/coc
+git clone -b release https://github.com/neoclide/coc.nvim $f/coc
 git clone https://github.com/tomasiser/vim-code-dark $f/code-dark
 git clone https://github.com/tpope/vim-commentary $f/commentary
 git clone https://github.com/mattn/emmet-vim $f/emmet
