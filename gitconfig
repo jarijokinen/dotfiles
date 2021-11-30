@@ -1,3 +1,5 @@
 [user]
   name = Jari Jokinen
   email = jari.jokinen@j2.fi
+[init]
+  defaultBranch = main
