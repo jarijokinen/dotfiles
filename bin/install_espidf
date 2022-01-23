@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+[[ -d "$HOME/opt/esp-idf" ]] && echo 'ESP-IDF already installed.' && exit -1
+
+echo 'Installing required packages...'
+su -c 'apt-get -qy install git wget flex bison gperf python3 python3-pip \
+  python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util \
+  libusb-1.0-0'
+
+echo 'Cloning ESP-IDF...'
+mkdir -p $HOME/opt/esp-idf
+git clone --recursive https://github.com/espressif/esp-idf.git $HOME/opt/esp-idf
+
+[[ -d "$HOME/opt/esp-idf-tools" ]] \
+  && echo 'ESP-IDF tools already installed.' && exit -1
+
+echo 'Installing ESP-IDF tools...'
+export IDF_TOOLS_PATH=$HOME/opt/esp-idf-tools
+$HOME/opt/esp-idf/install.sh esp32
+
+if ! grep -q IDF_TOOLS_PATH $HOME/.bashrc; then
+  cat <<-'EOF' >> $HOME/.bashrc
+	
+	# Added by install_espidf
+	export IDF_TOOLS_PATH=$HOME/opt/esp-idf-tools
+	alias idf='. $HOME/opt/esp-idf/export.sh'
+	EOF
+fi
+
+exit 0
