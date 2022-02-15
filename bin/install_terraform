@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -e
+
+echo 'Installing Terraform...'
+
+cat <<-EOF > /tmp/install_terraform.sh
+#!/bin/bash
+
+wget https://apt.releases.hashicorp.com/gpg \
+  -O /etc/apt/trusted.gpg.d/hashicorp.gpg.asc
+
+echo 'deb [arch=amd64] https://apt.releases.hashicorp.com buster main' \
+  > /etc/apt/sources.list.d/hashicorp.list
+
+apt-get update
+apt-get -qy install terraform
+
+exit 0
+EOF
+
+chmod 700 /tmp/install_terraform.sh
+su -c /tmp/install_terraform.sh
+rm -f /tmp/install_terraform.sh
+
+exit 0
