@@ -4,6 +4,7 @@ bind ^s
 defbce "on" 
 defscrollback 1000
 hardstatus alwayslastline "%w"
+shell /bin/bash
 shelltitle "$ |bash"
 startup_message off
 term xterm-256color
