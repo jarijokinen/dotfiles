@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+echo 'Installing Homebrew...'
+
+url='https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh'
+curl $url -o /tmp/homebrew-install.sh
+chmod 700 /tmp/homebrew-install.sh
+/tmp/homebrew-install.sh
+
+if ! grep -q N_PREFIX $HOME/.bashrc; then
+  cat <<-'EOF' >> $HOME/.bashrc
+	
+	# Added by install_homebrew
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+	EOF
+fi
+
+exit 0

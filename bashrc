@@ -3,6 +3,8 @@ case $- in
   *) return;;
 esac
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+export CLICOLOR=YES
 export EDITOR='vim'
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export TERM='xterm-256color'
@@ -38,5 +40,7 @@ if [[ -f /etc/bash_completion ]] && ! shopt -oq posix; then
   source /etc/bash_completion
 fi
 
-core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
-alias make="make -j $core_count"
+if [[ -x /usr/bin/lscpu ]]; then
+  core_count=`lscpu | grep -i core | grep socket | rev | cut -d " " -f 1`
+  alias make="make -j $core_count"
+fi
