@@ -57,6 +57,11 @@ brew tap hashicorp/tap
 brew install \
   bash \
   git \
-  node
+  google-chrome \
+  messenger \
+  node \
+  screen \
+  vim \
+  wget
 
 exit 0
