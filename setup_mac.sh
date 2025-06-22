@@ -61,6 +61,8 @@ brew install \
   messenger \
   node \
   screen \
+  trader-workstation \
+  tradingview \
   vim \
   wget
 
