@@ -55,9 +55,11 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 echo 'Installing Homebrew packages...'
 brew tap hashicorp/tap
 brew install \
+  awscli \
   bash \
   git \
   google-chrome \
+  hashicorp/tap/terraform \
   messenger \
   node \
   screen \
