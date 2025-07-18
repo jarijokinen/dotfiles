@@ -66,6 +66,7 @@ brew install \
   trader-workstation \
   tradingview \
   vim \
-  wget
+  wget \
+  winbox
 
 exit 0
