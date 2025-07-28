@@ -67,6 +67,7 @@ brew install \
   tradingview \
   vim \
   wget \
-  winbox
+  winbox \
+  wireshark-app
 
 exit 0
