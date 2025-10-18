@@ -55,8 +55,12 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 echo 'Installing Homebrew packages...'
 brew tap hashicorp/tap
 brew install \
+  adobe-creative-cloud \
   awscli \
   bash \
+  canva \
+  codex \
+  figma \
   git \
   google-chrome \
   hashicorp/tap/terraform \
