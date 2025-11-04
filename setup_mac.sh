@@ -64,7 +64,6 @@ brew install \
   git \
   google-chrome \
   hashicorp/tap/terraform \
-  messenger \
   node \
   screen \
   trader-workstation \
