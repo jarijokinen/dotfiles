@@ -60,6 +60,7 @@ brew install \
   bash \
   canva \
   codex \
+  docker-desktop \
   figma \
   git \
   google-chrome \
