@@ -43,7 +43,11 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-tsserver',
   \ 'coc-yaml'
-  \ ]
+\ ]
+
+let g:coc_user_config = {
+  \ 'inlayHint.enable': v:false
+\ }
 
 nmap <silent> ,d <Plug>(coc-definition)
 nmap <silent> ,y <Plug>(coc-type-definition)
