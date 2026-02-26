@@ -47,6 +47,13 @@ install -m0600 -b $f/screenrc $HOME/.screenrc
 install -m0600 -b $f/vimrc $HOME/.vimrc
 cp -pr $f/vim/* $HOME/.vim/
 
+echo 'Setting up LLMs...'
+mkdir -p $HOME/.agents/skills
+mkdir -p $HOME/.claude
+mkdir -p $HOME/.codex
+echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.claude/CLAUDE.md
+echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.codex/AGENTS.md
+
 echo 'Installing Homebrew...'
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.bashrc
@@ -56,15 +63,21 @@ echo 'Installing Homebrew packages...'
 brew tap hashicorp/tap
 brew install \
   adobe-creative-cloud \
+  antigravity \
   awscli \
   bash \
   canva \
+  chatgpt \
+  clade \
   codex \
+  comet \
+  cursor \
   docker-desktop \
   figma \
   git \
   google-chrome \
   hashicorp/tap/terraform \
+  mas \
   node \
   screen \
   trader-workstation \
@@ -73,5 +86,9 @@ brew install \
   wget \
   winbox \
   wireshark-app
+
+echo 'Install AppStore apps...'
+mas get 1481853033  # strongbox-pro
+mas get 6714467650  # perplexity
 
 exit 0
