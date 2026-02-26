@@ -51,8 +51,10 @@ echo 'Setting up LLMs...'
 mkdir -p $HOME/.agents/skills
 mkdir -p $HOME/.claude
 mkdir -p $HOME/.codex
+mkdir -p $HOME/.gemini
 echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.claude/CLAUDE.md
 echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.codex/AGENTS.md
+echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.gemini/GEMINI.md
 
 echo 'Installing Homebrew...'
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
