@@ -68,7 +68,8 @@ brew install \
   bash \
   canva \
   chatgpt \
-  clade \
+  claude \
+  claude-code \
   codex \
   comet \
   cursor \
