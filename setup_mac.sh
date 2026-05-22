@@ -79,6 +79,7 @@ brew install \
   figma \
   git \
   google-chrome \
+  google-drive \
   hashicorp/tap/terraform \
   mas \
   node \
