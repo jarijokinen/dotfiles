@@ -34,7 +34,6 @@ git clone https://github.com/vim-airline/vim-airline $f/airline
 git clone --branch release https://github.com/neoclide/coc.nvim $f/coc
 git clone https://github.com/tomasiser/vim-code-dark $f/code-dark
 git clone https://github.com/tpope/vim-commentary $f/commentary
-git clone https://github.com/github/copilot.vim $f/copilot
 git clone https://github.com/sheerun/vim-polyglot $f/polyglot
 
 echo 'Installing dotfiles...'
@@ -51,10 +50,8 @@ echo 'Setting up LLMs...'
 mkdir -p $HOME/.agents/skills
 mkdir -p $HOME/.claude
 mkdir -p $HOME/.codex
-mkdir -p $HOME/.gemini
 echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.claude/CLAUDE.md
 echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.codex/AGENTS.md
-echo 'Read instructions from $HOME/.agents/AGENTS.md' > $HOME/.gemini/GEMINI.md
 
 echo 'Installing Homebrew...'
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -65,7 +62,7 @@ echo 'Installing Homebrew packages...'
 brew tap hashicorp/tap
 brew install \
   adobe-creative-cloud \
-  antigravity \
+  android-studio \
   awscli \
   bash \
   canva \
@@ -73,8 +70,7 @@ brew install \
   claude \
   claude-code \
   codex \
-  comet \
-  cursor \
+  discord \
   docker-desktop \
   figma \
   git \
@@ -84,15 +80,18 @@ brew install \
   mas \
   node \
   screen \
+  signal \
+  telegram-desktop \
   trader-workstation \
   tradingview \
   vim \
   wget \
-  winbox \
-  wireshark-app
+  whatsapp \
+  winbox
 
 echo 'Install AppStore apps...'
 mas get 1481853033  # strongbox-pro
 mas get 6714467650  # perplexity
+mas get 497799835   # xcode
 
 exit 0
