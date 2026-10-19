@@ -1,0 +1,32 @@
+tap "hashicorp/tap"
+
+brew "awscli"
+brew "bash"
+brew "git"
+brew "hashicorp/tap/terraform"
+brew "mas"
+brew "node"
+brew "screen"
+brew "shellcheck"
+brew "uv"
+brew "vim"
+brew "wget"
+
+cask "android-studio"
+cask "chatgpt"
+cask "claude"
+cask "claude-code"
+cask "codex"
+cask "google-chrome"
+cask "google-drive"
+cask "perplexity"
+cask "protonvpn"
+cask "signal"
+cask "telegram-desktop"
+cask "trader-workstation"
+cask "tradingview"
+cask "whatsapp"
+cask "winbox"
+
+mas "Strongbox Pro", id: 1481853033
+mas "Xcode", id: 497799835
