@@ -93,6 +93,7 @@ let g:ale_fixers = {
 \}
 let g:ale_lint_delay = 500
 let g:ale_set_signs = 1
+let g:ale_sh_shfmt_options = '-i 2 -ci'
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 let g:ale_sign_info = 'ii'
