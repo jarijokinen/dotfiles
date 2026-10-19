@@ -1,5 +1,3 @@
-if [[ -n "$BASH_VERSION" ]]; then
-  if [[ -f "$HOME/.bashrc" ]]; then
-    source "$HOME/.bashrc"
-  fi
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
+  . "$HOME/.bashrc"
 fi
