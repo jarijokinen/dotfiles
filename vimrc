@@ -76,6 +76,7 @@ let g:ale_linters = {
 \   'bash':             ['shellcheck']
 \}
 let g:ale_fixers = {
+\   'astro':            ['eslint'],
 \   'javascript':       ['prettier', 'eslint'],
 \   'javascriptreact':  ['prettier'],
 \   'typescript':       ['prettier'],
