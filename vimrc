@@ -13,6 +13,7 @@ set laststatus=2
 set nobackup
 set nowritebackup
 set number
+set regexpengine=0
 set scrolloff=5
 set shiftwidth=2
 set showcmd
