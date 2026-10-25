@@ -78,10 +78,10 @@ let g:ale_linters = {
 \}
 let g:ale_fixers = {
 \   'astro':            ['eslint'],
-\   'javascript':       ['prettier', 'eslint'],
-\   'javascriptreact':  ['prettier'],
-\   'typescript':       ['prettier'],
-\   'typescriptreact':  ['prettier'],
+\   'javascript':       ['eslint'],
+\   'javascriptreact':  ['eslint'],
+\   'typescript':       ['eslint'],
+\   'typescriptreact':  ['eslint'],
 \   'json':             ['prettier'],
 \   'jsonc':            ['prettier'],
 \   'css':              ['prettier'],
